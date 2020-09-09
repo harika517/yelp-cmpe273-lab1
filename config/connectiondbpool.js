@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-var mysqlConnectionPool = mysql.createPoolConnection({
+var mysqlConnectionPool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'password',
@@ -9,7 +9,7 @@ var mysqlConnectionPool = mysql.createPoolConnection({
     connectionLimit: 12,
 });
 
-mysqlConnectionPool.getconnection((err, connection) => {
+mysqlConnectionPool.getConnection((err, connection) => {
     if (err) {
         if (err.code === 'ECONNREFUSED') {
             console.error('Database connection failed');
