@@ -4,8 +4,11 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const mysqlConnectionPool = require('/Users/harika_pradeep/Downloads/CMPE273_Fall2020/lab1/config/connectiondbpool');
+const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
+//@route GET customer/signUP
+//@desc  Test route
+//@access Public
 router.post(
     '/', [
         check('Cust_Name', 'Name is required').not().isEmpty(),

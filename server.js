@@ -15,6 +15,12 @@ app.get('/', (req, res) => {
 const customerSignUp = require('./routes/APIs/Customer/signup');
 app.use('/customer/signUP', customerSignUp);
 
+const customerSignIn = require('./routes/APIs/Customer/signin');
+app.use('/customer/signIn', customerSignIn);
+
+const authorization = require('./middleware/auth');
+app.use('/auth', authorization);
+
 app.listen(PORT, () => {
     console.log(`Server listening to port ${PORT}`);
 });
