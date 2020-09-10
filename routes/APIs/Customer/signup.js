@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 const mysqlConnectionPool = require('/Users/harika_pradeep/Downloads/CMPE273_Fall2020/lab1/config/connectiondbpool');
 
 router.post(
@@ -48,7 +49,19 @@ router.post(
                                 console.log(error);
                                 return res.status(500).send('Server Error');
                             }
-                            res.send('Customer Registered');
+                            const payload = {
+                                customer: {
+                                    id: Cust_email_id,
+                                },
+                            };
+                            jwt.sign(
+                                payload,
+                                config.get('jwtSecret'), { expiresIn: 360000 },
+                                (error, token) => {
+                                    if (error) throw error;
+                                    res.json({ token });
+                                }
+                            );
                         }
                     );
                 }
