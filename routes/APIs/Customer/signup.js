@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
-//@route GET customer/signUP
+//@route POST customer/signUP
 //@desc  Test route
 //@access Public
 router.post(

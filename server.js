@@ -18,6 +18,12 @@ app.use('/customer/signUP', customerSignUp);
 const customerSignIn = require('./routes/APIs/Customer/signin');
 app.use('/customer/signIn', customerSignIn);
 
+const restaurantSignUp = require('./routes/APIs/Restaurant/signup');
+app.use('/restaurant/signUP', restaurantSignUp);
+
+const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
+app.use('/restaurant/signIn', restaurantSignIn);
+
 const authorization = require('./middleware/auth');
 app.use('/auth', authorization);
 

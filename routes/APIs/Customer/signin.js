@@ -26,7 +26,7 @@ router.post(
                 async(error, result) => {
                     //console.log(result[0].Cust_Password);
                     if (error) {
-                        console.log('Error1' + error);
+                        console.log(error);
                         return res.status(500).send('Server Error');
                     }
                     if (result.length === 0) {
