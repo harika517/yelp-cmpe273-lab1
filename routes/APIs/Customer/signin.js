@@ -6,6 +6,10 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
+//@route POST customer/signIn
+//@desc  Test route
+//@access Public
+
 router.post(
     '/', [
         check('Cust_email_id', 'Please include valid email').isEmail(),

@@ -13,15 +13,17 @@ app.get('/', (req, res) => {
 });
 
 const customerSignUp = require('./routes/APIs/Customer/signup');
-app.use('/customer/signUP', customerSignUp);
-
 const customerSignIn = require('./routes/APIs/Customer/signin');
-app.use('/customer/signIn', customerSignIn);
+const customerProfile = require('./routes/APIs/Customer/custProfile');
 
 const restaurantSignUp = require('./routes/APIs/Restaurant/signup');
-app.use('/restaurant/signUP', restaurantSignUp);
-
 const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
+
+app.use('/customer/signUP', customerSignUp);
+app.use('/customer/signIn', customerSignIn);
+app.use('/customer/profile', customerProfile);
+
+app.use('/restaurant/signUP', restaurantSignUp);
 app.use('/restaurant/signIn', restaurantSignIn);
 
 const authorization = require('./middleware/auth');
