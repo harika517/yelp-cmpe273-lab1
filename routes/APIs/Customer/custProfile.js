@@ -41,8 +41,13 @@ router.get('/:Cust_Id', async(req, res) => {
                     console.log(error);
                     return res.status(500).send('Server Error');
                 }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                }
                 //console.log(result);
-                res.status(200).json({ result });
+                //res.status(200).json({ result });
             }
         );
     } catch (error) {
@@ -84,8 +89,13 @@ router.post(
                     console.log(error);
                     return res.status(500).send('Server Error');
                 }
-                console.log(result);
-                res.status(200).json({ result });
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                }
+                // console.log(result);
+                // res.status(200).json({ result });
             });
         } catch (error) {
             console.log(error);
@@ -117,8 +127,13 @@ router.post(
                     console.log(error);
                     return res.status(500).send('Server Error');
                 }
-                console.log(result);
-                res.status(200).json({ result });
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                }
+                // console.log(result);
+                // res.status(200).json({ result });
             });
         } catch (error) {
             console.log(error);
@@ -159,27 +174,4 @@ router.post('/Custabout/:Cust_Id', (req, res) => {
     }
 });
 
-// router.post(
-//     '/profilePicture/:Cust_Id', [
-//         check('First_Name', 'First Name is required').not().isEmpty(),
-//         check('Last_Name', 'Last Name is required').not().isEmpty(),
-//         check('City', 'City name is required').not().isEmpty(),
-//     ],
-//     async(req, res) => {
-//         const errors = validationResult(req);
-//         if (!errors.isEmpty()) {
-//             return res.status(400).json({ errors: errors.array() });
-//         }
-//         const {
-//             First_Name,
-//             Last_Name,
-//             Date_of_Birth,
-//             City,
-//             State,
-//             Country,
-//             Nick_Name,
-//             Headline,
-//         } = req.body;
-//     }
-// );
 module.exports = router;

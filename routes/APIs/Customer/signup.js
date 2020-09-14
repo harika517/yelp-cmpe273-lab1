@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const gravatar = require('gravatar');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -41,12 +42,18 @@ router.post(
                             .json({ errors: [{ msg: 'Customer Already Exists' }] });
                     }
 
+                    const avatar = gravatar.url(Cust_email_id, {
+                        s: '200',
+                        r: 'pg',
+                        d: 'mm',
+                    });
+
                     //Encrypt password using bcrypt
                     const salt = await bcrypt.genSalt(10);
                     const passwordEncrypted = await bcrypt.hash(Cust_Password, salt);
                     mysqlConnectionPool.query(
-                        `INSERT into Customer_Information (Cust_Name, Cust_email_id, Cust_Password) 
-                        VALUES ('${Cust_Name}', '${Cust_email_id}', '${passwordEncrypted}')`,
+                        `INSERT into Customer_Information (Cust_Name, Cust_email_id, Cust_Password, Cust_ProfilePic) 
+                        VALUES ('${Cust_Name}', '${Cust_email_id}', '${passwordEncrypted}' , '${avatar}')`,
                         (error, result) => {
                             if (error) {
                                 console.log(error);
