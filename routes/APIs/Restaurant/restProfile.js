@@ -6,6 +6,11 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
+//@route  POST (Inerting profile) /restaurant/profile
+//@desc   inserting profile of particular restaurant
+//@access  Private
+//Table Restaurant_Profile
+
 router.post(
     '/', [
         check('Rest_Name', 'Restaurant Name is required').not().isEmpty(),
@@ -53,9 +58,7 @@ router.post(
 //@access  Private
 //Table Restaurant_Profile
 
-//name, location, description, contact information, pictures of restaurant and dishes, timings
-// `SELECT * from Restaurant_Profile WHERE rest_id='${restaurantID}'`,
-router.get('/restaurant/profile/:rest_id', async(req, res) => {
+router.get('/:rest_id', (req, res) => {
     const restaurantID = req.params.rest_id;
     try {
         mysqlConnectionPool.query(
@@ -73,6 +76,8 @@ router.get('/restaurant/profile/:rest_id', async(req, res) => {
                         .status(400)
                         .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
                 }
+                console.log(result);
+                res.status(200).json({ result });
             }
         );
     } catch (error) {
@@ -87,7 +92,7 @@ router.get('/restaurant/profile/:rest_id', async(req, res) => {
 //Table Restaurant_Profile
 
 router.post(
-    '/restaurant/profile/:rest_id', [
+    '/:rest_id', [
         check('Rest_Name', 'Restaurant Name is required').not().isEmpty(),
         check('Location', 'Restaurant Location is required').not().isEmpty(),
         check('Contact', 'Restaurant Contact is required').not().isEmpty(),
@@ -135,7 +140,7 @@ router.post(
 //@access  Private
 //Table Restaurant_Dishes
 
-router.post('/restaurant/profile/dishImages/:item_id', async(req, res) => {
+router.post('/dishImages/:item_id', (req, res) => {
     const item_image = req.body;
     const item_id = req.params.item_id;
     try {
@@ -164,7 +169,7 @@ router.post('/restaurant/profile/dishImages/:item_id', async(req, res) => {
 //@access  Private
 //Table Restaurant_Profile
 
-router.post('/restaurant/profile/contact/:rest_id', async(req, res) => {
+router.post('/contact/:rest_id', (req, res) => {
     const Contact = req.body;
     const restaurantID = req.params.rest_id;
     try {
@@ -194,7 +199,7 @@ router.post('/restaurant/profile/contact/:rest_id', async(req, res) => {
 //Table Restaurant_Dishes
 
 router.post(
-    '/restaurant/profile/dishes/:rest_id', [
+    '/dishes/:rest_id', [
         check('item_name', 'Item Name is required').not().isEmpty(),
         check('item_description', 'Item description is required').not().isEmpty(),
         check('item_category', 'Item Category is required').not().isEmpty(),
@@ -203,7 +208,7 @@ router.post(
         check('item_image', 'Item image is required').not().isEmpty(),
         check('rest_id', 'Restaurant ID is required').not().isEmpty(),
     ],
-    async(req, res) => {
+    (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -221,11 +226,13 @@ router.post(
         try {
             var query = `INSERT into Restaurant_Dishes (rest_id, item_name, item_description, item_category, item_ingredients, item_price,
                 item_image) VALUES('${rest_id}', '${item_name}', '${item_description}','${item_category}','${item_ingredients}','${item_price}','${item_image}')`;
-            mysqlConnectionPool.query(query, (error) => {
+            mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);
                     return res.status(500).send('Server Error');
                 }
+                console.log(result);
+                res.status(200).json({ result });
             });
         } catch (error) {
             console.log(error);
@@ -239,7 +246,7 @@ router.post(
 //@access  Private
 //Table Restaurant_Dishes
 
-router.put('/restaurant/profile/dishes/:rest_id/:item_id', async(req, res) => {
+router.put('/dishes/:rest_id/:item_id', (req, res) => {
     const {
         item_name,
         item_description,
@@ -277,7 +284,7 @@ router.put('/restaurant/profile/dishes/:rest_id/:item_id', async(req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 
-router.get('/restaurant/dishes/:rest_id', async(req, res) => {
+router.get('/dishes/:rest_id', (req, res) => {
     const restaurantID = req.params.rest_id;
     try {
         mysqlConnectionPool.query(
