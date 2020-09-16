@@ -6,6 +6,48 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
+router.post(
+    '/', [
+        check('Rest_Name', 'Restaurant Name is required').not().isEmpty(),
+        check('Location', 'Restaurant description is required').not().isEmpty(),
+        check('Description', 'Restaurant Category is required').not().isEmpty(),
+        check('Contact', 'Restaurant Ingredients is required').not().isEmpty(),
+        check('Timings', 'Restaurant price is required').not().isEmpty(),
+        check('Image', 'Restaurant image is required').not().isEmpty(),
+    ],
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {
+            Rest_Name,
+            Location,
+            Description,
+            Contact,
+            Timings,
+            Image,
+        } = req.body;
+        try {
+            mysqlConnectionPool.query(
+                `INSERT into Restaurant_Profile (Rest_Name, Location, Description, Contact, Timings, Image) VALUES ('${Rest_Name}', '${Location}', 
+            '${Description}', '${Contact}', '${Timings}', '${Image}')`,
+                (error, result) => {
+                    if (error) {
+                        console.log(error);
+                        return res.status(500).send('Server Error');
+                    }
+                    console.log(result);
+                    res.status(200).json({ result });
+                }
+            );
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server Error');
+        }
+    }
+);
+
 //@route  GET (view profile) /restaurant/profile
 //@desc   get profile of particular restaurant based on rest_id
 //@access  Private
@@ -51,25 +93,23 @@ router.post(
         check('Contact', 'Restaurant Contact is required').not().isEmpty(),
         check('Timings', 'Restaurant timings is required').not().isEmpty(),
     ],
-    async(req, res) => {
+    (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
         const {
-            First_Name,
-            Last_Name,
-            Date_of_Birth,
-            City,
-            State,
-            Country,
-            Nick_Name,
-            Headline,
+            Rest_Name,
+            Location,
+            Description,
+            Contact,
+            Timings,
+            Image,
         } = req.body;
-        const customerID = req.params.Cust_Id;
+        const restaurantID = req.params.rest_id;
         try {
-            var query = `UPDATE Customer_Information set First_Name='${First_Name}', Last_Name='${Last_Name}', Date_of_Birth='${Date_of_Birth}',
-                City ='${City}',  State='${State}', Country='${Country}', Nick_Name='${Nick_Name}', Headline='${Headline}' WHERE Cust_Id='${customerID}'`;
+            var query = `UPDATE Restaurant_Profile set Rest_Name='${Rest_Name}', Location='${Location}', Description='${Description}',
+            Contact ='${Contact}',  Timings='${Timings}', Image='${Image}' WHERE rest_id='${restaurantID}'`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);
@@ -78,7 +118,7 @@ router.post(
                 if (result.length === 0) {
                     return res
                         .status(400)
-                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
                 }
                 // console.log(result);
                 // res.status(200).json({ result });
@@ -89,5 +129,176 @@ router.post(
         }
     }
 );
+
+//@route  POST (Update Dish images) /restaurant/profile/dishImages/:rest_id
+//@desc   Update dish images of particular restaurant based on rest_id
+//@access  Private
+//Table Restaurant_Dishes
+
+router.post('/restaurant/profile/dishImages/:item_id', async(req, res) => {
+    const item_image = req.body;
+    const item_id = req.params.item_id;
+    try {
+        var query = `UPDATE Restaurant_Dishes set item_image='${item_image}' WHERE item_id ='${item_id}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Server Error');
+            }
+            if (result.length === 0) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'Item doesnt Exists' }] });
+            }
+            // console.log(result);
+            // res.status(200).json({ result });
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  POST (Update Contact Information) /restaurant/profile/contact/:rest_id
+//@desc   Update conatct information of particular restaurant based on rest_id
+//@access  Private
+//Table Restaurant_Profile
+
+router.post('/restaurant/profile/contact/:rest_id', async(req, res) => {
+    const Contact = req.body;
+    const restaurantID = req.params.rest_id;
+    try {
+        var query = `UPDATE Restaurant_Profile set Contact='${Contact}' WHERE item_id ='${restaurantID}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Server Error');
+            }
+            if (result.length === 0) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
+            }
+            // console.log(result);
+            // res.status(200).json({ result });
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  POST (Add new dish) /restaurant/profile/dishes/:rest_id
+//@desc   Add new dish for particular restaurant based on rest_id
+//@access  Private
+//Table Restaurant_Dishes
+
+router.post(
+    '/restaurant/profile/dishes/:rest_id', [
+        check('item_name', 'Item Name is required').not().isEmpty(),
+        check('item_description', 'Item description is required').not().isEmpty(),
+        check('item_category', 'Item Category is required').not().isEmpty(),
+        check('item_ingredients', 'Item Ingredients is required').not().isEmpty(),
+        check('item_price', 'Item price is required').not().isEmpty(),
+        check('item_image', 'Item image is required').not().isEmpty(),
+        check('rest_id', 'Restaurant ID is required').not().isEmpty(),
+    ],
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {
+            item_name,
+            item_description,
+            item_category,
+            item_ingredients,
+            item_price,
+            item_image,
+            rest_id,
+        } = req.body;
+
+        try {
+            var query = `INSERT into Restaurant_Dishes (rest_id, item_name, item_description, item_category, item_ingredients, item_price,
+                item_image) VALUES('${rest_id}', '${item_name}', '${item_description}','${item_category}','${item_ingredients}','${item_price}','${item_image}')`;
+            mysqlConnectionPool.query(query, (error) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server Error');
+        }
+    }
+);
+
+//@route  PUT (Update dish) /restaurant/profile/dishes/:rest_id
+//@desc   Edit dish for particular restaurant based on rest_id
+//@access  Private
+//Table Restaurant_Dishes
+
+router.put('/restaurant/profile/dishes/:rest_id/:item_id', async(req, res) => {
+    const {
+        item_name,
+        item_description,
+        item_category,
+        item_ingredients,
+        item_price,
+        item_image,
+    } = req.body;
+    const restaurantID = req.params.rest_id;
+    const itemID = req.params.item_id;
+
+    try {
+        var query = `UPDATE Restaurant_Dishes set item_name='${item_name}', item_description='${item_description}',item_category='${item_category}',
+        item_ingredients='${item_ingredients}', item_price='${item_price}', item_image='${item_image}' WHERE rest_id ='${restaurantID}' 
+        AND  item_id ='${itemID}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Server Error');
+            }
+            if (result.length === 0) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'item doesnt Exist in this restaurant' }] });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  GET (View dish names) /restaurant/dishes/:rest_id
+//@desc   Edit dish for particular restaurant based on rest_id
+//@access  Private
+//Table Restaurant_Dishes
+
+router.get('/restaurant/dishes/:rest_id', async(req, res) => {
+    const restaurantID = req.params.rest_id;
+    try {
+        mysqlConnectionPool.query(
+            `SELECT Restaurant_Profile.Rest_Name, Restaurant_Dishes.item_name FROM Restaurant_Dishes INNER JOIN Restaurant_Profile ON 
+            Restaurant_Dishes.'${restaurantID}' = Restaurant_Profile.'${restaurantID}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
+                }
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
 
 module.exports = router;
