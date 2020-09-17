@@ -11,6 +11,7 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 //@access  Private
 //Table Restaurant_Profile
 
+//success
 router.post(
     '/', [
         check('Rest_Name', 'Restaurant Name is required').not().isEmpty(),
@@ -58,14 +59,19 @@ router.post(
 //@access  Private
 //Table Restaurant_Profile
 
+//  SELECT Restaurant_Profile.Rest_Name, Restaurant_Profile.Location, Restaurant_Profile.Description,
+// Restaurant_Profile.Contact, Restaurant_Profile.Image, Restaurant_Dishes.item_name, Restaurant_Dishes.item_image,
+// Restaurant_Profile.Timings FROM Restaurant_Dishes INNER JOIN Restaurant_Profile ON
+// Restaurant_Dishes.'${restaurantID}' = Restaurant_Profile.'${restaurantID}'
+
+//success
 router.get('/:rest_id', (req, res) => {
     const restaurantID = req.params.rest_id;
     try {
         mysqlConnectionPool.query(
-            `SELECT Restaurant_Profile.Rest_Name, Restaurant_Profile.Location, Restaurant_Profile.Description,
-            Restaurant_Profile.Contact, Restaurant_Profile.Image, Restaurant_Dishes.item_name, Restaurant_Dishes.item_image,
-            Restaurant_Profile.Timings FROM Restaurant_Dishes INNER JOIN Restaurant_Profile ON 
-            Restaurant_Dishes.'${restaurantID}' = Restaurant_Profile.'${restaurantID}'`,
+            `SELECT Rest_Name, Location, Description,  Contact, Image, item_name, item_image, Timings, item_id
+             FROM Restaurant_Dishes JOIN Restaurant_Profile ON (Restaurant_Dishes.rest_id = Restaurant_Profile.rest_id AND 
+                Restaurant_Profile.rest_id='${restaurantID}')`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -198,6 +204,7 @@ router.post('/contact/:rest_id', (req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 
+//success
 router.post(
     '/dishes/:rest_id', [
         check('item_name', 'Item Name is required').not().isEmpty(),
