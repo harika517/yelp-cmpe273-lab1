@@ -59,11 +59,6 @@ router.post(
 //@access  Private
 //Table Restaurant_Profile
 
-//  SELECT Restaurant_Profile.Rest_Name, Restaurant_Profile.Location, Restaurant_Profile.Description,
-// Restaurant_Profile.Contact, Restaurant_Profile.Image, Restaurant_Dishes.item_name, Restaurant_Dishes.item_image,
-// Restaurant_Profile.Timings FROM Restaurant_Dishes INNER JOIN Restaurant_Profile ON
-// Restaurant_Dishes.'${restaurantID}' = Restaurant_Profile.'${restaurantID}'
-
 //success
 router.get('/:rest_id', (req, res) => {
     const restaurantID = req.params.rest_id;
@@ -131,8 +126,8 @@ router.post(
                         .status(400)
                         .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
                 }
-                // console.log(result);
-                // res.status(200).json({ result });
+                console.log(result);
+                res.status(200).json({ result });
             });
         } catch (error) {
             console.log(error);
