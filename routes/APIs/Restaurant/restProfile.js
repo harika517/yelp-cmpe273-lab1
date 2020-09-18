@@ -59,14 +59,19 @@ router.post(
 //@access  Private
 //Table Restaurant_Profile
 
-//success
-router.get('/:rest_id', (req, res) => {
-    const restaurantID = req.params.rest_id;
+//1.Checking this .... Success
+
+// SELECT Restaurant_Information.Rest_Name, Rest_email_id, Location, Description,  Contact, Image, item_name, item_image, Timings,
+//              FROM ((Restaurant_Profile JOIN Restaurant_Information ON Rest_Id_signup='${restaurantID}') AND
+//              (Restaurant_Dishes JOIN Restaurant_Profile ON
+//              Restaurant_Dishes.rest_id = Restaurant_Profile.rest_id))
+router.get('/:Rest_Id_signup', (req, res) => {
+    const restaurantID = req.params.Rest_Id_signup;
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Name, Location, Description,  Contact, Image, item_name, item_image, Timings, item_id
-             FROM Restaurant_Dishes JOIN Restaurant_Profile ON (Restaurant_Dishes.rest_id = Restaurant_Profile.rest_id AND 
-                Restaurant_Profile.rest_id='${restaurantID}')`,
+            `SELECT Restaurant_Information.Rest_Name, Rest_email_id, Location, Description,  Contact, Image, item_name, item_image, Timings FROM
+            Restaurant_Information, Restaurant_Profile, Restaurant_Dishes WHERE Restaurant_Information.Rest_Id_signup='${restaurantID}' OR 
+            Restaurant_Dishes.rest_id = Restaurant_Profile.rest_id`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -75,7 +80,7 @@ router.get('/:rest_id', (req, res) => {
                 if (result.length === 0) {
                     return res
                         .status(400)
-                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
                 }
                 console.log(result);
                 res.status(200).json({ result });
@@ -88,12 +93,12 @@ router.get('/:rest_id', (req, res) => {
 });
 
 //@route  POST (Update profile) /restaurant/profile
-//@desc   Update profile of particular restaurant based on rest_id
+//@desc   Inserting restaurant profile values of restaurant based on Rest_Id_signup from SignUP table
 //@access  Private
 //Table Restaurant_Profile
-
+//2.Checking this... success
 router.post(
-    '/:rest_id', [
+    '/:Rest_Id_signup', [
         check('Rest_Name', 'Restaurant Name is required').not().isEmpty(),
         check('Location', 'Restaurant Location is required').not().isEmpty(),
         check('Contact', 'Restaurant Contact is required').not().isEmpty(),
@@ -112,10 +117,10 @@ router.post(
             Timings,
             Image,
         } = req.body;
-        const restaurantID = req.params.rest_id;
+        const restaurantID = req.params.Rest_Id_signup;
         try {
-            var query = `UPDATE Restaurant_Profile set Rest_Name='${Rest_Name}', Location='${Location}', Description='${Description}',
-            Contact ='${Contact}',  Timings='${Timings}', Image='${Image}' WHERE rest_id='${restaurantID}'`;
+            var query = `INSERT into Restaurant_Profile (Rest_Name, Location, Description, Contact, Timings, Image, Rest_Id_signup ) VALUES
+            ('${Rest_Name}', '${Location}', '${Description}','${Contact}','${Timings}','${Image}','${restaurantID}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);
@@ -199,7 +204,7 @@ router.post('/contact/:rest_id', (req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 
-//success
+//3. Checking this... success
 router.post(
     '/dishes/:rest_id', [
         check('item_name', 'Item Name is required').not().isEmpty(),
