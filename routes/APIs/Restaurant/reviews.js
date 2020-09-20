@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
-//@route  GET (Inerting profile) '/restaurant/reviews'
+//@route  GET (viewing Customer reviews on particular restaurant) '/restaurant/reviews'
 //@desc   viewing the reviews given by cutomer for particular restaurant Id.
 //@access  Private
 //Table Restaurant_Profile
@@ -34,13 +34,11 @@ router.get('/:Rest_Id_signup/:Cust_Id', (req, res) => {
                     return res.status(500).send('Server Error');
                 }
                 if (result.length === 0) {
-                    return res
-                        .status(400)
-                        .json({
-                            errors: [
-                                { msg: 'Restaurant Reviews doesnt Exists from this customer' },
-                            ],
-                        });
+                    return res.status(400).json({
+                        errors: [
+                            { msg: 'Restaurant Reviews doesnt Exists from this customer' },
+                        ],
+                    });
                 }
                 console.log(result);
                 res.status(200).json({ result });

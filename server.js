@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 const customerSignUp = require('./routes/APIs/Customer/signup');
 const customerSignIn = require('./routes/APIs/Customer/signin');
 const customerProfile = require('./routes/APIs/Customer/custProfile');
+const customerReviews = require('./routes/APIs/Customer/reviews');
 
 const restaurantSignUp = require('./routes/APIs/Restaurant/signup');
 const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
@@ -24,6 +25,7 @@ const restaurantReviews = require('./routes/APIs/Restaurant/reviews');
 app.use('/customer/signUP', customerSignUp);
 app.use('/customer/signIn', customerSignIn);
 app.use('/customer/profile', customerProfile);
+app.use('/customer/reviews', customerReviews);
 
 app.use('/restaurant/signUP', restaurantSignUp);
 app.use('/restaurant/signIn', restaurantSignIn);
