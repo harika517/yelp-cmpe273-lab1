@@ -66,7 +66,7 @@ router.get('/:Rest_Id_signup', (req, res) => {
     try {
         mysqlConnectionPool.query(
             `SELECT Restaurant_Information.Rest_Name, Rest_email_id, Location, Description,  Contact, Image, item_name, item_image, Timings FROM
-            Restaurant_Information, Restaurant_Profile, Restaurant_Dishes WHERE Restaurant_Information.Rest_Id_signup='${restaurantID}' OR 
+            Restaurant_Information, Restaurant_Profile, Restaurant_Dishes WHERE Restaurant_Information.Rest_Id_signup='${restaurantID}' AND 
             Restaurant_Dishes.rest_id = Restaurant_Profile.rest_id`,
             (error, result) => {
                 if (error) {
@@ -321,13 +321,14 @@ router.post('/contact/:Rest_Id_signup', (req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 //7. not working
-router.get('/dishes/:rest_id', (req, res) => {
-    const restaurantID = req.params.rest_id;
+//SELECT Rest_Name, item_name FROM Restaurant_Dishes, Restaurant_Profile WHERE
+//Restaurant_Dishes.Rest_Id_signup='${restaurantID}' AND Restaurant_Profile.Rest_Id_signup='${restaurantID}'
+router.get('/dishes/:Rest_Id_signup', (req, res) => {
+    const restaurantID = req.params.Rest_Id_signup;
     console.log(restaurantID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Restaurant_Profile.Rest_Name, item_name FROM Restaurant_Dishes, Restaurant_Profile WHERE
-            Restaurant_Dishes.rest_id='${restaurantID}' AND Restaurant_Profile.rest_id='${restaurantID}'`,
+            `SELECT * FROM Restaurant_Dishes WHERE Rest_Id_signup=${restaurantID}`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -340,8 +341,6 @@ router.get('/dishes/:rest_id', (req, res) => {
                 }
             }
         );
-        console.log(Restaurant_Dishes.rest_id);
-        console.log(Restaurant_Profile.rest_id);
     } catch (error) {
         console.log(error);
         res.status(500).send('Server Error');

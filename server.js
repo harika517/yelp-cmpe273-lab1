@@ -19,6 +19,7 @@ const customerProfile = require('./routes/APIs/Customer/custProfile');
 const restaurantSignUp = require('./routes/APIs/Restaurant/signup');
 const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
 const restaurantProfile = require('./routes/APIs/Restaurant/restProfile');
+const restaurantReviews = require('./routes/APIs/Restaurant/reviews');
 
 app.use('/customer/signUP', customerSignUp);
 app.use('/customer/signIn', customerSignIn);
@@ -27,6 +28,7 @@ app.use('/customer/profile', customerProfile);
 app.use('/restaurant/signUP', restaurantSignUp);
 app.use('/restaurant/signIn', restaurantSignIn);
 app.use('/restaurant/profile', restaurantProfile);
+app.use('/restaurant/reviews', restaurantReviews);
 
 const authorization = require('./middleware/auth');
 app.use('/auth', authorization);
