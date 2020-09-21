@@ -8,8 +8,8 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 const { response } = require('express');
 
 //@route  GET api/customerprofile/cust_id
-//@desc   get our profile based on the customer id
-//@access  Private
+//@desc   get all the customer profiles
+//@access  Public
 //Table Customer_Information
 
 router.get('/', async(req, res) => {
@@ -31,11 +31,18 @@ router.get('/', async(req, res) => {
     }
 });
 
+//@route  GET api/customerprofile/cust_id
+//@desc   get the customer profile by cust_id
+//@access  Private
+//Table Customer_Information
+//`SELECT * from Customer_Information WHERE Cust_Id='${customerID}'`
 router.get('/:Cust_Id', async(req, res) => {
     const customerID = req.params.Cust_Id;
+    console.log(customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT * from Customer_Information WHERE Cust_Id='${customerID}'`,
+            `SELECT First_Name, Last_Name, Date_of_Birth, City, State, Country, Phone_Number, Cust_email_id 
+            FROM Customer_Information WHERE Cust_Id='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -47,7 +54,7 @@ router.get('/:Cust_Id', async(req, res) => {
                         .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
                 }
                 //console.log(result);
-                //res.status(200).json({ result });
+                res.status(200).json({ result });
             }
         );
     } catch (error) {
