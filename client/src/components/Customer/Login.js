@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    Cust_email_id: '',
+    Cust_Password: '',
   });
-  const { email, password } = formData;
+  const { Cust_email_id, Cust_Password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('SUCCESS');
+  };
   return (
     <Fragment>
       <h1 className="large text-primary">Login</h1>
@@ -21,8 +26,8 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email Address"
-            name="email"
-            value={email}
+            name="Cust_email_id"
+            value={Cust_email_id}
             onChange={(e) => onChange(e)}
             required
           />
@@ -31,14 +36,14 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            name="password"
+            name="Cust_Password"
             minLength="6"
-            value={password}
+            value={Cust_Password}
             onChange={(e) => onChange(e)}
             required
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
         Dont have yelp account? <Link to="/signup">SignUp</Link>
