@@ -3,7 +3,7 @@ import { SET_ALERT, REMOVE_ALERT } from './types';
 
 //install UUID which gives universal ID on the fly
 //thunk middlware
-export const setAlert = (msg, alertType) => (dispatch) => {
+export const setAlert = (msg, alertType, timeout = 3000) => (dispatch) => {
     const id = uuid();
     // call the reducer alert
     dispatch({
@@ -11,7 +11,7 @@ export const setAlert = (msg, alertType) => (dispatch) => {
         payload: { msg, alertType, id },
     });
 
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 3000);
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
 };
 
 //export default setAlert;

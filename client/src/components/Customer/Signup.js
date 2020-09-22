@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Signup = ({ setAlert }) => {
+const Signup = ({ setAlert, signup }) => {
   const [formData, setFormData] = useState({
     Cust_Name: '',
     Cust_email_id: '',
@@ -21,30 +21,30 @@ const Signup = ({ setAlert }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (Cust_Password !== '123456') {
-      //setAlert('Please enter 123456 as password');
-      setAlert('Please enter 123456 as password', 'danger');
-    } else {
-      //const newUser = { Cust_Name, Cust_email_id, Cust_Password };
-      console.log('success', formData);
-      //signup({ Cust_Name, Cust_email_id, Cust_Password });
-      // try {
-      //   const config = {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   };
-      //   const body = JSON.stringify(newUser);
-      //   const res = await axios.post(
-      //     'http://localhost:3001/customer/signUP',
-      //     body,
-      //     config
-      //   );
-      //   console.log(res.data);
-      // } catch (err) {
-      //   console.error(err.response.data);
-      // }
-    }
+    //if (Cust_Password !== '123456') {
+    //setAlert('Please enter 123456 as password');
+    //setAlert('Please enter 123456 as password', 'danger');
+    //} else {
+    //const newUser = { Cust_Name, Cust_email_id, Cust_Password };
+    console.log('success', formData);
+    signup({ Cust_Name, Cust_email_id, Cust_Password });
+    // try {
+    //   const config = {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   };
+    //   const body = JSON.stringify(newUser);
+    //   const res = await axios.post(
+    //     'http://localhost:3001/customer/signUP',
+    //     body,
+    //     config
+    //   );
+    //   console.log(res.data);
+    // } catch (err) {
+    //   console.error(err.response.data);
+    // }
+    // }
   };
 
   return (
@@ -95,4 +95,4 @@ Signup.propTypes = {
   signup: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Signup);
+export default connect(null, { setAlert, signup })(Signup);

@@ -14,7 +14,11 @@ export const signup = ({ Cust_Name, Cust_email_id, Cust_Password }) => async(
     const body = JSON.stringify({ Cust_Name, Cust_email_id, Cust_Password });
 
     try {
-        const res = await axios.post('/customer/signUP', body, config);
+        const res = await axios.post(
+            'http://localhost:3001/customer/signUP',
+            body,
+            config
+        );
 
         dispatch({
             type: SIGNUP_SUCCESS,
