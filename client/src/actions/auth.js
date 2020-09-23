@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { SIGNUP_SUCCESS, SIGNUP_FAIL } from './types';
+import { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR } from './types';
+
+//Load User
 
 //Register User
 export const signup = ({ Cust_Name, Cust_email_id, Cust_Password }) => async(
