@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 //import axios from 'axios';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { signup } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Signup = ({ setAlert, signup }) => {
+const Signup = ({ setAlert, signup, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     Cust_Name: '',
     Cust_email_id: '',
@@ -46,7 +46,9 @@ const Signup = ({ setAlert, signup }) => {
     // }
     // }
   };
-
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
@@ -93,6 +95,11 @@ const Signup = ({ setAlert, signup }) => {
 Signup.propTypes = {
   setAlert: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, signup })(Signup);
+//redirecting on successful login
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { setAlert, signup })(Signup);
