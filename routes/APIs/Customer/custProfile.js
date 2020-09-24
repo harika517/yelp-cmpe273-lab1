@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
+const auth = require('../../../middleware/auth');
 const { response } = require('express');
 
 //@route  GET api/customerprofile/cust_id
@@ -36,13 +37,12 @@ router.get('/', async(req, res) => {
 //@access  Private
 //Table Customer_Information
 //`SELECT * from Customer_Information WHERE Cust_Id='${customerID}'`
-router.get('/:Cust_Id', async(req, res) => {
-    const customerID = req.params.Cust_Id;
+router.get('/me', auth, async(req, res) => {
+    const customerID = req.customer.id;
     console.log(customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT First_Name, Last_Name, Date_of_Birth, City, State, Country, Phone_Number, Cust_email_id 
-            FROM Customer_Information WHERE Cust_Id='${customerID}'`,
+            `SELECT * FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
