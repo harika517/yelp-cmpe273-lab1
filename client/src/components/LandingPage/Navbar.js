@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
+
 // import cookie from 'react-cookies';
 // import { Redirect } from 'react-router';
 
@@ -39,7 +40,7 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav className="navbar bg-dark">
       <h1>
         <Link to="/">
-          yelp <i className="fab fa-yelp"></i>
+          <img src="../../images/header_logo_desktop.png"></img>
         </Link>
       </h1>
       {!loading && (
