@@ -51,7 +51,7 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
   }
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
+      <h1 className="large text-dark">Sign Up</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Sign Up for Yelp
       </p>
@@ -83,7 +83,7 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="SignUp" />
+        <input type="submit" className="btn btn-dark" value="SignUp" />
       </form>
       <p className="my-1">
         Already on yelp? <Link to="/login">Sign In</Link>

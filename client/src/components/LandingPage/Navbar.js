@@ -38,11 +38,12 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   return (
     <nav className="navbar bg-dark">
-      <h1>
+      {/* <img src="../../" */}
+      {/* <h1>
         <Link to="/">
           <img src="../../images/header_logo_desktop.png"></img>
         </Link>
-      </h1>
+      </h1> */}
       {!loading && (
         <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
       )}

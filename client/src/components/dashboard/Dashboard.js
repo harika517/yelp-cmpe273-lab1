@@ -16,16 +16,29 @@ const Dashboard = ({
   return (
     <Fragment>
       <div>
-        <p>{customer && customer.Cust_Id}</p>
-        <Link to="/dashboard" className="text-dark">
+        {/* <p>{customer && customer.Cust_Id}</p> */}
+        {/* <Link to="/dashboard" className="text-dark">
           {' '}
           <i className="fas fa-user" /> Profile Overview
-        </Link>
+        </Link> */}
+        <h1 className="large text-dark">
+          {' '}
+          <i className="fas fa-user" />
+          Profile Overview
+        </h1>
       </div>
       {profile !== null ? (
         <Fragment>has</Fragment>
       ) : (
-        <Fragment>has not</Fragment>
+        <Fragment>
+          <h4>Recent Activity</h4>
+          <p> We dont have any recent activity from you.</p>
+          <h4>Profile Overview</h4>
+          <p> You have not set your profile yet.</p>
+          <Link to="/createprofile" className="btn btn-dark my-1">
+            Create Profile
+          </Link>
+        </Fragment>
       )}
     </Fragment>
   );

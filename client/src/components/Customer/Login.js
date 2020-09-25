@@ -25,7 +25,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <Fragment>
-      <h1 className="large text-primary">Login</h1>
+      <h1 className="large text-dark">Login</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Login yelp
       </p>
@@ -48,7 +48,7 @@ const Login = ({ login, isAuthenticated }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
+        <input type="submit" className="btn btn-dark" value="Login" />
       </form>
       <p className="my-1">
         Dont have yelp account? <Link to="/signup">SignUp</Link>
