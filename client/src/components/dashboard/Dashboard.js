@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
+import DashboardActions from './DashboardActions';
 import { Result } from 'express-validator';
 import auth from '../../reducers/auth';
 
@@ -24,17 +25,13 @@ const Dashboard = ({
         <h3 className="large text-primary">
           {' '}
           <i className="fas fa-user" />
-          {profile.Cust_Name}
+          {profile.First_Name}.
         </h3>
       </div>
-      <Fragment>
-        <Link to="/createprofile" className="btn btn-dark my-1">
-          Create Profile
-        </Link>
-        <Link to="/createprofile" className="btn btn-dark my-1">
-          Edit Profile
-        </Link>
-      </Fragment>
+      <Link to="/createprofile" className="btn btn-dark my-1">
+        Create Profile
+      </Link>
+      <DashboardActions />
     </Fragment>
   );
 

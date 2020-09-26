@@ -41,7 +41,9 @@ router.get('/me', auth, async(req, res) => {
     console.log('Personal Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT * FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
+            `SELECT First_Name, Last_Name, Date_of_Birth, City, State, Country, Nick_Name, 
+            Headline, Phone_Number, Cust_email_id, Yelping_Since, Things_I_Love, My_Blog_Or_Website, Find_Me_In,
+            My_Favourite_Movie, Current_Crush, Cust_ProfilePic FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -53,7 +55,7 @@ router.get('/me', auth, async(req, res) => {
                         .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
                 }
                 //console.log(result);
-                res.status(200).json({ result });
+                res.status(200).json(result[0]);
             }
         );
     } catch (error) {
@@ -65,6 +67,8 @@ router.get('/me', auth, async(req, res) => {
 //@desc   Update customer basic details
 //@access  Private
 //Table Customer_Information
+
+//edit basic details
 router.post(
     '/basicdetails/me', [
         check('First_Name', 'First Name is required').not().isEmpty(),
@@ -216,6 +220,7 @@ router.get('/contactinfo/me', auth, async(req, res) => {
 //@access  Private
 //Table Customer_Information
 
+//edit about details
 router.post('/custabout/me', (req, res) => {
     const {
         Yelping_Since,
@@ -284,6 +289,7 @@ router.get('/custabout/me', auth, async(req, res) => {
 //@access  Private
 //Table Customer_Information
 
+//edit profie button
 router.post(
     '/updateprofile/me', [
         check('First_Name', 'First Name is required').not().isEmpty(),
