@@ -12,7 +12,7 @@ const config = require('config');
 //@access Public
 router.get('/', auth, async(req, res) => {
     const Cust_email_id = req.customer.id;
-    console.log(Cust_email_id);
+    console.log('AuthPlace get', Cust_email_id);
     try {
         mysqlConnectionPool.query(
             `SELECT Cust_Id, Cust_Name, Cust_email_id, Cust_ProfilePic FROM Customer_Information WHERE Cust_email_id = '${Cust_email_id}'`,
@@ -73,7 +73,7 @@ router.post(
                     if (!matchCriteria) {
                         return res
                             .status(400)
-                            .json({ errors: [{ msg: 'Invalid Ceredentials' }] });
+                            .json({ errors: [{ msg: 'Invalid Credentials' }] });
                     }
                     const payload = {
                         customer: {

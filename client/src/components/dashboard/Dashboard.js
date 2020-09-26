@@ -4,44 +4,76 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 import { Result } from 'express-validator';
+import auth from '../../reducers/auth';
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { customer },
+  auth,
   profile: { profile, loading },
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, []);
-  return (
+  return loading ? (
+    ''
+  ) : (
     <Fragment>
       <div>
-        {/* <p>{customer && customer.Cust_Id}</p> */}
-        {/* <Link to="/dashboard" className="text-dark">
-          {' '}
-          <i className="fas fa-user" /> Profile Overview
-        </Link> */}
-        <h1 className="large text-dark">
+        {/* {console.log('ThisOne', profile.Cust_Name)} */}
+        <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+        <h3 className="large text-primary">
           {' '}
           <i className="fas fa-user" />
-          Profile Overview
-        </h1>
+          {profile.Cust_Name}
+        </h3>
       </div>
-      {profile !== null ? (
-        <Fragment>has</Fragment>
-      ) : (
-        <Fragment>
-          <h4>Recent Activity</h4>
-          <p> We dont have any recent activity from you.</p>
-          <h4>Profile Overview</h4>
-          <p> You have not set your profile yet.</p>
-          <Link to="/createprofile" className="btn btn-dark my-1">
-            Create Profile
-          </Link>
-        </Fragment>
-      )}
+      <Fragment>
+        <Link to="/createprofile" className="btn btn-dark my-1">
+          Create Profile
+        </Link>
+        <Link to="/createprofile" className="btn btn-dark my-1">
+          Edit Profile
+        </Link>
+      </Fragment>
     </Fragment>
   );
+
+  // console.log('dashboard', profile.profile);
+  // return (
+  //   <Fragment>
+  //     <div>
+  //       {/* //{console.log('ThisOne', profile.Cust_Name)} */}
+  //       {/* <img src={profile.Cust_ProfilePic} alt="Profile Picture" /> */}
+  //       <h1 className="large text-dark">
+  //         {' '}
+  //         <i className="fas fa-user" />
+  //         Profile Overview
+  //       </h1>
+  //     </div>
+  //     <Fragment>
+  //       <Link to="/createprofile" className="btn btn-dark my-1">
+  //         Update Profile
+  //       </Link>
+  //     </Fragment>
+  //     {/* {profile !== null ? (
+  //       <Fragment>
+  //         <Link to="/createprofile" className="btn btn-dark my-1">
+  //           Update Profile
+  //         </Link>
+  //       </Fragment>
+  //     ) : (
+  //       <Fragment>
+  //         <h4>Recent Activity</h4>
+  //         <p> We dont have any recent activity from you.</p>
+  //         <h4>Profile Overview</h4>
+  //         <p> You have not set your profile yet.</p>
+  //         <Link to="/createprofile" className="btn btn-dark my-1">
+  //           Create Profile
+  //         </Link>
+  //       </Fragment>
+  //     )}*/}
+  //   </Fragment>
+  // );
 };
 
 Dashboard.propTypes = {

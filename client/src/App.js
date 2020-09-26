@@ -14,6 +14,7 @@ import { loadCustomer } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+import Landing from './components/LandingPage/Landing';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -28,6 +29,7 @@ const App = () => {
       <Router>
         <Fragment>
           <Route path="/" component={Navbar} />
+          {/* <Route path="/" component={Landing} /> */}
           <section className="container">
             <Alert />
             <Switch>

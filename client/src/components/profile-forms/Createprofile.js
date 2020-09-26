@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
 
-const Createprofile = (props) => {
+const Createprofile = ({ createProfile, history }) => {
   const [formData, setFormData] = useState({
     First_Name: '',
     Last_Name: '',
@@ -11,6 +13,7 @@ const Createprofile = (props) => {
     State: '',
     Country: '',
     Phone_Number: '',
+    Cust_email_id: '',
     Nick_Name: '',
     Headline: '',
     Yelping_Since: '',
@@ -29,6 +32,7 @@ const Createprofile = (props) => {
     State,
     Country,
     Phone_Number,
+    Cust_email_id,
     Nick_Name,
     Headline,
     Yelping_Since,
@@ -41,10 +45,15 @@ const Createprofile = (props) => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createProfile(formData, history);
+  };
   return (
     <Fragment>
       <h1 className="large text-dark">Profile</h1>
-      <form className="form">
+      <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <label for="First_Name">First name</label>
           <small className="form-text">This field is required.</small>
@@ -53,7 +62,6 @@ const Createprofile = (props) => {
             name="First_Name"
             value={First_Name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -65,7 +73,6 @@ const Createprofile = (props) => {
             name="Last_Name"
             value={Last_Name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -113,7 +120,6 @@ const Createprofile = (props) => {
             name="City"
             value={City}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -127,7 +133,6 @@ const Createprofile = (props) => {
             name="State"
             value={State}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -139,7 +144,6 @@ const Createprofile = (props) => {
             name="Country"
             value={Country}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -154,7 +158,16 @@ const Createprofile = (props) => {
             value={Phone_Number}
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             onChange={(e) => onChange(e)}
-            required
+          />
+        </div>
+        <div className="form-group">
+          <label for="Cust_email_id">Email Id</label>
+          <small className="form-text">This field is required.</small>
+          <input
+            type="text"
+            name="Cust_email_id"
+            value={Cust_email_id}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -253,6 +266,8 @@ const Createprofile = (props) => {
   );
 };
 
-Createprofile.propTypes = {};
+Createprofile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+};
 
-export default Createprofile;
+export default connect(null, { createProfile })(withRouter(Createprofile));

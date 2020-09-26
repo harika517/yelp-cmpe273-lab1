@@ -38,7 +38,7 @@ router.get('/', async(req, res) => {
 //Table Customer_Information
 router.get('/me', auth, async(req, res) => {
     const customerID = req.customer.id;
-    console.log(customerID);
+    console.log('Personal Profile', customerID);
     try {
         mysqlConnectionPool.query(
             `SELECT * FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
@@ -115,10 +115,10 @@ router.post(
 //Table Customer_Information
 router.get('/basicdetails/me', auth, async(req, res) => {
     const customerID = req.customer.id;
-    console.log(customerID);
+    console.log('Get basicdetails', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT First_Name, Last_Name, Date_of_Birth, City, State, Country, Nick_Name, Headline
+            `SELECT Cust_Name, Cust_ProfilePic, First_Name, Last_Name, Date_of_Birth, City, State, Country, Nick_Name, Headline
              FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
@@ -127,14 +127,14 @@ router.get('/basicdetails/me', auth, async(req, res) => {
                 }
                 //emp.every(_.isNull);
                 //words.filter(word => word.length > 6)
-                resultNull = result.filter((value) => value === 'null');
-                if (resultNull.length === 0) {
-                    return res.status(400).json({
-                        errors: [{ msg: 'Customer basic details doesnt Exists' }],
-                    });
-                }
+                // resultNull = result.filter((value) => value === 'null');
+                // if (resultNull.length === 0) {
+                //     return res.status(400).json({
+                //         errors: [{ msg: 'Customer basic details doesnt Exists' }],
+                //     });
+                // }
                 //console.log(result);
-                res.status(200).json({ result });
+                res.status(200).json(result[0]);
             }
         );
     } catch (error) {
@@ -278,4 +278,68 @@ router.get('/custabout/me', auth, async(req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+//@route  POST customer/profile/update/me
+//@desc   Update/Create all the customer details
+//@access  Private
+//Table Customer_Information
+
+router.post(
+    '/updateprofile/me', [
+        check('First_Name', 'First Name is required').not().isEmpty(),
+        check('Last_Name', 'Last Name is required').not().isEmpty(),
+        check('City', 'City name is required').not().isEmpty(),
+        check('Phone_Number', 'Phone Number is required').not().isEmpty(),
+    ],
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {
+            First_Name,
+            Last_Name,
+            Date_of_Birth,
+            City,
+            State,
+            Country,
+            Cust_email_id,
+            Phone_Number,
+            Nick_Name,
+            Headline,
+            Yelping_Since,
+            Things_I_Love,
+            My_Blog_Or_Website,
+            Find_Me_In,
+            My_Favourite_Movie,
+            Current_Crush,
+        } = req.body;
+        //console.log('custProfile', req.params);
+        const customerID = Cust_email_id;
+        console.log('create profile', customerID);
+        try {
+            var query = `UPDATE Customer_Information set First_Name='${First_Name}', Last_Name='${Last_Name}', Date_of_Birth='${Date_of_Birth}',
+            City ='${City}',  State='${State}', Country='${Country}', Phone_Number='${Phone_Number}', 
+            Yelping_Since='${Yelping_Since}', Things_I_Love='${Things_I_Love}', My_Blog_Or_Website='${My_Blog_Or_Website}',
+            Find_Me_In='${Find_Me_In}', My_Favourite_Movie='${My_Favourite_Movie}', Current_Crush='${Current_Crush}', 
+            Nick_Name='${Nick_Name}', Headline='${Headline}' WHERE Cust_email_id='${customerID}'`;
+            mysqlConnectionPool.query(query, (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+                }
+                // console.log(result);
+                res.status(200).json(result[0]);
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server Error');
+        }
+    }
+);
 module.exports = router;
