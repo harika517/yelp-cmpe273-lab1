@@ -45,6 +45,8 @@ const restaurantProfile = require('./routes/APIs/Restaurant/restProfile');
 const restaurantReviews = require('./routes/APIs/Restaurant/reviews');
 const restaurantOrders = require('./routes/APIs/Restaurant/orders');
 
+const events = require('./routes/APIs/upcomingEvents/events');
+
 app.use('/customer/signUP', customerSignUp);
 app.use('/customer/signIn', customerSignIn);
 app.use('/customer/profile', customerProfile);
@@ -57,6 +59,8 @@ app.use('/restaurant/signIn', restaurantSignIn);
 app.use('/restaurant/profile', restaurantProfile);
 app.use('/restaurant/reviews', restaurantReviews);
 app.use('/restaurant/orders', restaurantOrders);
+
+app.use('/events', events);
 
 const authorization = require('./middleware/auth');
 app.use('/auth', authorization);

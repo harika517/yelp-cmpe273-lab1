@@ -12,7 +12,17 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
       <li>
-        <a onClick={logout} href="/">
+        <a href="/review" className="btn btn-dark my-1">
+          <span className="hide-sm">Write a Review</span>
+        </a>
+      </li>
+      <li>
+        <a href="/events" className="btn btn-dark my-1">
+          <span className="hide-sm">Events</span>
+        </a>
+      </li>
+      <li>
+        <a onClick={logout} href="/" className="btn btn-dark my-1">
           <i className="fas fa-sign-out-alt"></i>
           <span className="hide-sm">Logout</span>
         </a>
@@ -22,22 +32,32 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   const guestLinks = (
     <ul>
+      {/* <li>
+        <img class="logo-icon" src={'/images/logo.png'}></img>
+      </li> */}
       <li>
-        <Link to="/">
+        <Link to="/" className="btn btn-dark my-1">
           <i className="fas fa-home" />
           Home
         </Link>
       </li>
       <li>
-        <Link to="/signup">SignUP</Link>
+        <Link to="/signup" className="btn btn-dark my-1">
+          SignUP
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="btn btn-primary my-1">
+          Login
+        </Link>
       </li>
     </ul>
   );
   return (
     <nav className="navbar bg-dark">
+      <div>
+        <img class="logo-icon" src={'/images/logo.png'}></img>
+      </div>
       {/* <img src="../../" */}
       {/* <h1>
         <Link to="/">

@@ -19,58 +19,39 @@ const Dashboard = ({
     ''
   ) : (
     <Fragment>
-      <div>
-        {/* {console.log('ThisOne', profile.Cust_Name)} */}
-        <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
-        <h3 className="large text-primary">
-          {' '}
-          <i className="fas fa-user" />
-          {profile.First_Name}.
-        </h3>
+      <div className="container_1">
+        <div className="leftpane">
+          <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+          <h3 className="lead">
+            {' '}
+            <i className="fas fa-user" />
+            {profile.Cust_Name}'s profile
+          </h3>
+          <hr></hr>
+        </div>
+        <div className="middlepane">
+          <h2>{profile.Cust_Name}</h2>
+          <p className="lead">
+            {profile.City} {profile.State} {profile.Country}
+          </p>
+          {/* <Link to="/createprofile" className="btn btn-dark my-1">
+            Create Profile
+          </Link> */}
+          <hr></hr>
+          <p className="lead text-dark"> Recent Activity</p>
+        </div>
+        <div clasNames="rightpane">
+          <DashboardActions />
+          <hr></hr>
+          <p className="lead">About {profile.Cust_Name}</p>
+          <div>
+            <p className="lead"> Email ID</p>
+          </div>
+          <div>{profile.Cust_email_id}</div>
+        </div>
       </div>
-      <Link to="/createprofile" className="btn btn-dark my-1">
-        Create Profile
-      </Link>
-      <DashboardActions />
     </Fragment>
   );
-
-  // console.log('dashboard', profile.profile);
-  // return (
-  //   <Fragment>
-  //     <div>
-  //       {/* //{console.log('ThisOne', profile.Cust_Name)} */}
-  //       {/* <img src={profile.Cust_ProfilePic} alt="Profile Picture" /> */}
-  //       <h1 className="large text-dark">
-  //         {' '}
-  //         <i className="fas fa-user" />
-  //         Profile Overview
-  //       </h1>
-  //     </div>
-  //     <Fragment>
-  //       <Link to="/createprofile" className="btn btn-dark my-1">
-  //         Update Profile
-  //       </Link>
-  //     </Fragment>
-  //     {/* {profile !== null ? (
-  //       <Fragment>
-  //         <Link to="/createprofile" className="btn btn-dark my-1">
-  //           Update Profile
-  //         </Link>
-  //       </Fragment>
-  //     ) : (
-  //       <Fragment>
-  //         <h4>Recent Activity</h4>
-  //         <p> We dont have any recent activity from you.</p>
-  //         <h4>Profile Overview</h4>
-  //         <p> You have not set your profile yet.</p>
-  //         <Link to="/createprofile" className="btn btn-dark my-1">
-  //           Create Profile
-  //         </Link>
-  //       </Fragment>
-  //     )}*/}
-  //   </Fragment>
-  // );
 };
 
 Dashboard.propTypes = {

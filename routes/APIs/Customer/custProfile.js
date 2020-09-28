@@ -41,7 +41,7 @@ router.get('/me', auth, async(req, res) => {
     console.log('Personal Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT First_Name, Last_Name, Date_of_Birth, City, State, Country, Nick_Name, 
+            `SELECT Cust_Name, First_Name, Last_Name, Date_of_Birth, City, State, Country, Nick_Name, 
             Headline, Phone_Number, Cust_email_id, Yelping_Since, Things_I_Love, My_Blog_Or_Website, Find_Me_In,
             My_Favourite_Movie, Current_Crush, Cust_ProfilePic FROM Customer_Information WHERE Cust_email_id='${customerID}'`,
             (error, result) => {
@@ -91,6 +91,7 @@ router.post(
             Headline,
         } = req.body;
         const customerID = req.customer.id;
+        console.log('Basic details', customerID);
         try {
             var query = `UPDATE Customer_Information set First_Name='${First_Name}', Last_Name='${Last_Name}', Date_of_Birth='${Date_of_Birth}',
             City ='${City}',  State='${State}', Country='${Country}', Nick_Name='${Nick_Name}', Headline='${Headline}' WHERE Cust_email_id='${customerID}'`;
@@ -105,7 +106,7 @@ router.post(
                         .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
                 }
                 // console.log(result);
-                // res.status(200).json({ result });
+                res.status(200).json(result[0]);
             });
         } catch (error) {
             console.log(error);

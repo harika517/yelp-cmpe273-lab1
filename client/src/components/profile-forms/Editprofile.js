@@ -91,7 +91,7 @@ const Editprofile = ({
   };
   return (
     <Fragment>
-      <h1 className="large text-dark">Profile</h1>
+      <h1 className="large text-dark">Edit Profile</h1>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <label for="First_Name">First name</label>
