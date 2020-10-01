@@ -38,6 +38,7 @@ const customerProfile = require('./routes/APIs/Customer/custProfile');
 const customerReviews = require('./routes/APIs/Customer/reviews');
 const customerOrders = require('./routes/APIs/Customer/orders');
 const customerAuth = require('./routes/APIs/auth');
+const customerEvents = require('./routes/APIs/upcomingEvents/events');
 const customerImage = require('./routes/APIs/ImageUploads/CustImage');
 
 // const restaurantAuth = require('./routes/APIs/auth');
@@ -47,8 +48,7 @@ const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
 const restaurantProfile = require('./routes/APIs/Restaurant/restProfile');
 const restaurantReviews = require('./routes/APIs/Restaurant/reviews');
 const restaurantOrders = require('./routes/APIs/Restaurant/orders');
-
-const events = require('./routes/APIs/upcomingEvents/events');
+const restaurantEvents = require('./routes/APIs/upcomingEvents/events');
 
 app.use('/customer/signUP', customerSignUp);
 app.use('/customer/signIn', customerSignIn);
@@ -56,6 +56,7 @@ app.use('/customer/profile', customerProfile);
 app.use('/customer/reviews', customerReviews);
 app.use('/customer/orders', customerOrders);
 app.use('/customer/auth', customerAuth);
+app.use('/customer/events', customerEvents);
 app.use('/customer/addphoto', customerImage);
 // app.use('restaurant/auth', restaurantAuth);
 
@@ -64,8 +65,7 @@ app.use('/restaurant/signIn', restaurantSignIn);
 app.use('/restaurant/profile', restaurantProfile);
 app.use('/restaurant/reviews', restaurantReviews);
 app.use('/restaurant/orders', restaurantOrders);
-
-app.use('/events', events);
+app.use('/restaurant/events', restaurantEvents);
 
 const authorization = require('./middleware/auth');
 app.use('/auth', authorization);

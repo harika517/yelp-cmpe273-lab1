@@ -7,11 +7,42 @@ const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 const auth = require('../auth');
 
+//@route  GET (get all events) '/customer/events'
+//@desc   view all events by customers
+//@access  Private
+//Table Events
+//Customer  Action
+
+router.get('/', (req, res) => {
+    try {
+        mysqlConnectionPool.query(
+            `SELECT Event_Name, Event_Date, Event_Time, Event_Location, Hashtags, 
+        What_And_Why, Rest_Name, Rest_email_id FROM Events ORDER BY Event_Date ASC`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res.status(400).json({
+                        errors: [{ msg: 'No events scheduled' }],
+                    });
+                }
+                //console.log(result);
+                res.status(200).json({ result });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 //@route  POST (Post events by restaurant ) '/events/me'
 //@desc   Creating an event
 //@access  Private
 //Table Events
-
+//Restaurant Action
 router.post(
     '/me',
     auth, [
@@ -20,6 +51,7 @@ router.post(
         check('Event_Time', 'Please mention Time').not().isEmpty(),
         check('Event_Location', 'Please include Venue details').not().isEmpty(),
         check('Rest_Name', 'Please include Venue details').not().isEmpty(),
+        check('Rest_email_id', 'Please include contact details').not().isEmpty(),
     ],
     (req, res) => {
         // console.log(req.body);
@@ -30,6 +62,7 @@ router.post(
 
         const {
             Rest_Name,
+            Rest_email_id,
             Event_Name,
             Event_Date,
             Event_Time,
@@ -44,8 +77,8 @@ router.post(
                     Event_Date,
                     Event_Time,
                     Event_Location,
-                    Hashtags, What_And_Why,Rest_Name) VALUES ('${Event_Name}', '${Event_Date}', '${Event_Time}', 
-                    '${Event_Location}', '${Hashtags}', '${What_And_Why}', '${Rest_Name}')`,
+                    Hashtags, What_And_Why, Rest_Name, Rest_email_id ) VALUES ('${Event_Name}', '${Event_Date}', '${Event_Time}', 
+                    '${Event_Location}', '${Hashtags}', '${What_And_Why}', '${Rest_Name}', '${Rest_email_id}')`,
                 (error, result) => {
                     if (error) {
                         console.log(error);
@@ -73,6 +106,7 @@ router.post(
 //@desc   Updating an event
 //@access  Private
 //Table Events
+//Restaurant Action
 
 router.post('/update/me', auth, async(req, res) => {
     // console.log(req.body);
@@ -88,16 +122,18 @@ router.post('/update/me', auth, async(req, res) => {
         Event_Location,
         Hashtags,
         What_And_Why,
+        Rest_Name,
+        Rest_email_id,
     } = req.body;
-    const eventID = req.body.Event_Name;
-    console.log('Event Name: ', eventID);
+    const customerID = req.customer.id;
+    // console.log('Event Name: ', customerID);
     // See if user exists
     try {
         mysqlConnectionPool.query(
             `UPDATE Events set Event_Name = '${Event_Name}', Event_Date ='${Event_Date}', 
             Event_Time='${Event_Time}', Event_Location='${Event_Location}', Hashtags='${Hashtags}', 
-            What_And_Why= '${What_And_Why}'
-            WHERE Event_Name='${eventID}'`,
+            What_And_Why= '${What_And_Why}', Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}'
+            WHERE Rest_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -120,40 +156,15 @@ router.post('/update/me', auth, async(req, res) => {
     //return jsonwebtoken
 });
 
-//@route  GET (get all events) '/events/viewevents'
-//@desc   view all events by customers
-//@access  Private
-//Table Events
-
-router.get('/', (req, res) => {
-    try {
-        mysqlConnectionPool.query(`SELECT * FROM Events`, (error, result) => {
-            if (error) {
-                console.log(error);
-                return res.status(500).send('Server Error');
-            }
-            if (result.length === 0) {
-                return res.status(400).json({
-                    errors: [{ msg: 'No events scheduled' }],
-                });
-            }
-            //console.log(result);
-            res.status(200).json({ result });
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error');
-    }
-});
-
 //@route  GET (events created by me) '/events/me
-//@desc   view the events created by me
+//@desc   view the events created by me(Restaurant)
 //@access  Private
 //Table Events
+//Restaurant Action
 
-router.get('/:Rest_Name', (req, res) => {
-    const Rest_Name = req.params.Rest_Name;
-    console.log('get rest events', Rest_Name);
+router.get('/me', auth, (req, res) => {
+    const customerID = req.customer.id;
+    console.log('get rest events', customerID);
     try {
         mysqlConnectionPool.query(
             `SELECT
@@ -162,11 +173,13 @@ router.get('/:Rest_Name', (req, res) => {
             Event_Time,
             Event_Location,
             Hashtags,
-            What_And_Why
+            What_And_Why,
+            Rest_Name,
+            Rest_email_id
           FROM
             Events
           WHERE
-        Events.Rest_Name='${Rest_Name}'`,
+          Rest_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);

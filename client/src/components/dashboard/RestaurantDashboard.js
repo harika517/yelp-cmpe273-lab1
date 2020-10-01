@@ -32,12 +32,35 @@ const RestaurantDashboard = ({
               <i className="far fa-clock"></i> {profile.Timings}
             </h4>
             <h4>{profile.Description}</h4>
+            {/* <br></br> */}
+            <h4 ClassName="lead text-dark"> Available </h4>
+            {profile.Curbside_PickUp ? (
+              <h4 className="lead text-dark">
+                <i className="fas fa-map-marker" /> CurbSide PickUp
+              </h4>
+            ) : (
+              <h4>''</h4>
+            )}
+            {profile.Dine_In ? (
+              <h4 className="lead text-dark">
+                <i className="fas fa-map-marker" /> Dine In
+              </h4>
+            ) : (
+              <h4>''</h4>
+            )}
+            {profile.Yelp_Delivery ? (
+              <h4 className="lead text-dark">
+                <i className="fas fa-map-marker" /> Yelp Delivery
+              </h4>
+            ) : (
+              <h4>''</h4>
+            )}
             <hr></hr>
             <Link to="/restaurantevents" className=" btn btn-dark">
               Events
             </Link>
             <Link to="/restaurantprofile" className=" btn btn-dark">
-              Edit Profile
+              Create New Profile
             </Link>
             <Link to="#!" className=" btn btn-primary">
               <i className="fas fa-camera"></i> Add Photo
@@ -54,6 +77,9 @@ const RestaurantDashboard = ({
             </Link>
             <br></br>
             <br></br>
+            <Link to="/editrestaurantprofile" className="lead text-dark">
+              <i className="fas fa-id-card"> </i> Edit Profile
+            </Link>
             <h4 className=" lead text-dark">
               <i className="fas fa-phone-alt" /> Contact
             </h4>

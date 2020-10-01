@@ -16,7 +16,7 @@ router.get('/me', auth, async(req, res) => {
     console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings 
+            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
             FROM Restaurant_Information WHERE Rest_email_id='${customerID}'`,
             (error, result) => {
                 if (error) {
@@ -38,37 +38,70 @@ router.get('/me', auth, async(req, res) => {
     }
 });
 
-//@route  POST restaurant/profile/update/me
+//@route  POST restaurant/profile/updateprofile/me
 //@desc   Update/Create all the Restaurant details
 //@access  Private
 //Table Restaurant_Information
 
 //edit profie button
-router.post('/updateprofile/me', async(req, res) => {
-    const { Description, Contact, Timings } = req.body;
-    //console.log('custProfile', req.params);
-    const customerID = Rest_email_id;
-    console.log('Create Rest profile', customerID);
-    try {
-        var query = `UPDATE Restaurant_Information set Description='${Description}', Contact='${Contact}', Timings='${Timings}' WHERE Cust_email_id='${customerID}'`;
-        mysqlConnectionPool.query(query, (error, result) => {
-            if (error) {
-                console.log(error);
-                return res.status(500).send('Server Error');
-            }
-            if (result.length === 0) {
-                return res
-                    .status(400)
-                    .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
-            }
-            // console.log(result);
-            res.status(200).json(result[0]);
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error');
+router.post(
+    '/updateprofile/me', [
+        check('Rest_Name', 'Name is required').not().isEmpty(),
+        check('Rest_email_id', 'Email Id is required').not().isEmpty(),
+        check('Contact', 'Phone Number is required').not().isEmpty(),
+        check('Timings', 'Timings is required').not().isEmpty(),
+        check('Curbside_PickUp', 'Mention if this mode of delivery exists')
+        .not()
+        .isEmpty(),
+        check('Dine_In', 'Mention if this mode of delivery exists').not().isEmpty(),
+        check('Yelp_Delivery', 'Mention if this mode of delivery exists')
+        .not()
+        .isEmpty(),
+    ],
+    auth,
+    async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const {
+            Rest_Name,
+            Rest_email_id,
+            Contact,
+            Rest_location,
+            Description,
+            Timings,
+            Curbside_PickUp,
+            Dine_In,
+            Yelp_Delivery,
+        } = req.body;
+        //console.log('custProfile', req.params);
+        const customerID = Rest_email_id;
+        console.log('Create Rest profile', customerID);
+        try {
+            var query = `UPDATE Restaurant_Information set Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', 
+        Rest_location='${Rest_location}', Description='${Description}', Contact='${Contact}', Timings='${Timings}', 
+        Curbside_PickUp='${Curbside_PickUp}', Dine_In='${Dine_In}', Yelp_Delivery='${Yelp_Delivery}' 
+        WHERE Rest_email_id='${customerID}'`;
+            mysqlConnectionPool.query(query, (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
+                }
+                // console.log(result);
+                res.status(200).json(result[0]);
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server Error');
+        }
     }
-});
+);
 
 // //@route  POST (Inerting profile) /restaurant/profile
 // //@desc   inserting profile of particular restaurant

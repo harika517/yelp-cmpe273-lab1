@@ -12,6 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/Createprofile';
 import EditProfile from './components/profile-forms/Editprofile';
 import CreateRestProfile from './components/profile-forms/Createrestprofile';
+import EditRestaurantProfile from './components/profile-forms/Editrestprofile';
 import EventCreation from './components/Social_Events/Createevent';
 // import EventsDashboard from './components/dashboard/EventsDashboard';
 import ViewEvents from './components/Social_Events/Viewevents';
@@ -83,6 +84,11 @@ const App = () => {
                 exact
                 path="/restaurantprofile"
                 component={CreateRestProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/editrestaurantprofile"
+                component={EditRestaurantProfile}
               />
             </Switch>
           </section>

@@ -9,13 +9,28 @@ import { createRestProfile } from '../../actions/profile';
 
 const Createrestprofile = ({ createRestProfile, history }) => {
   const [formData, setFormData] = useState({
-    Rest_Name,
+    Rest_Name: '',
+    Rest_email_id: '',
+    Rest_location: '',
     Description: '',
     Contact: '',
     Timings: '',
+    Curbside_PickUp: '',
+    Dine_In: '',
+    Yelp_Delivery: '',
   });
 
-  const { Rest_Name, Description, Contact, Timings } = formData;
+  const {
+    Rest_Name,
+    Rest_email_id,
+    Rest_location,
+    Description,
+    Contact,
+    Timings,
+    Curbside_PickUp,
+    Dine_In,
+    Yelp_Delivery,
+  } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,12 +54,12 @@ const Createrestprofile = ({ createRestProfile, history }) => {
           />
         </div>
         <div className="form-group">
-          <label for="Description">Description</label>
+          <label for="Rest_email_id">Restaurant Email Id</label>
           <small className="form-text">This field is required.</small>
           <input
             type="text"
-            name="Description"
-            value={Description}
+            name="Rest_email_id"
+            value={Rest_email_id}
             onChange={(e) => onChange(e)}
           />
         </div>
@@ -60,11 +75,33 @@ const Createrestprofile = ({ createRestProfile, history }) => {
           />
         </div>
         <div className="form-group">
+          <label for="Rest_location">Location</label>
+          <br />
+          <small className="form-text">Address of the restaurant.</small>
+          <input
+            type="text"
+            name="Rest_location"
+            value={Rest_location}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="Description">Description</label>
+          <small className="form-text">
+            Describe your restaurant in few words.
+          </small>
+          <input
+            type="text"
+            name="Description"
+            value={Description}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+
+        <div className="form-group">
           <label for="Timings">Timings</label>
           <br />
-          <small className="form-text">
-            The Boss, Calamity Jane, The Profilic Reviewer
-          </small>
+          <small className="form-text">Restaurant Timings</small>
           <input
             type="text"
             name="Timings"
@@ -72,11 +109,44 @@ const Createrestprofile = ({ createRestProfile, history }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
+        <div className="form-group">
+          <label for="Curbside_PickUp">Curbside PickUp</label>
+          <br />
+          <small className="form-text">Say yes or no</small>
+          <input
+            type="text"
+            name="Curbside_PickUp"
+            value={Curbside_PickUp}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="Dine_In">Dine In</label>
+          <br />
+          <small className="form-text">Say yes or no</small>
+          <input
+            type="text"
+            name="Dine_In"
+            value={Dine_In}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="Yelp_Delivery">Yelp Delivery</label>
+          <br />
+          <small className="form-text">Say yes or no</small>
+          <input
+            type="text"
+            name="Yelp_Delivery"
+            value={Yelp_Delivery}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
 
         <input type="submit" className="btn btn-dark my-1" />
-        <a className="btn btn-light my-1" href="restaurantdashboard.html">
+        <Link className="btn btn-light my-1" to="/restaurantdashboard">
           Cancel
-        </a>
+        </Link>
       </form>
     </Fragment>
   );
