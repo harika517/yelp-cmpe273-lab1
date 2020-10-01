@@ -349,4 +349,36 @@ router.post(
         }
     }
 );
+
+//@route  POST customer/profile/update/me/profilepic
+//@desc   Update/Create all the customer details
+//@access  Private
+//Table Customer_Information
+
+router.post('/updateprofile/profilepic/:Cust_email_id', (req, res) => {
+    const { Cust_ProfilePic } = req.body;
+    //console.log('custProfile', req.params);
+    const customerID = Cust_email_id;
+    console.log('Update profilePic', customerID);
+    try {
+        var query = `UPDATE Customer_Information set Cust_ProfilePic='${Cust_ProfilePic}' 
+            WHERE Cust_email_id='${customerID}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Server Error');
+            }
+            if (result.length === 0) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'Customer doesnt Exists' }] });
+            }
+            // console.log(result);
+            res.status(200).json(result[0]);
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
 module.exports = router;

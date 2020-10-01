@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from './types';
+import { GET_PROFILE, PROFILE_ERROR, POST_IMAGE } from './types';
 
 //Get current users profile
 ///customer/profile/:Cust_Id
@@ -14,7 +14,7 @@ export const getCurrentProfile = () => async(dispatch) => {
         });
     } catch (err) {
         dispatch({
-            type: PROFILE_ERROR,
+            type: GET_PROFILE,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }
@@ -78,6 +78,35 @@ export const editProfile = (formData, history, edit = false) => async(
         const errors = err.response.data.errors;
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+/*Edit profile pic*/
+
+export const editProfilePic = (formData) => async(dispatch) => {
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            'http://localhost:3001/customer/profile/updateprofile/profilepic/:Cust_email_id',
+            formData,
+            config
+        );
+        dispatch({
+            type: POST_IMAGE,
+            payload: res.data,
+        });
+        dispatch(setAlert('Profile Updated', 'success'));
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg)));
         }
         dispatch({
             type: PROFILE_ERROR,

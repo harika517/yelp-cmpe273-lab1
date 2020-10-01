@@ -19,28 +19,80 @@ const Dashboard = ({
     ''
   ) : (
     <Fragment>
+      <div className="container_columns">
+        <div className="columns">
+          <div className="column_cards">
+            <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+            <h3 className="lead">
+              {' '}
+              <i className="fas fa-user" />
+              {profile.Cust_Name}'s profile
+            </h3>
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column_cards">
+            <h2>{profile.Cust_Name}</h2>
+            <p className="lead">
+              {profile.City} {profile.State} {profile.Country}
+              <p className="lead text-dark"> Recent Activity</p>
+            </p>
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column_cards">
+            <DashboardActions />
+            <p className="lead">About {profile.Cust_Name}</p>
+            {Object.keys(profile).map(
+              (key) => {
+                if (
+                  profile[key] !== '' &&
+                  [
+                    'Nick_Name',
+                    'Headline',
+                    'Yelping_Since',
+                    'Things_I_Love',
+                    'My_Blog_Or_Website',
+                    'Find_Me_In',
+                    'My_Favourite_Movie',
+                    'Current_Crush',
+                  ].includes(key)
+                ) {
+                  return (
+                    <div>
+                      <p className="lead">{key.replaceAll('_', ' ')}</p>
+                      <h5>{profile[key]}</h5>
+                    </div>
+                  );
+                }
+              }
+              // console.log(key + ' : ' + profile[key])
+            )}
+          </div>
+        </div>
+      </div>
       {/* <div className="row">
         <div className="column"> */}
-      <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+      {/* <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
       <h3 className="lead">
         {' '}
         <i className="fas fa-user" />
         {profile.Cust_Name}'s profile
-      </h3>
+      </h3> */}
       {/* </div>
         <div className="column"> */}
-      <h2>{profile.Cust_Name}</h2>
+      {/* <h2>{profile.Cust_Name}</h2>
       <p className="lead">
         {profile.City} {profile.State} {profile.Country}
-      </p>
+      </p> */}
       {/* <Link to="/createprofile" className="btn btn-dark my-1">
             Create Profile
           </Link> */}
 
-      <p className="lead text-dark"> Recent Activity</p>
+      {/* <p className="lead text-dark"> Recent Activity</p> */}
       {/* </div>
         <div clasNames="column"> */}
-      <DashboardActions />
+      {/* <DashboardActions />
 
       <p className="lead">About {profile.Cust_Name}</p>
 
@@ -68,7 +120,7 @@ const Dashboard = ({
           }
         }
         // console.log(key + ' : ' + profile[key])
-      )}
+      )} */}
       {/* </div>
       </div> */}
     </Fragment>

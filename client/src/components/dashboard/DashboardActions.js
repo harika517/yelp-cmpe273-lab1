@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import insertImage from '../../actions/uploadimages';
+import editProfilePic from '../../actions/uploadimages';
 
 const DashboardActions = (insertImage) => {
   const [formData, setFormData] = useState({
-    Cust_Images: '',
+    Cust_ProfilePic: '',
   });
 
-  const { Cust_Images } = formData;
+  const { Cust_ProfilePic } = formData;
   console.log('here photo');
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    insertImage(formData);
+  // const onChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  //   insertImage(formData);
+  // };
+
+  const fileHandler = (event) => {
+    console.log(event.target.files[0].name);
+  };
+
+  const fileSave = () => {
+    console.log('reached file save');
   };
 
   return (
@@ -24,9 +32,11 @@ const DashboardActions = (insertImage) => {
       <input
         type="file"
         name="Cust_Images"
-        onChange={(e) => onChange(e)}
-        value={Cust_Images}
+        //onChange={(e) => onChange(e)}
+        onChange={fileHandler}
+        value={Cust_ProfilePic}
       />
+      <button onClick={fileSave}>Upload</button>
       <br />
       <br />
       <Link to="/editProfile" className=" lead text-primary">
@@ -50,4 +60,4 @@ DashboardActions.propTypes = {
   insertImage: PropTypes.func.isRequired,
 };
 
-export default connect(null, { insertImage })(withRouter(DashboardActions));
+export default connect(null, { editProfilePic })(withRouter(DashboardActions));
