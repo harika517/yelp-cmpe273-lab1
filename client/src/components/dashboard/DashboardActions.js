@@ -1,12 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import insertImage from '../../actions/uploadimages';
 
-const DashboardActions = () => {
+const DashboardActions = (insertImage) => {
+  const [formData, setFormData] = useState({
+    Cust_Images: '',
+  });
+
+  const { Cust_Images } = formData;
+  console.log('here photo');
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    insertImage(formData);
+  };
+
   return (
     <div className="dash-buttons">
       <Link to="/addPhotos" className=" lead text-primary">
         <i className="fas fa-camera-retro text-primary"></i> Add Profile Photos
-      </Link>
+      </Link>{' '}
+      <input
+        type="file"
+        name="Cust_Images"
+        onChange={(e) => onChange(e)}
+        value={Cust_Images}
+      />
       <br />
       <br />
       <Link to="/editProfile" className=" lead text-primary">
@@ -14,18 +34,20 @@ const DashboardActions = () => {
       </Link>
       <br />
       <br />
-      {/* <Link to="/basicDetails" className="lead text-primary">
-        <i className="fas fa-user-circle text-primary"></i> Basic Details
+      <Link to="/events" className=" lead text-primary">
+        <i className="fas fa-calendar-alt text-primary"></i> Events
       </Link>
       <br />
       <br />
-      <Link to="/AboutDetails" className=" lead text-primary">
-        <i className="fas fa-user-circle text-primary"></i> About Details
+      <Link to="/reviews" className=" lead text-primary">
+        <i className="fas fa-edit text-primary"></i> Write a Review
       </Link>
-      <br />
-      <br /> */}
     </div>
   );
 };
 
-export default DashboardActions;
+DashboardActions.propTypes = {
+  insertImage: PropTypes.func.isRequired,
+};
+
+export default connect(null, { insertImage })(withRouter(DashboardActions));

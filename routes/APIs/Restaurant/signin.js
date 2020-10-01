@@ -5,6 +5,37 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
+const auth = require('../../../middleware/auth');
+
+//@route POST /restaurant/auth
+//@desc  Test route
+//@access Public
+
+router.get('/', auth, async(req, res) => {
+    const Rest_email_id = req.customer.id;
+    console.log('Restaurant sigin get get', Rest_email_id);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT Rest_Name, Rest_email_id, Rest_location FROM Restaurant_Information WHERE Rest_email_id = '${Rest_email_id}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Database Server Error');
+                }
+                // if (result.hasOwnProperty('Rest_Name')) {
+                //     console.log('Print this', result.Rest_Name);
+                // }
+                console.log('Here ', result);
+                // console.log(JSON.stringify(result));
+                // res.send(JSON.stringify(result));
+                res.status(200).json({ result });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
 
 //@route POST /restaurant/signIn
 //@desc  Test route

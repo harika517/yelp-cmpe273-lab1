@@ -11,16 +11,16 @@ import { logout } from '../../actions/auth';
 export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
-      <li>
+      {/* <li>
         <a href="/review" className="btn btn-dark my-1">
           <span className="hide-sm">Write a Review</span>
         </a>
-      </li>
-      <li>
+      </li> */}
+      {/* <li>
         <a href="/events" className="btn btn-dark my-1">
           <span className="hide-sm">Events</span>
         </a>
-      </li>
+      </li> */}
       <li>
         <a onClick={logout} href="/" className="btn btn-dark my-1">
           <i className="fas fa-sign-out-alt"></i>
@@ -39,6 +39,11 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Link to="/" className="btn btn-dark my-1">
           <i className="fas fa-home" />
           Home
+        </Link>
+      </li>
+      <li>
+        <Link to="/restaurants" className="btn btn-dark my-1">
+          Restaurant Login
         </Link>
       </li>
       <li>

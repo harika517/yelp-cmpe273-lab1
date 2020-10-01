@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -19,37 +19,58 @@ const Dashboard = ({
     ''
   ) : (
     <Fragment>
-      <div className="container_1">
-        <div className="leftpane">
-          <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
-          <h3 className="lead">
-            {' '}
-            <i className="fas fa-user" />
-            {profile.Cust_Name}'s profile
-          </h3>
-          <hr></hr>
-        </div>
-        <div className="middlepane">
-          <h2>{profile.Cust_Name}</h2>
-          <p className="lead">
-            {profile.City} {profile.State} {profile.Country}
-          </p>
-          {/* <Link to="/createprofile" className="btn btn-dark my-1">
+      {/* <div className="row">
+        <div className="column"> */}
+      <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+      <h3 className="lead">
+        {' '}
+        <i className="fas fa-user" />
+        {profile.Cust_Name}'s profile
+      </h3>
+      {/* </div>
+        <div className="column"> */}
+      <h2>{profile.Cust_Name}</h2>
+      <p className="lead">
+        {profile.City} {profile.State} {profile.Country}
+      </p>
+      {/* <Link to="/createprofile" className="btn btn-dark my-1">
             Create Profile
           </Link> */}
-          <hr></hr>
-          <p className="lead text-dark"> Recent Activity</p>
-        </div>
-        <div clasNames="rightpane">
-          <DashboardActions />
-          <hr></hr>
-          <p className="lead">About {profile.Cust_Name}</p>
-          <div>
-            <p className="lead"> Email ID</p>
-          </div>
-          <div>{profile.Cust_email_id}</div>
-        </div>
-      </div>
+
+      <p className="lead text-dark"> Recent Activity</p>
+      {/* </div>
+        <div clasNames="column"> */}
+      <DashboardActions />
+
+      <p className="lead">About {profile.Cust_Name}</p>
+
+      {Object.keys(profile).map(
+        (key) => {
+          if (
+            profile[key] !== '' &&
+            [
+              'Nick_Name',
+              'Headline',
+              'Yelping_Since',
+              'Things_I_Love',
+              'My_Blog_Or_Website',
+              'Find_Me_In',
+              'My_Favourite_Movie',
+              'Current_Crush',
+            ].includes(key)
+          ) {
+            return (
+              <div>
+                <p className="lead">{key.replaceAll('_', ' ')}</p>
+                <h5>{profile[key]}</h5>
+              </div>
+            );
+          }
+        }
+        // console.log(key + ' : ' + profile[key])
+      )}
+      {/* </div>
+      </div> */}
     </Fragment>
   );
 };

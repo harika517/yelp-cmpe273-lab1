@@ -2,14 +2,14 @@ import React, { Fragment, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { loginRestaurantUser } from '../../actions/auth';
 
-const Login = ({ login, isAuthenticated }) => {
+const LoginRestaurant = ({ loginRestaurantUser, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    Cust_email_id: '',
-    Cust_Password: '',
+    Rest_email_id: '',
+    Rest_Password: '',
   });
-  const { Cust_email_id, Cust_Password } = formData;
+  const { Rest_email_id, Rest_Password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,25 +17,25 @@ const Login = ({ login, isAuthenticated }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('SUCCESS');
-    login(Cust_email_id, Cust_Password);
+    loginRestaurantUser(Rest_email_id, Rest_Password);
   };
   // redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/restaurantdashboard" />;
   }
   return (
     <Fragment>
-      <h1 className="large text-dark">Login</h1>
+      <h1 className="large text-dark"> Restaurant Login</h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Login yelp
+        <i className="fas fa-user"></i> Login to your restaurant account
       </p>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <input
             type="email"
             placeholder="Email Address"
-            name="Cust_email_id"
-            value={Cust_email_id}
+            name="Rest_email_id"
+            value={Rest_email_id}
             onChange={(e) => onChange(e)}
           />
         </div>
@@ -43,8 +43,8 @@ const Login = ({ login, isAuthenticated }) => {
           <input
             type="password"
             placeholder="Password"
-            name="Cust_Password"
-            value={Cust_Password}
+            name="Rest_Password"
+            value={Rest_Password}
             onChange={(e) => onChange(e)}
           />
         </div>
@@ -52,15 +52,16 @@ const Login = ({ login, isAuthenticated }) => {
       </form>
       <p className="my-1">
         Dont have yelp account?{' '}
-        <Link to="/signup" className="text-dark">
+        <Link to="/restaurants/signup" className="text-dark">
           SignUp
         </Link>
       </p>
     </Fragment>
   );
 };
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
+
+LoginRestaurant.propTypes = {
+  loginRestaurantUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -68,4 +69,6 @@ Login.propTypes = {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { loginRestaurantUser })(
+  LoginRestaurant
+);

@@ -5,170 +5,166 @@ import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from './types';
 
 //Get current users profile
 ///customer/profile/:Cust_Id
-export const getCurrentProfile = () => async (dispatch) => {
-  try {
-    const res = await axios.get('http://localhost:3001/customer/profile/me');
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
+export const getCurrentProfile = () => async(dispatch) => {
+    try {
+        const res = await axios.get('http://localhost:3001/customer/profile/me');
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
 };
 
 //create or update profile
-export const createProfile = (formData, history, edit = false) => async (
-  dispatch
+export const createProfile = (formData, history, edit = false) => async(
+    dispatch
 ) => {
-  try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-    };
-    const res = await axios.post(
-      'http://localhost:3001/customer/profile/updateprofile/me',
-      formData,
-      config
-    );
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
-    if (!edit) {
-      history.push('/dashboard');
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            'http://localhost:3001/customer/profile/updateprofile/me',
+            formData,
+            config
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+        if (!edit) {
+            history.push('/dashboard');
+        }
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
     }
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
 };
 
 //edit profile
-export const editProfile = (formData, history, edit = false) => async (
-  dispatch
+export const editProfile = (formData, history, edit = false) => async(
+    dispatch
 ) => {
-  try {
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-    };
-    const res = await axios.post(
-      'http://localhost:3001/customer/profile/updateprofile/me',
-      formData,
-      config
-    );
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
-    if (!edit) {
-      history.push('/dashboard');
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            'http://localhost:3001/customer/profile/updateprofile/me',
+            formData,
+            config
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
+        if (!edit) {
+            history.push('/dashboard');
+        }
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
     }
-  } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
 };
 
-//edit basic details
-// export const editBasicProfile = (formData, history) => async (dispatch) => {
-//   try {
-//     const config = {
-//       headers: { 'Content-Type': 'application/json' },
-//     };
-//     const res = await axios.post(
-//       'http://localhost:3001/customer/profile/basicdetails/me',
-//       formData,
-//       config
-//     );
-//     dispatch({
-//       type: UPDATE_PROFILE,
-//       payload: res.data,
-//     });
-//     dispatch(setAlert('Basic Details updated', 'success'));
-//     history.push('/dashboard');
-//   } catch (err) {
-//     const errors = err.response.data.errors;
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+//Restaurant User
+//get currect restaurant user
+export const getCurrentRestProfile = () => async(dispatch) => {
+    try {
+        const res = await axios.get('http://localhost:3001/restaurant/profile/me');
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
 
-// //edit about details
-// export const editAboutProfile = (formData, history) => async (dispatch) => {
-//   try {
-//     const config = {
-//       headers: { 'Content-Type': 'application/json' },
-//     };
-//     const res = await axios.post(
-//       'http://localhost:3001/customer/profile/custabout/me',
-//       formData,
-//       config
-//     );
-//     dispatch({
-//       type: UPDATE_PROFILE,
-//       payload: res.data,
-//     });
-//     dispatch(setAlert('About details updated', 'success'));
-//     history.push('/dashboard');
-//   } catch (err) {
-//     const errors = err.response.data.errors;
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+//create or update restaurant profile
+export const createRestProfile = (formData, history, edit = false) => async(
+    dispatch
+) => {
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            'http://localhost:3001/restaurant/profile/updateprofile/me',
+            formData,
+            config
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+        if (!edit) {
+            history.push('/restaurantdashboard');
+        }
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
 
-// //edit Contact details
-// export const editContact = (formData, history) => async (dispatch) => {
-//   try {
-//     const config = {
-//       headers: { 'Content-Type': 'application/json' },
-//     };
-//     const res = await axios.post(
-//       'http://localhost:3001/customer/profile/contactinfo/me',
-//       formData,
-//       config
-//     );
-//     dispatch({
-//       type: UPDATE_PROFILE,
-//       payload: res.data,
-//     });
-//     dispatch(setAlert('Contact information updated', 'success'));
-//     history.push('/dashboard');
-//   } catch (err) {
-//     const errors = err.response.data.errors;
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
-//     dispatch({
-//       type: PROFILE_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status },
-//     });
-//   }
-// };
+//edit restaurant profile
+export const editRestProfile = (formData, history, edit = false) => async(
+    dispatch
+) => {
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            'http://localhost:3001/customer/profile/updateprofile/me',
+            formData,
+            config
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
+        if (!edit) {
+            history.push('/restaurantdashboard');
+        }
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};

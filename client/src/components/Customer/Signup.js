@@ -86,7 +86,10 @@ const Signup = ({ setAlert, signup, isAuthenticated }) => {
         <input type="submit" className="btn btn-dark" value="SignUp" />
       </form>
       <p className="my-1">
-        Already on yelp? <Link to="/login">Sign In</Link>
+        Already on yelp?{' '}
+        <Link to="/login" className="text-dark">
+          Sign In
+        </Link>
       </p>
     </Fragment>
   );

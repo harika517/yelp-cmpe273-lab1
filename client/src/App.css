@@ -21,6 +21,8 @@ body {
     line-height: 1.6;
     background-color: #fff;
     color: #333;
+    height: 100%;
+    width: 100%;
 }
 
 .logo-icon {
@@ -32,53 +34,9 @@ body {
     width: 120px;
 }
 
-.container_1 {
-    width: 100%;
-    height: 100%;
+h3 {
+    font-weight: bold;
 }
-
-
-/* .container_1 div {
-    padding: 1%;
-    box-sizing: border-box;
-} */
-
-.toppane {
-    width: 100%;
-    height: 150px;
-    border-collapse: collapse;
-    background-color: lightgrey;
-}
-
-.leftpane,
-.rightpane {
-    width: 25%;
-    height: 100%;
-    float: left;
-    /* background-color: #fff;
-    border-collapse: collapse; */
-}
-
-.middlepane {
-    width: 50%;
-    height: 100%;
-    float: left;
-    /* background-color: #fff;
-    border-collapse: collapse; */
-}
-
-
-/* .rightpane {
-    width: 25%;
-    height: 100%;
-    /* position: relative;
-
-float: right;
-background-color: #fff;
-border-collapse: collapse;
-overflow: hidden;
-
-} */
 
 a {
     color: var(--primary-color);
@@ -266,7 +224,7 @@ hr {
 .alert-light {
     background: var(--light-color);
     color: #333;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .btn-dark,
@@ -498,12 +456,35 @@ button {
 
 .profile {
     display: grid;
-    grid-template-columns: 2fr 4fr 2fr;
-    align-items: center;
-    grid-gap: 2rem;
+    grid-template-columns: 3fr 3fr 3fr;
+    align-items: left;
+    grid-gap: 1rem;
     padding: 1rem;
-    line-height: 1.8;
+    line-height: 1;
     margin-bottom: 1rem;
+}
+
+
+/*Events page */
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+
+/* On mouse-over, add a deeper shadow */
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+/* Add some padding inside the card container */
+
+.container {
+    padding: 2px 16px;
 }
 
 

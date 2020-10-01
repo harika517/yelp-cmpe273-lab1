@@ -38,6 +38,9 @@ const customerProfile = require('./routes/APIs/Customer/custProfile');
 const customerReviews = require('./routes/APIs/Customer/reviews');
 const customerOrders = require('./routes/APIs/Customer/orders');
 const customerAuth = require('./routes/APIs/auth');
+const customerImage = require('./routes/APIs/ImageUploads/CustImage');
+
+// const restaurantAuth = require('./routes/APIs/auth');
 
 const restaurantSignUp = require('./routes/APIs/Restaurant/signup');
 const restaurantSignIn = require('./routes/APIs/Restaurant/signin');
@@ -53,6 +56,8 @@ app.use('/customer/profile', customerProfile);
 app.use('/customer/reviews', customerReviews);
 app.use('/customer/orders', customerOrders);
 app.use('/customer/auth', customerAuth);
+app.use('/customer/addphoto', customerImage);
+// app.use('restaurant/auth', restaurantAuth);
 
 app.use('/restaurant/signUP', restaurantSignUp);
 app.use('/restaurant/signIn', restaurantSignIn);
