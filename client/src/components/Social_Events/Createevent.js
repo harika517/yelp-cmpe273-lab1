@@ -13,6 +13,7 @@ const Createevent = ({ createEvent, history }) => {
     Hashtags: '',
     What_And_Why: '',
     Rest_Name: '',
+    Rest_email_id: '',
   });
 
   const {
@@ -23,6 +24,7 @@ const Createevent = ({ createEvent, history }) => {
     Hashtags,
     What_And_Why,
     Rest_Name,
+    Rest_email_id,
   } = formData;
 
   const onChange = (e) =>
@@ -82,6 +84,16 @@ const Createevent = ({ createEvent, history }) => {
             type="text"
             name="Event_Location"
             value={Event_Location}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="Rest_email_id">Write to Us</label>
+          <br />
+          <input
+            type="text"
+            name="Rest_email_id"
+            value={Rest_email_id}
             onChange={(e) => onChange(e)}
           />
         </div>

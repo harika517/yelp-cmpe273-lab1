@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 //     allevents: { result },
 //   },
 // }
-const EventItem = (props) => {
+const RestEventItem = (props) => {
   //console.log('props are ', props);
   let {
     events: {
@@ -18,6 +18,7 @@ const EventItem = (props) => {
       Hashtags,
       Rest_Name,
       What_And_Why,
+      Rest_email_id,
     },
   } = props;
   console.log(
@@ -27,7 +28,8 @@ const EventItem = (props) => {
     Event_Time,
     Hashtags,
     Rest_Name,
-    What_And_Why
+    What_And_Why,
+    Rest_email_id
   );
   return (
     <div className="wrapper">
@@ -38,7 +40,6 @@ const EventItem = (props) => {
               <img className="card_img" src=" " alt="Photo" />
             </div>
             <div className="card_bottom">
-              {/* <div className="card_category">Travel</div> */}
               <div className=" card_info">
                 <p className="lead title">{Event_Name}</p>
                 <p className="medium">
@@ -57,32 +58,30 @@ const EventItem = (props) => {
                   {What_And_Why}
                   <i className="fas fa-quote-right medium text-dark"></i>
                 </p>
+                <p className="medium">
+                  <i className="fas fa-edit text-dark"></i> {Rest_email_id}
+                </p>
+                <Link className="btn btn-dark" to="#!">
+                  {' '}
+                  View Attendees
+                </Link>
+                <br></br>
+                <br></br>
+                <Link className="btn btn-dark" to="/restaurants/editevent">
+                  {' '}
+                  Edit Event
+                </Link>
               </div>
-              {/* <div className="card_creator">By Alex Kato</div> */}
             </div>
           </div>
         </div>
       </div>
     </div>
-    // <div className="profile bg-light">
-    //   <img className="round-img"></img>
-    //   <div>
-    //     {Event_Name}
-    //     {/* <h3>{result.length}</h3> */}
-    //     <i className="fas fa-calendar-day"></i> {Event_Date}
-    //     <i className="fas fa-clock"></i> {Event_Time}
-    //     <br />
-    //     <i className="fas fa-map-marked-alt"></i> {Event_Location}
-    //     <i className="fas fa-hashtag"></i> {Hashtags}
-    //     <i className="fas fa-quote-left"></i> {What_And_Why}
-    //     <i className="fas fa-quote-right"></i>
-    //   </div>
-    // </div>
   );
 };
 
-EventItem.propTypes = {
+RestEventItem.propTypes = {
   events: PropTypes.object.isRequired,
 };
 
-export default EventItem;
+export default RestEventItem;

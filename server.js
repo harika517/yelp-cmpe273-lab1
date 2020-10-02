@@ -49,6 +49,7 @@ const restaurantProfile = require('./routes/APIs/Restaurant/restProfile');
 const restaurantReviews = require('./routes/APIs/Restaurant/reviews');
 const restaurantOrders = require('./routes/APIs/Restaurant/orders');
 const restaurantEvents = require('./routes/APIs/upcomingEvents/events');
+const restaurantMenuItems = require('./routes/APIs/Restaurant/restaurantMenuItems');
 
 app.use('/customer/signUP', customerSignUp);
 app.use('/customer/signIn', customerSignIn);
@@ -65,6 +66,7 @@ app.use('/restaurant/signIn', restaurantSignIn);
 app.use('/restaurant/profile', restaurantProfile);
 app.use('/restaurant/reviews', restaurantReviews);
 app.use('/restaurant/orders', restaurantOrders);
+app.use('/restaurant/menuitems', restaurantMenuItems);
 app.use('/restaurant/events', restaurantEvents);
 
 const authorization = require('./middleware/auth');

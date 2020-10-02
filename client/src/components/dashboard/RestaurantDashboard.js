@@ -67,7 +67,7 @@ const RestaurantDashboard = ({
             </Link>
           </div>
           <div className="column2">
-            <Link to="#!" className="btn btn-dark">
+            <Link to="/restaurant/menu" className="btn btn-dark">
               <i className="fas fa-utensils"></i>
               View Menu
             </Link>

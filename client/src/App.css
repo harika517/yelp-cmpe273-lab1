@@ -86,6 +86,18 @@ ul {
     font-weight: bold;
 }
 
+.medium {
+    font-size: 1.5rem;
+}
+
+.small {
+    font-size: 1rem;
+}
+
+.x-small {
+    font-size: 0.5rem;
+}
+
 .text-center {
     text-align: center;
 }
@@ -503,21 +515,25 @@ button {
 
 .wrapper {
     width: 100%;
-    margin: 20px auto;
+    margin: 0 auto;
 }
 
 .cards_wrap {
+    /* width: 100%; */
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
 }
 
 .cards_wrap .card_item {
     width: 25%;
     padding: 10px;
+    overflow: scroll;
 }
 
 .cards_wrap .card_inner {
     background: #fff;
+    overflow: scroll;
 }
 
 .cards_wrap .card_top {
@@ -525,22 +541,26 @@ button {
     height: auto;
     padding: 10px;
     padding-bottom: 0;
+    overflow: scroll;
 }
 
 .cards_wrap .card_bottom {
     padding: 15px;
+    overflow: scroll;
 }
 
 .cards_wrap .card_bottom .card_info {
     padding: 15px;
     margin: 10px 0;
     border: 1px solid lightgray;
+    overflow: scroll;
 }
 
 .cards_wrap .card_bottom .card_info .title {
     color: #0071bc;
     font-size: 18px;
     margin-bottom: 5px;
+    overflow: scroll;
 }
 
 

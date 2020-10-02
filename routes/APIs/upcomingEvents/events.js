@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
-const auth = require('../auth');
+const auth = require('../../../middleware/auth');
 
 //@route  GET (get all events) '/customer/events'
 //@desc   view all events by customers
@@ -16,8 +16,7 @@ const auth = require('../auth');
 router.get('/', (req, res) => {
     try {
         mysqlConnectionPool.query(
-            `SELECT Event_Name, Event_Date, Event_Time, Event_Location, Hashtags, 
-        What_And_Why, Rest_Name, Rest_email_id FROM Events ORDER BY Event_Date ASC`,
+            `SELECT * FROM Events ORDER BY Event_Date ASC`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -38,7 +37,7 @@ router.get('/', (req, res) => {
     }
 });
 
-//@route  POST (Post events by restaurant ) '/events/me'
+//@route  POST (Post events by restaurant ) 'restsaurant/events/me'
 //@desc   Creating an event
 //@access  Private
 //Table Events
@@ -51,7 +50,7 @@ router.post(
         check('Event_Time', 'Please mention Time').not().isEmpty(),
         check('Event_Location', 'Please include Venue details').not().isEmpty(),
         check('Rest_Name', 'Please include Venue details').not().isEmpty(),
-        check('Rest_email_id', 'Please include contact details').not().isEmpty(),
+        check('Rest_email_id', 'Please include emailId').not().isEmpty(),
     ],
     (req, res) => {
         // console.log(req.body);
@@ -102,13 +101,13 @@ router.post(
     }
 );
 
-//@route  POST (Update events by me ) '/events/update/me'
+//@route  POST (Update events by me ) 'restaurant/events/update/me'
 //@desc   Updating an event
 //@access  Private
 //Table Events
 //Restaurant Action
-
-router.post('/update/me', auth, async(req, res) => {
+//hanging request in postman ......
+router.post('/updateevent/:Event_Id', auth, async(req, res) => {
     // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -125,7 +124,7 @@ router.post('/update/me', auth, async(req, res) => {
         Rest_Name,
         Rest_email_id,
     } = req.body;
-    const customerID = req.customer.id;
+    // const Event_Name = req.customer.id;
     // console.log('Event Name: ', customerID);
     // See if user exists
     try {
@@ -133,7 +132,7 @@ router.post('/update/me', auth, async(req, res) => {
             `UPDATE Events set Event_Name = '${Event_Name}', Event_Date ='${Event_Date}', 
             Event_Time='${Event_Time}', Event_Location='${Event_Location}', Hashtags='${Hashtags}', 
             What_And_Why= '${What_And_Why}', Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}'
-            WHERE Rest_email_id='${customerID}'`,
+            WHERE Event_Id='${Event_Id}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -168,6 +167,7 @@ router.get('/me', auth, (req, res) => {
     try {
         mysqlConnectionPool.query(
             `SELECT
+            Event_Id,
             Event_Name,
             Event_Date,
             Event_Time,
@@ -191,7 +191,7 @@ router.get('/me', auth, (req, res) => {
                     });
                 }
                 //console.log(result);
-                res.status(200).json(result[0]);
+                res.status(200).json({ result });
             }
         );
     } catch (error) {

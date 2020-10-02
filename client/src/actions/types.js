@@ -19,3 +19,6 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const CLEAR_EVENT = 'CLEAR_EVENT';
 export const POST_IMAGE = 'POST_IMAGE';
 export const IMAGE_ERROR = 'IMAGE_ERROR';
+export const GET_MENUITEM = 'GET_MENUITEM';
+export const GET_MENUITEMS = 'GET_MENUITEMS';
+export const MENUITEM_ERROR = 'GET_MENUITEMS';

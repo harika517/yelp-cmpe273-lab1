@@ -4,26 +4,26 @@ import { Link, withRouter } from 'react-router-dom';
 import RestaurantActions from './RestaurantActions';
 import { connect } from 'react-redux';
 import { getRestaurantEvents } from '../../actions/events';
+import { getCurrentRestProfile } from '../../actions/profile';
+import RestEventItem from '../Social_Events/RestEventItem';
 import auth from '../../reducers/auth';
 
 const RestaurantEventsDashboard = ({
+  getCurrentRestProfile,
   getRestaurantEvents,
-  // auth: { customer, isAuthenticated },
-  profile: { profile },
-  events: { event },
+  events: {
+    allevents: { result },
+    loading,
+  },
 }) => {
-  console.log('qwer', profile);
   useEffect(() => {
-    getRestaurantEvents(profile.Rest_Name);
-  }, []);
+    getRestaurantEvents();
+  }, [loading]);
 
   // console.log('Customer' + customer + isAuthenticated);
   return (
     <div>
       <Fragment>
-        <h1>
-          Customer: <p>{JSON.stringify(event)}</p>
-        </h1>
         <Link to="/restaurantdashboard" className="lead text-primary">
           {' '}
           Return to Restaurant Page
@@ -31,6 +31,25 @@ const RestaurantEventsDashboard = ({
         <br />
         <br />
         <RestaurantActions />
+        <hr></hr>
+        <Fragment>
+          {loading ? (
+            ' '
+          ) : (
+            <Fragment>
+              <h3 className="text-dark"> Events</h3>
+              <div className="card">
+                {result.length > 0 ? (
+                  result.map((item) => (
+                    <RestEventItem key={item.id} events={item} />
+                  ))
+                ) : (
+                  <h4> No Events Found</h4>
+                )}
+              </div>
+            </Fragment>
+          )}
+        </Fragment>
       </Fragment>
     </div>
   );
@@ -38,17 +57,18 @@ const RestaurantEventsDashboard = ({
 
 RestaurantEventsDashboard.propTypes = {
   getRestaurantEvents: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  getCurrentRestProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  // auth: state.auth,
   profile: state.profile,
-  events: state.event,
+  events: state.events,
 });
 
-export default connect(mapStateToProps, { getRestaurantEvents })(
-  RestaurantEventsDashboard
-);
+export default connect(mapStateToProps, {
+  getRestaurantEvents,
+  getCurrentRestProfile,
+})(RestaurantEventsDashboard);

@@ -15,9 +15,12 @@ import CreateRestProfile from './components/profile-forms/Createrestprofile';
 import EditRestaurantProfile from './components/profile-forms/Editrestprofile';
 import EventCreation from './components/Social_Events/Createevent';
 // import EventsDashboard from './components/dashboard/EventsDashboard';
+import RestEditEvent from './components/Social_Events/Restedititem';
 import ViewEvents from './components/Social_Events/Viewevents';
 import RestaurantEventsDashboard from './components/dashboard/RestaurantEventsDashboard';
 import RestaurantDashboard from './components/dashboard/RestaurantDashboard';
+import RestaurantMenuItems from './components/RestaurantMenuItems/Restaurantmenuitems';
+import RestaurantMenuItemCreate from './components/RestaurantMenuItems/RestaurantMenuItemCreate';
 import PrivateRoute from './components/routing/PrivateRoute';
 //Redux
 import { Provider } from 'react-redux';
@@ -80,6 +83,12 @@ const App = () => {
                 path="/createevent"
                 component={EventCreation}
               />
+
+              <PrivateRoute
+                exact
+                path="/restaurants/editevent"
+                component={RestEditEvent}
+              />
               <PrivateRoute
                 exact
                 path="/restaurantprofile"
@@ -89,6 +98,17 @@ const App = () => {
                 exact
                 path="/editrestaurantprofile"
                 component={EditRestaurantProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/restaurant/menu"
+                component={RestaurantMenuItems}
+              />
+
+              <PrivateRoute
+                exact
+                path="/restaurant/editmenu"
+                component={RestaurantMenuItemCreate}
               />
             </Switch>
           </section>

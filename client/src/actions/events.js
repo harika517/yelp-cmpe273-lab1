@@ -6,11 +6,11 @@ import { GET_EVENTS, GET_EVENT, EVENT_ERROR, CLEAR_EVENT } from './types';
 //Get all the events by Restaurant Name
 ///events/Rest_Name
 //${Rest_Name}
-export const getRestaurantEvents = (Rest_Name) => async(dispatch) => {
+export const getRestaurantEvents = () => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/events/${Rest_Name}`);
+        const res = await axios.get(`http://localhost:3001/restaurant/events/me`);
         dispatch({
-            type: GET_EVENT,
+            type: GET_EVENTS,
             payload: res.data,
         });
     } catch (err) {
@@ -27,7 +27,7 @@ export const getRestaurantEvents = (Rest_Name) => async(dispatch) => {
 export const getAllEvents = () => async(dispatch) => {
     // dispatch({ type: CLEAR_EVENT})
     try {
-        const res = await axios.get(`http://localhost:3001/events/`);
+        const res = await axios.get(`http://localhost:3001/customer/events`);
         dispatch({
             type: GET_EVENTS,
             payload: res.data,
@@ -41,15 +41,13 @@ export const getAllEvents = () => async(dispatch) => {
 };
 
 //create or update profile
-export const createEvent = (formData, history, edit = false) => async(
-    dispatch
-) => {
+export const createEvent = (formData, history) => async(dispatch) => {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/events/me',
+            'http://localhost:3001/restaurant/events/me',
             formData,
             config
         );
@@ -57,10 +55,8 @@ export const createEvent = (formData, history, edit = false) => async(
             type: GET_EVENT,
             payload: res.data,
         });
-        dispatch(setAlert(edit ? 'Event Updated' : 'Event Created', 'success'));
-        if (!edit) {
-            history.push('/restaurantevents');
-        }
+        dispatch(setAlert('Event Created', 'success'));
+        history.push('/restaurantevents');
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
