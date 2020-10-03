@@ -8,6 +8,7 @@ const Landing = () => {
     <section className="landing ">
       <div>
         <img class="logo-icon-large" src={'/images/logo.png'}></img>
+        <p>Search bar</p>
       </div>
       {/* <div className="search_bar">
         <input type="text"></input>

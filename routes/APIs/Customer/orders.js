@@ -4,27 +4,39 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const auth = require('../../../middleware/auth');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
 //@route  POST (Inerting orders by customer) '/customer/orders'
 //@desc   Creating orders by customer for particular restaurant Id.
 //@access  Private
 //Table Restaurant_Orders
-
+// Not working
 router.post(
-    '/:Cust_Id/:Rest_Name', [check('item_name', 'Please enter Item Name').not().isEmpty()],
+    '/me/:Rest_Name', [
+        auth, [
+            check('item_name', 'Please enter Item Name').not().isEmpty(),
+            check('Cust_Name', 'Please enter your Name').not().isEmpty(),
+            check('Mode_Of_Delivery', 'Please choose delivery method')
+            .not()
+            .isEmpty(),
+        ],
+    ],
     (req, res) => {
+        // console.log('First Order');
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const item_name = req.body.item_name;
-        //const Rest_Name = req.body.Rest_Name;
-        const customerID = req.params.Cust_Id;
+        console.log('Print Elements');
+        const { item_name, Cust_Name, Mode_Of_Delivery } = req.body;
+        // //const Rest_Name = req.body.Rest_Name;
+        // const customerID = req.params.Cust_Id;
         const restaurantName = req.params.Rest_Name;
+        console.log('Orders');
         try {
-            var query = `INSERT into Restaurant_Orders (Cust_Id, Rest_Name, item_name, delivery_status, order_status) VALUES
-            ('${customerID}','${restaurantName}','${item_name}', 'Order Received', 'New Order')`;
+            var query = `INSERT into Restaurant_Orders (Cust_Name, Rest_Name, item_name, order_status, Mode_Of_Delivery) VALUES
+            ('${Cust_Name}','${restaurantName}','${item_name}', 'New Order', '${Mode_Of_Delivery}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

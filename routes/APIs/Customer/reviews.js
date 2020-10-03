@@ -5,25 +5,25 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
+const auth = require('../../../middleware/auth');
 
 //@route  POST (Inerting reviews by customer) '/customer/reviews'
 //@desc   viewing the reviews given by cutomer for particular restaurant Id.
 //@access  Private
-//Table customer_reviews
-
+//Table reviews
 router.post(
-    '/:Cust_Id/:Rest_Id_signup', [check('Review', 'Please enter review').not().isEmpty()],
+    '/:Rest_Name', [auth, [check('review', 'Please enter review').not().isEmpty()]],
     (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const Review = req.body.Review;
-        const customerID = req.params.Cust_Id;
-        const restaurantID = req.params.Rest_Id_signup;
+        const review = req.body.review;
+        //const customerID = req.params.Cust_Name;
+        const restaurantID = req.params.Rest_Name;
         try {
-            var query = `INSERT into customer_reviews (Cust_Id, Rest_Id_signup, Review) VALUES
-            ('${customerID}','${restaurantID}','${Review}')`;
+            var query = `INSERT into reviews (Rest_Name, review) VALUES
+            ('${restaurantID}','${review}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);
@@ -38,5 +38,33 @@ router.post(
         }
     }
 );
+
+// router.post(
+//     '/:Cust_Id/:Rest_Id_signup', [check('Review', 'Please enter review').not().isEmpty()],
+//     (req, res) => {
+//         const errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             return res.status(400).json({ errors: errors.array() });
+//         }
+//         const Review = req.body.Review;
+//         const customerID = req.params.Cust_Id;
+//         const restaurantID = req.params.Rest_Id_signup;
+//         try {
+//             var query = `INSERT into customer_reviews (Cust_Id, Rest_Id_signup, Review) VALUES
+//             ('${customerID}','${restaurantID}','${Review}')`;
+//             mysqlConnectionPool.query(query, (error, result) => {
+//                 if (error) {
+//                     console.log(error);
+//                     return res.status(500).send('Database Error');
+//                 }
+//                 console.log(result);
+//                 res.status(200).json({ result });
+//             });
+//         } catch (error) {
+//             console.log(error);
+//             res.status(500).send('Server Error');
+//         }
+//     }
+// );
 
 module.exports = router;

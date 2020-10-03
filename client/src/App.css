@@ -86,6 +86,10 @@ ul {
     font-weight: bold;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .medium {
     font-size: 1.5rem;
 }

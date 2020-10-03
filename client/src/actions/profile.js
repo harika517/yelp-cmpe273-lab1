@@ -118,6 +118,7 @@ export const editProfilePic = (formData) => async(dispatch) => {
 //Restaurant User
 //get currect restaurant user
 export const getCurrentRestProfile = () => async(dispatch) => {
+    console.log('inside getcurrentrestprofile');
     try {
         const res = await axios.get('http://localhost:3001/restaurant/profile/me');
         dispatch({
@@ -191,6 +192,38 @@ export const editRestProfile = (formData, history, edit = false) => async(
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+export const getAllRestProfiles = () => async(dispatch) => {
+    try {
+        const res = await axios.get('http://localhost:3001/restaurant/profile');
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+export const getRestByName = (Rest_Name) => async(dispatch) => {
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/profile/${Rest_Name}`
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },

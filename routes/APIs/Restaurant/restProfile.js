@@ -8,7 +8,7 @@ const auth = require('../../../middleware/auth');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
 //@route  GET restaurant/profile/me
-//@desc   get the customer profile of customer loggedin
+//@desc   get the restaurant profile of loggedin
 //@access  Private
 //Table Restaurant_Information
 router.get('/me', auth, async(req, res) => {
@@ -103,6 +103,69 @@ router.post(
     }
 );
 
+//@route  GET restaurant/profile/
+//@desc   get all the restaurant details
+//@access  Private
+//Table Restaurant_Information
+
+router.get('/', auth, async(req, res) => {
+    // const customerID = req.customer.id;
+    // console.log('Restaurant Profile', customerID);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
+            FROM Restaurant_Information`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
+                }
+                // console.log('Restaurant get/me:', result);
+                res.status(200).json({ result });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  GET restaurant/profile/
+//@desc   get all the restaurant details
+//@access  Private
+//Table Restaurant_Information
+
+router.get('/:Rest_Name', async(req, res) => {
+    const Rest_Name = req.params.Rest_Name;
+    // console.log('Restaurant Profile', customerID);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
+            FROM Restaurant_Information WHERE Rest_Name='${Rest_Name}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant doesnt Exists' }] });
+                }
+                // console.log('Restaurant get/me:', result);
+                res.status(200).json({ result });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
 // //@route  POST (Inerting profile) /restaurant/profile
 // //@desc   inserting profile of particular restaurant
 // //@access  Private

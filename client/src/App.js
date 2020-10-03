@@ -17,10 +17,14 @@ import EventCreation from './components/Social_Events/Createevent';
 // import EventsDashboard from './components/dashboard/EventsDashboard';
 import RestEditEvent from './components/Social_Events/Restedititem';
 import ViewEvents from './components/Social_Events/Viewevents';
+import ViewEventDetails from './components/Social_Events/Eventdetail';
 import RestaurantEventsDashboard from './components/dashboard/RestaurantEventsDashboard';
 import RestaurantDashboard from './components/dashboard/RestaurantDashboard';
 import RestaurantMenuItems from './components/RestaurantMenuItems/Restaurantmenuitems';
 import RestaurantMenuItemCreate from './components/RestaurantMenuItems/RestaurantMenuItemCreate';
+import RestaurantReviews from './components/Reviews/Reviews';
+import RestaurantOrders from './components/Orders/RestaurantViewOrders';
+import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 //Redux
 import { Provider } from 'react-redux';
@@ -67,7 +71,6 @@ const App = () => {
               />
               <PrivateRoute exact path="/editprofile" component={EditProfile} />
               {/* <PrivateRoute exact path="/events" component={EventsDashboard} /> */}
-
               <PrivateRoute
                 exact
                 path="/restaurantdashboard"
@@ -83,7 +86,6 @@ const App = () => {
                 path="/createevent"
                 component={EventCreation}
               />
-
               <PrivateRoute
                 exact
                 path="/restaurants/editevent"
@@ -104,11 +106,36 @@ const App = () => {
                 path="/restaurant/menu"
                 component={RestaurantMenuItems}
               />
-
               <PrivateRoute
                 exact
                 path="/restaurant/editmenu"
                 component={RestaurantMenuItemCreate}
+              />
+              <PrivateRoute
+                exact
+                path="/viewevent/:Event_Name"
+                component={ViewEventDetails}
+              />
+              <PrivateRoute
+                exact
+                path="/reviews"
+                component={RestaurantReviews}
+              />
+              <PrivateRoute
+                exact
+                path="/writereview/:Rest_Name"
+                component={WriteReviews}
+              />
+              <PrivateRoute
+                exact
+                path="/reviews"
+                component={RestaurantReviews}
+              />
+
+              <PrivateRoute
+                exact
+                path="/restaurant/orders/:Rest_Name"
+                component={RestaurantOrders}
               />
             </Switch>
           </section>

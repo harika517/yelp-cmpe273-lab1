@@ -13,7 +13,7 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 
 router.get('/:Rest_Name', (req, res) => {
     const Rest_Name = req.params.Rest_Name;
-    const customerID = req.params.Cust_Id;
+    // const customerID = req.params.Cust_Id;
     try {
         mysqlConnectionPool.query(
             `SELECT * FROM Restaurant_Orders WHERE Rest_Name='${Rest_Name}'`,

@@ -40,7 +40,9 @@ const EventItem = (props) => {
             <div className="card_bottom">
               {/* <div className="card_category">Travel</div> */}
               <div className=" card_info">
-                <p className="lead title">{Event_Name}</p>
+                <Link to={`/viewevent/${Event_Name}`} className="lead title">
+                  {Event_Name}
+                </Link>
                 <p className="medium">
                   <i className="fas fa-calendar-day text-dark"></i> {Event_Date}
                 </p>
@@ -52,11 +54,15 @@ const EventItem = (props) => {
                   {Event_Location}
                 </p>
                 <p className="medium">{Hashtags}</p>
-                <p className="medium">
+                {/* <p className="medium">
                   <i className="fas fa-quote-left medium text-dark"></i>{' '}
                   {What_And_Why}
                   <i className="fas fa-quote-right medium text-dark"></i>
-                </p>
+                </p> */}
+                {/* <Link to="#!" className="btn btn-dark">
+                  {' '}
+                  Register
+                </Link> */}
               </div>
               {/* <div className="card_creator">By Alex Kato</div> */}
             </div>

@@ -68,3 +68,23 @@ export const createEvent = (formData, history) => async(dispatch) => {
         });
     }
 };
+
+//View event detail Customer action
+
+export const getEventDetail = (Event_Name) => async(dispatch) => {
+    // dispatch({ type: CLEAR_EVENT})
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/customer/events/eventdetail/${Event_Name}`
+        );
+        dispatch({
+            type: GET_EVENT,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: EVENT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};

@@ -200,4 +200,49 @@ router.get('/me', auth, (req, res) => {
     }
 });
 
+//@route  GET (event detail by name) '/customer/events/eventdetail
+//@desc   view the events created by me(Restaurant)
+//@access  Private
+//Table Events
+//Restaurant Action
+
+router.get('/eventdetail/:Event_Name', auth, (req, res) => {
+    const Event_Name = req.params.Event_Name;
+    console.log('Event Detail', Event_Name);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT
+            Event_Id,
+            Event_Name,
+            Event_Date,
+            Event_Time,
+            Event_Location,
+            Hashtags,
+            What_And_Why,
+            Rest_Name,
+            Rest_email_id
+          FROM
+            Events
+          WHERE
+          Event_Name='${Event_Name}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res.status(400).json({
+                        errors: [{ msg: 'No events scheduled' }],
+                    });
+                }
+                //console.log(result);
+                res.status(200).json({ result });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

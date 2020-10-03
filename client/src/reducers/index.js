@@ -5,6 +5,9 @@ import profile from './profile';
 import events from './events';
 import images from './image';
 import menu from './menu';
+import eventregister from './eventregister';
+import review from './review';
+import order from './orders';
 
 export default combineReducers({
     alert,
@@ -13,4 +16,7 @@ export default combineReducers({
     events,
     images,
     menu,
+    eventregister,
+    review,
+    order,
 });

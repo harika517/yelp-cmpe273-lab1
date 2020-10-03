@@ -75,7 +75,7 @@ router.post(
 //Table Restaurant_Dishes
 router.get('/me', auth, async(req, res) => {
     const customerID = req.customer.id;
-    // console.log('Restaurant Profile', customerID);
+    console.log('Current Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
             `SELECT item_name,item_description, item_category, item_ingredients, item_price, item_price 
