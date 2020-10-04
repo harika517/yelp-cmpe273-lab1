@@ -20,6 +20,25 @@ export const getCurrentProfile = () => async(dispatch) => {
     }
 };
 
+//Get customer profile by customer name
+
+export const getCustomerProfileByName = (Cust_Name) => async(dispatch) => {
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/customer/profile/${Cust_Name}`
+        );
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_PROFILE,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
 //create or update profile
 export const createProfile = (formData, history, edit = false) => async(
     dispatch

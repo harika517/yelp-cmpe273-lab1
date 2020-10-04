@@ -26,6 +26,7 @@ import RestaurantReviews from './components/Reviews/Reviews';
 import RestaurantOrders from './components/Orders/RestaurantViewOrders';
 import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
+import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -136,6 +137,12 @@ const App = () => {
                 exact
                 path="/restaurant/orders/:Rest_Name"
                 component={RestaurantOrders}
+              />
+
+              <PrivateRoute
+                exact
+                path="/orders/:Cust_Name"
+                component={customerDetailsByName}
               />
             </Switch>
           </section>

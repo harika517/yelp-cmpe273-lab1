@@ -381,4 +381,41 @@ router.post('/updateprofile/profilepic/:Cust_email_id', (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+//@route  GET customer/profile/:Cust_Name
+//@desc   Get complete profile of Customer
+//@access  Private
+//Table Customer_Information
+
+router.get('/:Cust_Name', async(req, res) => {
+    const customerID = req.params.Cust_Name;
+
+    try {
+        console.log('Inside try', customerID);
+        mysqlConnectionPool.query(
+            `SELECT First_Name, Last_Name, Date_of_Birth, Cust_email_id, City, Phone_Number 
+            FROM Customer_Information WHERE Cust_Name='${customerID}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                //emp.every(_.isNull);
+                //words.filter(word => word.length > 6)
+                // resultNull = result.filter((value) => value === 'null');
+                if (result.length === 0) {
+                    return res.status(400).json({
+                        errors: [{ msg: 'Customer details doesnt Exists' }],
+                    });
+                }
+                //console.log(result);
+                res.status(200).json(result[0]);
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
