@@ -24,6 +24,8 @@ import RestaurantMenuItems from './components/RestaurantMenuItems/Restaurantmenu
 import RestaurantMenuItemCreate from './components/RestaurantMenuItems/RestaurantMenuItemCreate';
 import RestaurantReviews from './components/Reviews/Reviews';
 import RestaurantOrders from './components/Orders/RestaurantViewOrders';
+import ViewRestaurants from './components/dashboard/ViewRestaurantsDashboard';
+import ViewRestaurantPage from './components/dashboard/ViewRestaurantPage';
 import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
@@ -143,6 +145,16 @@ const App = () => {
                 exact
                 path="/orders/:Cust_Name"
                 component={customerDetailsByName}
+              />
+              <PrivateRoute
+                exact
+                path="/viewrestaurants"
+                component={ViewRestaurants}
+              />
+              <PrivateRoute
+                exact
+                path="/viewrestaurantpage"
+                component={ViewRestaurantPage}
               />
             </Switch>
           </section>

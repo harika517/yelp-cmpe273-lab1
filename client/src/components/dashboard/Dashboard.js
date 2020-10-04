@@ -19,57 +19,62 @@ const Dashboard = ({
     ''
   ) : (
     <Fragment>
-      <div className="container_columns">
-        <div className="columns">
-          <div className="column_cards">
-            <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
-            <h3 className="lead">
-              {' '}
-              <i className="fas fa-user" />
-              {profile.Cust_Name}'s profile
-            </h3>
-          </div>
+      <Link to="/viewrestaurants" className="btn btn-dark">
+        {' '}
+        Restaurants{' '}
+      </Link>
+      <hr></hr>
+      <div className="container_3columns">
+        {/* <div className="columns"> */}
+        <div className="column_1">
+          <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+          <h3 className="lead">
+            {' '}
+            <i className="fas fa-user" />
+            {profile.Cust_Name}'s profile
+          </h3>
         </div>
-        <div className="columns">
-          <div className="column_cards">
-            <h2>{profile.Cust_Name}</h2>
-            <p className="lead">
-              {profile.City} {profile.State} {profile.Country}
-              <p className="lead text-dark"> Recent Activity</p>
-            </p>
-          </div>
+        {/* </div> */}
+        {/* <div className="columns"> */}
+        <div className="column_2">
+          <h2>{profile.Cust_Name}</h2>
+          <p className="lead">
+            {profile.City} {profile.State} {profile.Country}
+            <p className="lead text-dark"> Recent Activity</p>
+          </p>
         </div>
-        <div className="columns">
-          <div className="column_cards">
-            <DashboardActions />
-            <p className="lead">About {profile.Cust_Name}</p>
-            {Object.keys(profile).map(
-              (key) => {
-                if (
-                  profile[key] !== '' &&
-                  [
-                    'Nick_Name',
-                    'Headline',
-                    'Yelping_Since',
-                    'Things_I_Love',
-                    'My_Blog_Or_Website',
-                    'Find_Me_In',
-                    'My_Favourite_Movie',
-                    'Current_Crush',
-                  ].includes(key)
-                ) {
-                  return (
-                    <div>
-                      <p className="lead">{key.replaceAll('_', ' ')}</p>
-                      <h5>{profile[key]}</h5>
-                    </div>
-                  );
-                }
+        {/* </div> */}
+        {/* <div className="columns"> */}
+        <div className="column_3">
+          <DashboardActions />
+          <p className="lead">About {profile.Cust_Name}</p>
+          {Object.keys(profile).map(
+            (key) => {
+              if (
+                profile[key] !== '' &&
+                [
+                  'Nick_Name',
+                  'Headline',
+                  'Yelping_Since',
+                  'Things_I_Love',
+                  'My_Blog_Or_Website',
+                  'Find_Me_In',
+                  'My_Favourite_Movie',
+                  'Current_Crush',
+                ].includes(key)
+              ) {
+                return (
+                  <div>
+                    <p className="lead">{key.replaceAll('_', ' ')}</p>
+                    <h5>{profile[key]}</h5>
+                  </div>
+                );
               }
-              // console.log(key + ' : ' + profile[key])
-            )}
-          </div>
+            }
+            // console.log(key + ' : ' + profile[key])
+          )}
         </div>
+        {/* </div> */}
       </div>
       {/* <div className="row">
         <div className="column"> */}
