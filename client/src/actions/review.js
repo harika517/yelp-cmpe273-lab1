@@ -9,7 +9,7 @@ export const getReviewsByRestName = (Rest_Name) => async(dispatch) => {
         const res = await axios.get(
             `http://localhost:3001/restaurant/reviews/${Rest_Name}`
         );
-        //console.log(res.data);
+        console.log(res.data);
         dispatch({
             type: GET_REVIEWS,
             payload: res.data,

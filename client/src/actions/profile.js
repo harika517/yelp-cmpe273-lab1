@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, POST_IMAGE } from './types';
+import { GET_PROFILE, PROFILE_ERROR, POST_IMAGE, GET_PROFILES } from './types';
 
 //Get current users profile
 ///customer/profile/:Cust_Id
@@ -222,7 +222,7 @@ export const getAllRestProfiles = () => async(dispatch) => {
     try {
         const res = await axios.get('http://localhost:3001/restaurant/profile');
         dispatch({
-            type: GET_PROFILE,
+            type: GET_PROFILES,
             payload: res.data,
         });
     } catch (err) {

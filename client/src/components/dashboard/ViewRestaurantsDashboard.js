@@ -6,14 +6,14 @@ import { getAllRestProfiles, getCurrentProfile } from '../../actions/profile';
 
 const ViewRestaurantsDashboard = ({
   getAllRestProfiles,
-  profile: { profile },
+  profile: { profiles },
 }) => {
   useEffect(() => {
     getAllRestProfiles();
   }, []);
 
-  console.log('inside Reviews, ', profile);
-  const arrobj = profile ? profile.result : null;
+  console.log('inside Reviews, ', profiles);
+  const arrobj = profiles ? profiles.result : null;
 
   return (
     <div>
@@ -28,10 +28,10 @@ const ViewRestaurantsDashboard = ({
                 <p className="medium"> {item.Contact}</p>
                 <p className="medium"> {item.Timings}</p>
                 <p className="medium"> {item.Description}</p>
-                <Link to="/placeorder" className="btn btn-dark">
-                  Place an order
-                </Link>
-                <Link to="/viewrestaurantpage" className="btn btn-dark">
+                <Link
+                  to={`/viewrestaurantpage/${item.Rest_Name}`}
+                  className="btn btn-dark"
+                >
                   View Restaurant Page
                 </Link>
                 <hr />

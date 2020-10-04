@@ -19,11 +19,6 @@ const Dashboard = ({
     ''
   ) : (
     <Fragment>
-      <Link to="/viewrestaurants" className="btn btn-dark">
-        {' '}
-        Restaurants{' '}
-      </Link>
-      <hr></hr>
       <div className="container_3columns">
         {/* <div className="columns"> */}
         <div className="column_1">
@@ -33,6 +28,17 @@ const Dashboard = ({
             <i className="fas fa-user" />
             {profile.Cust_Name}'s profile
           </h3>
+          <hr></hr>
+          <Link to="/viewrestaurants" className="btn btn-dark">
+            {' '}
+            Restaurants{' '}
+          </Link>
+          <hr></hr>
+          <Link to="/ordersplaced" className="btn btn-dark">
+            {' '}
+            Order History{' '}
+          </Link>
+          <hr></hr>
         </div>
         {/* </div> */}
         {/* <div className="columns"> */}

@@ -26,9 +26,11 @@ import RestaurantReviews from './components/Reviews/Reviews';
 import RestaurantOrders from './components/Orders/RestaurantViewOrders';
 import ViewRestaurants from './components/dashboard/ViewRestaurantsDashboard';
 import ViewRestaurantPage from './components/dashboard/ViewRestaurantPage';
+import ViewRestaurantMenu from './components/dashboard/ViewRestaurantMenu';
 import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
+import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -153,8 +155,18 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/viewrestaurantpage"
+                path="/viewrestaurantpage/:Rest_Name"
                 component={ViewRestaurantPage}
+              />
+              <PrivateRoute
+                exact
+                path="/ordersplaced"
+                component={CustomerViewOrders}
+              />
+              <PrivateRoute
+                exact
+                path="/viewmenu/:Rest_Name"
+                component={ViewRestaurantMenu}
               />
             </Switch>
           </section>
