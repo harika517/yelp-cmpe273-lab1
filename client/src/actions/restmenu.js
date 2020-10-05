@@ -3,8 +3,8 @@ import { format } from 'mysql';
 import { setAlert } from './alert';
 import { GET_MENUITEM, GET_MENUITEMS, MENUITEM_ERROR } from './types';
 
-//Get current users profile
-///customer/profile/:Cust_Id
+//Get current Restaurant Menu
+///restaurant/menuitems/me
 export const getCurrentRestMenu = () => async(dispatch) => {
     try {
         const res = await axios.get(
@@ -51,6 +51,28 @@ export const createRestaurantMenuItem = (formData, history) => async(
         }
         dispatch({
             type: GET_MENUITEM,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+//Get Menu by rest Name
+//http://localhost:3000/restaurant/menuitems/Mangoes%20Indian%20Cuisine
+export const getMenuByRestName = (Rest_Name) => async(dispatch) => {
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/menuitems/${Rest_Name}`
+        );
+        // console.log(
+        //     'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)
+        // );
+        dispatch({
+            type: GET_MENUITEMS,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_MENUITEMS,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }

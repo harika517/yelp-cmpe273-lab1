@@ -29,14 +29,15 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
         console.log('Print Elements');
-        const { item_name, Cust_Name, Mode_Of_Delivery } = req.body;
+        const { item_name, Cust_Name, Mode_Of_Delivery, Rest_email_id } = req.body;
         // //const Rest_Name = req.body.Rest_Name;
         // const customerID = req.params.Cust_Id;
         const restaurantName = req.params.Rest_Name;
+
         console.log('Orders');
         try {
-            var query = `INSERT into Restaurant_Orders (Cust_Name, Rest_Name, item_name, order_status, Mode_Of_Delivery) VALUES
-            ('${Cust_Name}','${restaurantName}','${item_name}', 'New Order', '${Mode_Of_Delivery}')`;
+            var query = `INSERT into Restaurant_Orders (Cust_Name, Rest_Name, item_name, order_status, Mode_Of_Delivery, Rest_email_id) VALUES
+            ('${Cust_Name}','${restaurantName}','${item_name}', 'New Order', '${Mode_Of_Delivery}', '${Rest_email_id}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

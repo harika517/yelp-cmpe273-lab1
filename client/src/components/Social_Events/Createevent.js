@@ -71,7 +71,7 @@ const Createevent = ({ createEvent, history }) => {
           <label for="Event_Time">Event Time</label>
           <br />
           <input
-            type="time"
+            type="text"
             name="Event_Time"
             value={Event_Time}
             onChange={(e) => onChange(e)}

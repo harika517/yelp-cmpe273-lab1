@@ -108,12 +108,12 @@ const ViewRestaurantPage = ({
                   : 'none'}
               </div>
               <div className="column2">
-                <Link to={`/viewmenu/${Rest_Name}`} className="btn btn-dark">
+                {/* <Link to={`/viewmenu/${Rest_Name}`} className="btn btn-dark">
                   <i className="fas fa-utensils"></i>
                   View Menu
-                </Link>
-                <Link to="/placeorder" className="btn btn-dark">
-                  Place an order
+                </Link> */}
+                <Link to={`/viewmenu/${Rest_Name}`} className="btn btn-dark">
+                  Order Now
                 </Link>
                 <br></br>
                 <br></br>

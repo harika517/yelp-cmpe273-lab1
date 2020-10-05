@@ -32,3 +32,4 @@ export const ADD_REVIEWS = 'ADD_REVIEWS';
 export const GET_ORDERS = 'GET_ORDERS';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const ORDERS_UPDATE = 'ORDERS_UPDATE';
+export const CREATE_ORDER = 'CREATE_ORDER';

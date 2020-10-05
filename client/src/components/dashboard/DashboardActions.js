@@ -49,7 +49,7 @@ const DashboardActions = (insertImage) => {
       </Link>
       <br />
       <br />
-      <Link to="/reviews" className=" lead text-primary">
+      <Link to="/viewrestaurants" className=" lead text-primary">
         <i className="fas fa-edit text-primary"></i> Write a Review
       </Link>
     </div>

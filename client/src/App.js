@@ -24,6 +24,7 @@ import RestaurantMenuItems from './components/RestaurantMenuItems/Restaurantmenu
 import RestaurantMenuItemCreate from './components/RestaurantMenuItems/RestaurantMenuItemCreate';
 import RestaurantReviews from './components/Reviews/Reviews';
 import RestaurantOrders from './components/Orders/RestaurantViewOrders';
+import AddReview from './components/Reviews/AddReview';
 import ViewRestaurants from './components/dashboard/ViewRestaurantsDashboard';
 import ViewRestaurantPage from './components/dashboard/ViewRestaurantPage';
 import ViewRestaurantMenu from './components/dashboard/ViewRestaurantMenu';
@@ -31,6 +32,7 @@ import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 import CustomerViewOrders from './components/Orders/CustomerViewOrders';
+import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -167,6 +169,17 @@ const App = () => {
                 exact
                 path="/viewmenu/:Rest_Name"
                 component={ViewRestaurantMenu}
+              />
+              <PrivateRoute
+                exact
+                path="/placeorder"
+                component={CustomerCreateOrders}
+              />
+
+              <PrivateRoute
+                exact
+                path="/writecustomerreview/:Rest_Name"
+                component={AddReview}
               />
             </Switch>
           </section>

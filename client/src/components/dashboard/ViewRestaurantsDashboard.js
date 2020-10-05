@@ -34,6 +34,12 @@ const ViewRestaurantsDashboard = ({
                 >
                   View Restaurant Page
                 </Link>
+                <Link
+                  to={`/writecustomerreview/${item.Rest_Name}`}
+                  className="btn btn-primary"
+                >
+                  Write a Review
+                </Link>
                 <hr />
               </div>
             ))

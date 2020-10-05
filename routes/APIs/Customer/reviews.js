@@ -12,18 +12,25 @@ const auth = require('../../../middleware/auth');
 //@access  Private
 //Table reviews
 router.post(
-    '/:Rest_Name', [auth, [check('review', 'Please enter review').not().isEmpty()]],
+    '/', [
+        auth, [
+            check('Rest_Name', 'Please enter Restaurant Name').not().isEmpty(),
+            check('review', 'Please enter review').not().isEmpty(),
+        ],
+    ],
     (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const review = req.body.review;
+        const { Rest_Name, review } = req.body;
+        console.log('Is this getting hit', req.body.Rest_Name);
         //const customerID = req.params.Cust_Name;
-        const restaurantID = req.params.Rest_Name;
+        // const restaurantID = req.params.Rest_Name;
+        console.log('print this');
         try {
-            var query = `INSERT into reviews (Rest_Name, review) VALUES
-            ('${restaurantID}','${review}')`;
+            var query = `INSERT INTO reviews (Rest_Name, review) VALUES
+            ('${Rest_Name}','${review}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

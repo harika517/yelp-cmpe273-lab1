@@ -142,4 +142,35 @@ router.post('/updateitem/me/:item_id', auth, (req, res) => {
     }
 });
 
+//@route  GET restaurant/menuitems/:Rest_Name
+//@desc   get the complete menu by restaurant Name
+//@access  Private
+//Table Restaurant_Dishes
+
+router.get('/:Rest_Name', async(req, res) => {
+    const Rest_Name = req.params.Rest_Name;
+    // console.log('Current Restaurant Profile', customerID);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT item_name,item_description, item_category, item_ingredients, item_price, item_price, 
+            Rest_Name FROM Restaurant_Dishes WHERE Rest_Name='${Rest_Name}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant customer doesnt Exists' }] });
+                }
+                // console.log('Restaurant get/me:', result);
+                res.status(200).json(result);
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
 module.exports = router;

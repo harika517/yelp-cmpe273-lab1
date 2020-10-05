@@ -23,25 +23,34 @@ export const getReviewsByRestName = (Rest_Name) => async(dispatch) => {
 };
 
 //Write posts
-export const addReviews = (formData, Rest_Name) => async(dispatch) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
+export const addReviews = (formData, history, edit = false) => async(
+    dispatch
+) => {
     try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
         const res = await axios.post(
-            `http://localhost:3001/customer/reviews/${Rest_Name}`,
+            `http://localhost:3001/customer/reviews`,
             formData,
             config
         );
         dispatch({
-            type: ADD_REVIEWS,
+            type: GET_REVIEWS,
             payload: res.data,
         });
-        dispatch(setAlert('Review Added', 'success'));
+        dispatch(setAlert(edit ? 'Review Added' : 'Review Added', 'success'));
+        if (!edit) {
+            history.push('/dashboard');
+        }
     } catch (err) {
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
         dispatch({
             type: REVIEWS_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
