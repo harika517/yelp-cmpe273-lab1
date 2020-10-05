@@ -39,6 +39,14 @@ const Dashboard = ({
             Order History{' '}
           </Link>
           <hr></hr>
+          <Link
+            to={`/viewregisteredevents/${profile.Cust_Name}`}
+            className="btn btn-dark"
+          >
+            {' '}
+            Events Attending{' '}
+          </Link>
+          <hr></hr>
         </div>
         {/* </div> */}
         {/* <div className="columns"> */}

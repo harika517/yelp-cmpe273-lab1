@@ -7,12 +7,12 @@ const RestaurantActions = () => {
       <Link to="/createevent" className=" btn btn-dark">
         Create Event
       </Link>
-      <Link to="/viewevents" className=" btn btn-dark">
+      {/* <Link to="/viewevents" className=" btn btn-dark">
         View Events
-      </Link>
-      <Link to="/participants" className=" btn btn-dark">
+      </Link> */}
+      {/* <Link to="/participants" className=" btn btn-dark">
         View Attendees
-      </Link>
+      </Link> */}
     </div>
   );
 };

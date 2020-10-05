@@ -2,6 +2,8 @@ import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
 import {
+    GET_EVENTS,
+    EVENT_ERROR,
     CUSTOMER_EVENT_REGISTER,
     CUSTOMERS_EVENT_REGISTER,
     CUSTOMER_EVENT_REGISTER_ERROR,
@@ -19,7 +21,7 @@ export const registerEvent = (Cust_Name, Event_Name) => {
         const res = axios.post(
             `http://localhost:3001/customer/registration/${Cust_Name}/${Event_Name}`
         );
-        console.log('registerEvent_action called');
+        // console.log('registerEvent_action called');
         // dispatch({
         //     type: CUSTOMER_EVENT_REGISTER,
         //     payload: res.data,
@@ -36,6 +38,27 @@ export const registerEvent = (Cust_Name, Event_Name) => {
         //     type: CUSTOMER_EVENT_REGISTER_ERROR,
         //     payload: { msg: err.response.statusText, status: err.response.status },
         // });
+    }
+};
+
+//get events registered by me
+
+export const getEventsRegisteredByMe = (Cust_Name) => async(dispatch) => {
+    console.log('inside getcurrentrestprofile');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/customer/registration/${Cust_Name}`
+        );
+        console.log('inside getEventsRegisteredByMe, ', res.data);
+        dispatch({
+            type: CUSTOMERS_EVENT_REGISTER,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: CUSTOMER_EVENT_REGISTER_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
     }
 };
 

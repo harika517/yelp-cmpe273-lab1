@@ -28,11 +28,13 @@ import AddReview from './components/Reviews/AddReview';
 import ViewRestaurants from './components/dashboard/ViewRestaurantsDashboard';
 import ViewRestaurantPage from './components/dashboard/ViewRestaurantPage';
 import ViewRestaurantMenu from './components/dashboard/ViewRestaurantMenu';
+import ViewEventsAttending from './components/dashboard/ViewEventsAttending';
 import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
+// import EventRegistration from './components/Social_Events/EventRegistration';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -180,6 +182,12 @@ const App = () => {
                 exact
                 path="/writecustomerreview/:Rest_Name"
                 component={AddReview}
+              />
+
+              <PrivateRoute
+                exact
+                path="/viewregisteredevents/:Cust_Name"
+                component={ViewEventsAttending}
               />
             </Switch>
           </section>

@@ -179,7 +179,7 @@ router.get('/me', auth, (req, res) => {
           FROM
             Events
           WHERE
-          Rest_email_id='${customerID}'`,
+          Rest_email_id='${customerID}' ORDER BY Event_Date ASC`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -224,7 +224,7 @@ router.get('/eventdetail/:Event_Name', auth, (req, res) => {
           FROM
             Events
           WHERE
-          Event_Name='${Event_Name}'`,
+          Event_Name='${Event_Name}' ORDER BY Event_Date`,
             (error, result) => {
                 if (error) {
                     console.log(error);
