@@ -114,9 +114,20 @@ const RestaurantDashboard = ({
             {revs
               ? revs.map((item) => (
                   <h4>
-                    {item.Date}
+                    (
+                    {item.ratings === 4 ? (
+                      <div>
+                        <i className="fas fa-star text-dark"></i>
+                        <i className="fas fa-star text-dark"></i>
+                        <i className="fas fa-star text-dark"></i>
+                        <i className="fas fa-star text-dark"></i>
+                        <i className="far fa-star text-dark"></i>
+                      </div>
+                    ) : (
+                      'none'
+                    )}
+                    ){item.Date}
                     <br></br>
-
                     {item.review}
                     <hr />
                   </h4>

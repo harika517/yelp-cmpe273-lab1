@@ -11,9 +11,13 @@ const AddReview = ({ addReviews, history }) => {
   // useEffect(() => {
   //   getRestByName(match.params.Rest_Name);
   // }, []);
-  const [formData, setFormData] = useState({ Rest_Name: '', review: '' });
+  const [formData, setFormData] = useState({
+    Rest_Name: '',
+    review: '',
+    ratings: '',
+  });
 
-  const { Rest_Name, review } = formData;
+  const { Rest_Name, review, ratings } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +39,20 @@ const AddReview = ({ addReviews, history }) => {
             type="text"
             name="Rest_Name"
             value={Rest_Name}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="ratings">Ratings</label>
+          <small className="form-text">
+            Please provide your ratings from 0 to 5
+          </small>
+          <input
+            type="number"
+            name="ratings"
+            min="0"
+            max="5"
+            value={ratings}
             onChange={(e) => onChange(e)}
           />
         </div>

@@ -17,7 +17,7 @@ router.get('/:Rest_Name', auth, async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT review, Date FROM reviews WHERE Rest_Name='${Rest_Name}' ORDER BY Date`,
+            `SELECT review, Date, ratings FROM reviews WHERE Rest_Name='${Rest_Name}' ORDER BY Date`,
             (error, result) => {
                 if (error) {
                     console.log(error);

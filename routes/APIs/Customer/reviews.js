@@ -16,6 +16,7 @@ router.post(
         auth, [
             check('Rest_Name', 'Please enter Restaurant Name').not().isEmpty(),
             check('review', 'Please enter review').not().isEmpty(),
+            check('ratings', 'Please enter ratings').not().isEmpty(),
         ],
     ],
     (req, res) => {
@@ -23,14 +24,14 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { Rest_Name, review } = req.body;
+        const { Rest_Name, review, ratings } = req.body;
         console.log('Is this getting hit', req.body.Rest_Name);
         //const customerID = req.params.Cust_Name;
         // const restaurantID = req.params.Rest_Name;
         console.log('print this');
         try {
-            var query = `INSERT INTO reviews (Rest_Name, review) VALUES
-            ('${Rest_Name}','${review}')`;
+            var query = `INSERT INTO reviews (Rest_Name, review, ratings) VALUES
+            ('${Rest_Name}','${review}', '${ratings}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);
