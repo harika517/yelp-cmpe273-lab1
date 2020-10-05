@@ -6,7 +6,7 @@ import Login from './components/Customer/Login';
 import Signup from './components/Customer/Signup';
 import LoginRestaurant from './components/Restaurant/LoginRestaurant';
 import SignUpRestaurant from './components/Restaurant/SignUpRestaurant';
-
+import CurbSidePickUp from './components/SearchBarResults/CurbSidePickUp';
 import Alert from './components/LandingPage/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/Createprofile';
@@ -71,6 +71,9 @@ const App = () => {
                 component={SignUpRestaurant}
               />
               <Route exact path="/events" component={ViewEvents} />
+
+              <Route exact path="/curbsidepickup" component={CurbSidePickUp} />
+
               {/* <Route path="/" component={Landing} /> */}
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute

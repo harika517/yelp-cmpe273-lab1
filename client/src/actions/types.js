@@ -33,3 +33,5 @@ export const GET_ORDERS = 'GET_ORDERS';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const ORDERS_UPDATE = 'ORDERS_UPDATE';
 export const CREATE_ORDER = 'CREATE_ORDER';
+export const SEARCH_RESULT = 'SEARCH_RESULT';
+export const SEARCH_RESULT_ERROR = 'SEARCH_RESULT_ERROR';

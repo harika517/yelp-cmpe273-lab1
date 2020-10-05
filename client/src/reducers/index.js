@@ -8,6 +8,7 @@ import menu from './menu';
 import eventregister from './eventregister';
 import review from './review';
 import order from './orders';
+import search from './search';
 
 export default combineReducers({
     alert,
@@ -19,4 +20,5 @@ export default combineReducers({
     eventregister,
     review,
     order,
+    search,
 });
