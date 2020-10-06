@@ -3,11 +3,11 @@ import { GET_REVIEWS, REVIEWS_ERROR, ADD_REVIEWS } from './types';
 import { setAlert } from './alert';
 
 //Get posts
-export const getReviewsByRestName = (Rest_Name) => async(dispatch) => {
+export const getReviewsByRestId = (Rest_Id_signup) => async(dispatch) => {
     console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/reviews/${Rest_Name}`
+            `http://localhost:3001/restaurant/reviews/${Rest_Id_signup}`
         );
         console.log(res.data);
         dispatch({
@@ -23,9 +23,12 @@ export const getReviewsByRestName = (Rest_Name) => async(dispatch) => {
 };
 
 //Write posts
-export const addReviews = (formData, history, edit = false) => async(
-    dispatch
-) => {
+export const addReviews = (
+    formData,
+    Rest_Id_signup,
+    history,
+    edit = false
+) => async(dispatch) => {
     try {
         const config = {
             headers: {
@@ -33,7 +36,7 @@ export const addReviews = (formData, history, edit = false) => async(
             },
         };
         const res = await axios.post(
-            `http://localhost:3001/customer/reviews`,
+            `http://localhost:3001/customer/reviews/${Rest_Id_signup}`,
             formData,
             config
         );

@@ -7,6 +7,8 @@ import {
     CUSTOMER_EVENT_REGISTER,
     CUSTOMERS_EVENT_REGISTER,
     CUSTOMER_EVENT_REGISTER_ERROR,
+    CUSTOMER_EVENTS_REGISTER,
+    GET_CUSTOMER_PROFILE,
 } from './types';
 
 //Customer Action
@@ -51,6 +53,27 @@ export const getEventsRegisteredByMe = (Cust_Name) => async(dispatch) => {
         );
         console.log('inside getEventsRegisteredByMe, ', res.data);
         dispatch({
+            type: CUSTOMER_EVENTS_REGISTER,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: CUSTOMER_EVENT_REGISTER_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+//get all the customers registered for an event
+
+export const getCustomersRegistered = (Event_Name) => async(dispatch) => {
+    // console.log('inside getcurrentrestprofile');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/events/${Event_Name}`
+        );
+        console.log('inside getEventsRegisteredByMe, ', res.data);
+        dispatch({
             type: CUSTOMERS_EVENT_REGISTER,
             payload: res.data,
         });
@@ -62,6 +85,25 @@ export const getEventsRegisteredByMe = (Cust_Name) => async(dispatch) => {
     }
 };
 
+//get customer detail registered
+export const getCustomerDetailEvent = (Event_Name, Cust_Name) => async(
+    dispatch
+) => {
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/events/${Event_Name}/${Cust_Name}`
+        );
+        dispatch({
+            type: GET_CUSTOMER_PROFILE,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_CUSTOMER_PROFILE,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
 // export const registerEvent = (Cust_Name, Event_Name) => async(dispatch) => {
 //     console.log('registerEvent_action called before');
 //     try {

@@ -9,6 +9,7 @@ import eventregister from './eventregister';
 import review from './review';
 import order from './orders';
 import search from './search';
+import custdetail from './custdetail';
 
 export default combineReducers({
     alert,
@@ -21,4 +22,5 @@ export default combineReducers({
     review,
     order,
     search,
+    custdetail,
 });

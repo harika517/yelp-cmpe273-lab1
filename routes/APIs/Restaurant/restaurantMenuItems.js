@@ -18,8 +18,8 @@ router.post(
         check('item_name', 'Name of the Item is required').not().isEmpty(),
         check('item_category', 'Category of the item is required').not().isEmpty(),
         check('item_price', 'Cost of item is required').not().isEmpty(),
-        check('Rest_Name', 'Please include Restaurant name').not().isEmpty(),
-        check('Rest_email_id', 'Please include emailId').not().isEmpty(),
+        // check('Rest_Name', 'Please include Restaurant name').not().isEmpty(),
+        // check('Rest_email_id', 'Please include emailId').not().isEmpty(),
     ],
     (req, res) => {
         // console.log(req.body);
@@ -34,6 +34,7 @@ router.post(
             item_category,
             item_ingredients,
             item_price,
+            item_image,
             Rest_Name,
             Rest_email_id,
         } = req.body;
@@ -44,8 +45,8 @@ router.post(
                     item_description,
                     item_category,
                     item_ingredients,
-                    item_price, Rest_Name, Rest_email_id ) VALUES ('${item_name}', '${item_description}', '${item_category}', 
-                    '${item_ingredients}', '${item_price}', '${Rest_Name}', '${Rest_email_id}')`,
+                    item_price, Rest_Name, Rest_email_id, item_image ) VALUES ('${item_name}', '${item_description}', '${item_category}', 
+                    '${item_ingredients}', '${item_price}', '${Rest_Name}', '${Rest_email_id}', '${item_image}')`,
                 (error, result) => {
                     if (error) {
                         console.log(error);
@@ -74,12 +75,12 @@ router.post(
 //@access  Private
 //Table Restaurant_Dishes
 router.get('/me', auth, async(req, res) => {
-    const customerID = req.customer.id;
-    console.log('Current Restaurant Profile', customerID);
+    // const customerID = req.customer.id;
+    const Rest_Id_signup = req.customer.key;
+    // console.log('Current Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT item_name,item_description, item_category, item_ingredients, item_price, item_price 
-            FROM Restaurant_Dishes WHERE Rest_email_id='${customerID}'`,
+            `SELECT * FROM Restaurant_Dishes WHERE Rest_Id_signup='${Rest_Id_signup}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);

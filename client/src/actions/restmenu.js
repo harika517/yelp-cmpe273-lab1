@@ -18,6 +18,7 @@ export const getCurrentRestMenu = () => async(dispatch) => {
             payload: res.data,
         });
     } catch (err) {
+        // console.log('error response', err.response);
         dispatch({
             type: GET_MENUITEMS,
             payload: { msg: err.response.statusText, status: err.response.status },

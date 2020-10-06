@@ -4,6 +4,7 @@ import {
     EVENT_ERROR,
     USER_LOADED,
     GET_PROFILE,
+    CUSTOMER_EVENTS_REGISTER,
     CUSTOMER_EVENT_REGISTER,
     CUSTOMERS_EVENT_REGISTER,
     CUSTOMER_EVENT_REGISTER_ERROR,
@@ -29,6 +30,7 @@ export default function(state = initialState, action) {
             };
             // case GET_EVENT:
             // case GET_PROFILE:
+        case CUSTOMER_EVENTS_REGISTER:
         case CUSTOMERS_EVENT_REGISTER:
             return {
                 ...state,

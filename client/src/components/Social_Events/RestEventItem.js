@@ -61,13 +61,19 @@ const RestEventItem = (props) => {
                 <p className="medium">
                   <i className="fas fa-edit text-dark"></i> {Rest_email_id}
                 </p>
-                <Link className="btn btn-dark" to="#!">
+                <Link
+                  className="btn btn-dark"
+                  to={`/viewattendees/${Event_Name}`}
+                >
                   {' '}
                   View Attendees
                 </Link>
                 <br></br>
                 <br></br>
-                <Link className="btn btn-dark" to="/restaurants/editevent">
+                <Link
+                  className="btn btn-dark"
+                  to={`/restaurants/editevent/${Event_Name}`}
+                >
                   {' '}
                   Edit Event
                 </Link>

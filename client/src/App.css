@@ -34,6 +34,10 @@ body {
 .logo-icon-large {
     height: 75px;
     width: 150px;
+    /* display: block;
+    width: 100%;
+    height: 100%;
+    text-indent: -1000em; */
 }
 
 h3 {
@@ -48,6 +52,21 @@ a {
 
 ul {
     list-style: none;
+}
+
+
+/******** Restaurant Menu Images*****/
+
+img {
+    width: 200px;
+}
+
+
+/*******Cards horizontal*******/
+
+.card {
+    /* border: solid grey 1px; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 
@@ -236,7 +255,7 @@ hr {
 .badge-primary,
 .alert-primary {
     background: var(--primary-color);
-    color: rgb(241, 16, 16);
+    color: #0073bb;
     font-size: 1.5rem;
     border: 1px solid grey;
 }
@@ -254,7 +273,7 @@ hr {
 .bg-dark,
 .badge-dark,
 .alert-dark {
-    background: var(--dark-color);
+    background: #d32323;
     color: #fff;
     font-size: 1.5rem;
 }
@@ -410,6 +429,8 @@ button {
     border-bottom: none;
     opacity: 0.9;
     min-height: 8vh;
+    margin-bottom: 0px;
+    border-radius: 0px;
 }
 
 .navbar ul {

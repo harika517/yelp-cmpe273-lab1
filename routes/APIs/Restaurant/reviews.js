@@ -12,12 +12,13 @@ const auth = require('../../../middleware/auth');
 // //@access  Private
 // //Table reviews
 
-router.get('/:Rest_Name', auth, async(req, res) => {
-    const Rest_Name = req.params.Rest_Name;
+router.get('/:Rest_Id_signup', auth, async(req, res) => {
+    const Rest_Id_signup = req.params.Rest_Id_signup;
+    // const Cust_Id = req.customer.key;
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT review, Date, ratings FROM reviews WHERE Rest_Name='${Rest_Name}' ORDER BY Date`,
+            `SELECT review, Date, ratings FROM reviews_new WHERE Rest_Id_signup='${Rest_Id_signup}' ORDER BY Date`,
             (error, result) => {
                 if (error) {
                     console.log(error);

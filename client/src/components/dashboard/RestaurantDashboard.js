@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentRestProfile } from '../../actions/profile';
-import { getReviewsByRestName } from '../../actions/review';
+import { getReviewsByRestId } from '../../actions/review';
 import RestaurantActions from './RestaurantActions';
 import { Result } from 'express-validator';
 import auth from '../../reducers/auth';
@@ -12,14 +12,14 @@ import { json } from 'body-parser';
 const RestaurantDashboard = ({
   match,
   getCurrentRestProfile,
-  getReviewsByRestName,
+  getReviewsByRestId,
   auth,
   profile: { profile, loading },
   review: { reviews },
 }) => {
   console.log('before ', profile);
   if (profile) {
-    console.log('match RestName', profile.Rest_Name);
+    console.log('match RestName', profile.Rest_Id_signup);
   }
   //const { Rest_Name, Rest_email_id, Rest_location, Description } = profile;
   console.log('Match criteria', match.params);
@@ -38,7 +38,7 @@ const RestaurantDashboard = ({
     // const restname = profile.Rest_Name;
     //getCurrentRestProfile();
     if (profile) {
-      getReviewsByRestName(profile.Rest_Name);
+      getReviewsByRestId(profile.Rest_Id_signup);
     }
   }, [loading]);
 
@@ -60,6 +60,7 @@ const RestaurantDashboard = ({
       <Fragment>
         <div className="container_2columns">
           <div className="column1">
+            <img src={profile.Image} alt="Profile Picture" />
             <h1 className="x-large text-dark">{profile.Rest_Name}</h1>
             <h4>
               <i className="fas fa-map-marker-alt"></i> {profile.Rest_location}
@@ -170,7 +171,7 @@ const RestaurantDashboard = ({
 
 RestaurantDashboard.propTypes = {
   getCurrentRestProfile: PropTypes.func.isRequired,
-  getReviewsByRestName: PropTypes.func.isRequired,
+  getReviewsByRestId: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   review: PropTypes.object.isRequired,
@@ -184,5 +185,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentRestProfile,
-  getReviewsByRestName,
+  getReviewsByRestId,
 })(RestaurantDashboard);

@@ -57,7 +57,7 @@ router.post(
         // See if user exists
         try {
             mysqlConnectionPool.query(
-                `SELECT Rest_Password, Rest_email_id FROM Restaurant_Information WHERE Rest_email_id = '${Rest_email_id}'`,
+                `SELECT Rest_Id_signup, Rest_Password, Rest_email_id FROM Restaurant_Information WHERE Rest_email_id = '${Rest_email_id}'`,
                 async(error, result) => {
                     //console.log(result[0].Cust_Password);
                     if (error) {
@@ -83,8 +83,10 @@ router.post(
                     const payload = {
                         customer: {
                             id: Rest_email_id,
+                            key: result[0].Rest_Id_signup,
                         },
                     };
+                    console.log('RestLogin', result[0].Rest_Id_signup);
                     jwt.sign(
                         payload,
                         config.get('jwtSecret'), { expiresIn: 360000 },

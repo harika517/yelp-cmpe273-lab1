@@ -56,6 +56,7 @@ router.post(
                             const payload = {
                                 customer: {
                                     id: Rest_email_id,
+                                    key: result.insertId,
                                 },
                             };
                             jwt.sign(

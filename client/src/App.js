@@ -7,6 +7,8 @@ import Signup from './components/Customer/Signup';
 import LoginRestaurant from './components/Restaurant/LoginRestaurant';
 import SignUpRestaurant from './components/Restaurant/SignUpRestaurant';
 import CurbSidePickUp from './components/SearchBarResults/CurbSidePickUp';
+import DineIn from './components/SearchBarResults/DineIn';
+import Yelp_Delivery from './components/SearchBarResults/YelpDelivery';
 import Alert from './components/LandingPage/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/Createprofile';
@@ -29,11 +31,14 @@ import ViewRestaurants from './components/dashboard/ViewRestaurantsDashboard';
 import ViewRestaurantPage from './components/dashboard/ViewRestaurantPage';
 import ViewRestaurantMenu from './components/dashboard/ViewRestaurantMenu';
 import ViewEventsAttending from './components/dashboard/ViewEventsAttending';
+import ViewAttendees from './components/Social_Events/ViewAttendees';
+import CustomerDetailRegistration from './components/Social_Events/CustomerDetailRegistration';
 import WriteReviews from './components/Reviews/Reviews';
 import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
+import RestaurantUpdateOrder from './components/Orders/RestaurantUpdateOrder';
 // import EventRegistration from './components/Social_Events/EventRegistration';
 //Redux
 import { Provider } from 'react-redux';
@@ -42,6 +47,7 @@ import { loadCustomer, loadRestaurantUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+import YelpDelivery from './components/SearchBarResults/YelpDelivery';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -73,6 +79,8 @@ const App = () => {
               <Route exact path="/events" component={ViewEvents} />
 
               <Route exact path="/curbsidepickup" component={CurbSidePickUp} />
+              <Route exact path="/dinein" component={DineIn} />
+              <Route exact path="/yelpdelivery" component={Yelp_Delivery} />
 
               {/* <Route path="/" component={Landing} /> */}
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
@@ -100,7 +108,7 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/restaurants/editevent"
+                path="/restaurants/editevent/:Event_Name"
                 component={RestEditEvent}
               />
               <PrivateRoute
@@ -162,7 +170,7 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/viewrestaurantpage/:Rest_Name"
+                path="/viewrestaurantpage/:Rest_Id_signup"
                 component={ViewRestaurantPage}
               />
               <PrivateRoute
@@ -183,7 +191,7 @@ const App = () => {
 
               <PrivateRoute
                 exact
-                path="/writecustomerreview/:Rest_Name"
+                path="/writecustomerreview/:Rest_Id_signup"
                 component={AddReview}
               />
 
@@ -191,6 +199,24 @@ const App = () => {
                 exact
                 path="/viewregisteredevents/:Cust_Name"
                 component={ViewEventsAttending}
+              />
+
+              <PrivateRoute
+                exact
+                path="/viewattendees/:Event_Name"
+                component={ViewAttendees}
+              />
+
+              <PrivateRoute
+                exact
+                path="/viewattendees/:Event_Name/:Cust_Name"
+                component={CustomerDetailRegistration}
+              />
+
+              <PrivateRoute
+                exact
+                path="/orders/update/:order_id"
+                component={RestaurantUpdateOrder}
               />
             </Switch>
           </section>

@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
-import { GET_ORDERS, ORDERS_ERROR, ORDERS_UPDATE, CREATE_ORDER } from './types';
+import {
+    GET_ORDERS,
+    ORDERS_ERROR,
+    ORDERS_UPDATE,
+    CREATE_ORDER,
+    GET_ORDER,
+} from './types';
 
 //Create orders by restaurants
 //change this
@@ -78,6 +84,24 @@ export const updateOrdersByOrderId = (formData, order_id) => async(
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
+        dispatch({
+            type: ORDERS_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+export const getOrdersByOrdeId = (order_id) => async(dispatch) => {
+    //console.log('inside getcurrentrestprofile');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/orders/orderdetail/${order_id}`
+        );
+        dispatch({
+            type: GET_ORDER,
+            payload: res.data,
+        });
+    } catch (err) {
         dispatch({
             type: ORDERS_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },

@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRestByName } from '../../actions/profile';
-import { getReviewsByRestName } from '../../actions/review';
+import { getRestByID } from '../../actions/profile';
+import { getReviewsByRestId } from '../../actions/review';
 import { Link } from 'react-router-dom';
 //getRestByName
 const ViewRestaurantPage = ({
-  getRestByName,
-  getReviewsByRestName,
+  getRestByID,
+  getReviewsByRestId,
   profile: { profile, loading },
   review: { reviews },
   match,
 }) => {
   useEffect(() => {
     // console.log('viewrestaurantbyname', match.params.Rest_Name);
-    getRestByName(match.params.Rest_Name);
+    getRestByID(match.params.Rest_Id_signup);
     // if (profile) {
     //   getReviewsByRestName(profile.result[0].Rest_Name);
     // }
@@ -22,12 +22,12 @@ const ViewRestaurantPage = ({
 
   useEffect(() => {
     if (profile) {
-      getReviewsByRestName(profile.result[0].Rest_Name);
+      getReviewsByRestId(profile.result[0].Rest_Id_signup);
     }
   }, [loading]);
 
   if (profile) {
-    console.log('view reviews customer page', profile.result[0].Rest_Name);
+    console.log('view reviews customer page', profile.result[0].Rest_Id_signup);
   }
 
   let {
@@ -137,8 +137,8 @@ const ViewRestaurantPage = ({
 };
 
 ViewRestaurantPage.propTypes = {
-  getRestByName: PropTypes.func.isRequired,
-  getReviewsByRestName: PropTypes.func.isRequired,
+  getRestByID: PropTypes.func.isRequired,
+  getReviewsByRestId: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   review: PropTypes.object.isRequired,
@@ -151,6 +151,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getRestByName,
-  getReviewsByRestName,
+  getRestByID,
+  getReviewsByRestId,
 })(ViewRestaurantPage);

@@ -12,12 +12,11 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 //@access  Private
 //Table Restaurant_Information
 router.get('/me', auth, async(req, res) => {
-    const customerID = req.customer.id;
-    console.log('Restaurant Profile', customerID);
+    const customerID = req.customer.key;
+    console.log('current Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
-            FROM Restaurant_Information WHERE Rest_email_id='${customerID}'`,
+            `SELECT * FROM Restaurant_Information WHERE Rest_Id_signup='${customerID}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -113,8 +112,7 @@ router.get('/', auth, async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
-            FROM Restaurant_Information`,
+            `SELECT * FROM Restaurant_Information`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -140,13 +138,13 @@ router.get('/', auth, async(req, res) => {
 //@access  Private
 //Table Restaurant_Information
 
-router.get('/:Rest_Name', async(req, res) => {
-    const Rest_Name = req.params.Rest_Name;
+router.get('/:Rest_Id_signup', async(req, res) => {
+    const Rest_Id_signup = req.params.Rest_Id_signup;
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery  
-            FROM Restaurant_Information WHERE Rest_Name='${Rest_Name}'`,
+            `SELECT Rest_Id_signup, Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery, Image  
+            FROM Restaurant_Information WHERE Rest_Id_signup='${Rest_Id_signup}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);

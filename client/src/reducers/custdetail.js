@@ -1,14 +1,11 @@
 import {
-    GET_ORDERS,
-    ORDERS_ERROR,
-    ORDERS_UPDATE,
-    CREATE_ORDER,
-    GET_ORDER,
+    GET_CUSTOMER_PROFILE,
+    GET_CUSTOMER_PROFILE_ERROR,
 } from '../actions/types';
 
 const initialState = {
-    orders: [],
-    order: null,
+    customer_profile: null,
+    // profiles: [],
     loading: true,
     error: {},
 };
@@ -16,31 +13,22 @@ const initialState = {
 export default function(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case GET_ORDERS:
-        case ORDERS_UPDATE:
+        case GET_CUSTOMER_PROFILE:
             return {
                 ...state,
-                orders: payload,
+                customer_profile: payload,
                 loading: false,
             };
-        case ORDERS_UPDATE:
-        case CREATE_ORDER:
-        case GET_ORDER:
-            return {
-                ...state,
-                order: payload,
-                loading: false,
-            };
-        case ORDERS_ERROR:
+        case GET_CUSTOMER_PROFILE_ERROR:
             return {
                 ...state,
                 error: payload,
                 loading: false,
             };
-            // case CLEAR_EVENT:
+            // case CLEAR_PROFILE:
             //     return {
             //         ...state,
-            //         event: null,
+            //         customer_profile: null,
             //         loading: false,
             //     };
         default:

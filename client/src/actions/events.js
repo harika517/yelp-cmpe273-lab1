@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
-import { GET_EVENTS, GET_EVENT, EVENT_ERROR, CLEAR_EVENT } from './types';
+import {
+    GET_EVENTS,
+    GET_EVENT,
+    EVENT_ERROR,
+    UPDATE_EVENT,
+    CLEAR_EVENT,
+} from './types';
 
 //Get all the events by Restaurant Name
 ///events/Rest_Name
@@ -82,6 +88,43 @@ export const getEventDetail = (Event_Name) => async(dispatch) => {
             payload: res.data,
         });
     } catch (err) {
+        dispatch({
+            type: EVENT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+//editevent
+
+export const updateEventByName = (
+    formData,
+    Event_Name,
+    history,
+    edit = false
+) => async(dispatch) => {
+    try {
+        const config = {
+            headers: { 'Content-Type': 'application/json' },
+        };
+        const res = await axios.post(
+            `http://localhost:3001/restaurant/events/updateevent/${Event_Name}`,
+            formData,
+            config
+        );
+        dispatch({
+            type: UPDATE_EVENT,
+            payload: res.data,
+        });
+        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
+        if (!edit) {
+            history.push('/restaurantevents');
+        }
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+            errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+        }
         dispatch({
             type: EVENT_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },

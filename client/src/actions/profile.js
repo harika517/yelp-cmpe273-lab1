@@ -233,10 +233,10 @@ export const getAllRestProfiles = () => async(dispatch) => {
     }
 };
 
-export const getRestByName = (Rest_Name) => async(dispatch) => {
+export const getRestByID = (Rest_Id_signup) => async(dispatch) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/profile/${Rest_Name}`
+            `http://localhost:3001/restaurant/profile/${Rest_Id_signup}`
         );
         dispatch({
             type: GET_PROFILE,

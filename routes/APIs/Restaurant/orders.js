@@ -88,6 +88,35 @@ router.post(
 //@desc   Viewing orders of particular status by restaurant owner.
 //@access  Private
 //Table Restaurant_Orders
+router.get('/orderdetail/:order_id', (req, res) => {
+    const order_id = req.params.order_id;
+    try {
+        mysqlConnectionPool.query(
+            `SELECT * FROM Restaurant_Orders WHERE order_id='${order_id}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res.status(400).json({
+                        errors: [{ msg: 'No orders for this restaurent' }],
+                    });
+                }
+                console.log(result);
+                res.status(200).json({ result });
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  GET (View orders by status) '/restaurant/orders'
+//@desc   Viewing orders of particular status by restaurant owner.
+//@access  Private
+//Table Restaurant_Orders
 router.get('/:order_status', (req, res) => {
     const order_status = req.params.order_status;
     try {

@@ -29,13 +29,13 @@ const ViewRestaurantsDashboard = ({
                 <p className="medium"> {item.Timings}</p>
                 <p className="medium"> {item.Description}</p>
                 <Link
-                  to={`/viewrestaurantpage/${item.Rest_Name}`}
+                  to={`/viewrestaurantpage/${item.Rest_Id_signup}`}
                   className="btn btn-dark"
                 >
                   View Restaurant Page
                 </Link>
                 <Link
-                  to={`/writecustomerreview/${item.Rest_Name}`}
+                  to={`/writecustomerreview/${item.Rest_Id_signup}`}
                   className="btn btn-primary"
                 >
                   Write a Review
