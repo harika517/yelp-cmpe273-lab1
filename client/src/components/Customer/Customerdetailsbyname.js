@@ -24,6 +24,7 @@ const Customerdetailsbyname = ({
     Phone_Number,
     City,
   } = profile ? profile : { ...null };
+  console.log('inside Customerdetailsbyname, profile is', profile);
   return (
     <Fragment>
       {profile ? (
