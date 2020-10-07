@@ -194,7 +194,7 @@ export const editRestProfile = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/customer/profile/updateprofile/me',
+            'http://localhost:3001/restaurant/profile/updateprofile/me',
             formData,
             config
         );

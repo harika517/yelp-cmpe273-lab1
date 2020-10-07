@@ -62,6 +62,14 @@ const Restaurantmenuitems = ({
                   {newobj[k].map((indi) => (
                     <div>
                       <p className="lead">{indi.item_name}</p>
+                      <Link
+                        to={`/menu/update/${indi.item_id}`}
+                        className="text-primary"
+                      >
+                        {' '}
+                        edit
+                      </Link>
+
                       <img
                         className="menu_image"
                         src={indi.item_image}
@@ -74,21 +82,24 @@ const Restaurantmenuitems = ({
                       </p>
                       <p className="medium">${indi.item_price}</p>
                     </div>
-                    // <div class="card mb-3" style="max-width: 540px;">
-                    //   <div class="row no-gutters">
-                    //     <div class="col-md-4">
+                    // <div className="card mb-3" style="max-width: 540px;">
+                    //   <div className="row no-gutters">
+                    //     <div className="col-md-4">
                     //       <img
                     //         src={indi.item_image}
-                    //         class="card-img"
+                    //         className="card-img"
                     //         alt="..."
                     //       />
                     //     </div>
-                    //     <div class="col-md-8">
-                    //       <div class="card-body">
-                    //         <h5 class="card-title">{indi.item_name}</h5>
-                    //         <p class="card-text"> {indi.item_description}</p>
-                    //         <p class="card-text">{indi.item_ingredients}</p>
-                    //         <p class="card-text">${indi.item_price}</p>
+                    //     <div className="col-md-8">
+                    //       <div className="card-body">
+                    //         <h5 className="card-title">{indi.item_name}</h5>
+                    //         <p className="card-text">
+                    //           {' '}
+                    //           {indi.item_description}
+                    //         </p>
+                    //         <p className="card-text">{indi.item_ingredients}</p>
+                    //         <p className="card-text">${indi.item_price}</p>
                     //       </div>
                     //     </div>
                     //   </div>

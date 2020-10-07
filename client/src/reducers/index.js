@@ -10,6 +10,7 @@ import review from './review';
 import order from './orders';
 import search from './search';
 import custdetail from './custdetail';
+import ordersstatus from './ordersstatus';
 
 export default combineReducers({
     alert,
@@ -23,4 +24,5 @@ export default combineReducers({
     order,
     search,
     custdetail,
+    ordersstatus,
 });

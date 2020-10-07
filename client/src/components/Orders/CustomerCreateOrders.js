@@ -63,20 +63,16 @@ const CustomerCreateOrders = ({ createOrder }) => {
         <div className="form-group">
           <label for="Mode_Of_Delivery">Choose Delivery Mode</label>
           <small className="form-text">This field is required.</small>
-          <select name="Mode_Of_Delivery" id="Mode_Of_Delivery">
-            <option
-              value={Mode_Of_Delivery}
-              onChange={(e) => onChange(e)}
-              selected
-            >
+          <select
+            name="Mode_Of_Delivery"
+            id="Mode_Of_Delivery"
+            onChange={(e) => onChange(e)}
+          >
+            <option value="none" selected>
               none
             </option>
-            <option value={Mode_Of_Delivery} onChange={(e) => onChange(e)}>
-              Delivery
-            </option>
-            <option value={Mode_Of_Delivery} onChange={(e) => onChange(e)}>
-              Pick Up
-            </option>
+            <option value="Delivery">Delivery</option>
+            <option value="Pick Up">Pick Up</option>
           </select>
         </div>
         <input type="submit" className="btn btn-dark my-1" />

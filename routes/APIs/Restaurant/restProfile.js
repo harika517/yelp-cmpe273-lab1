@@ -45,19 +45,22 @@ router.get('/me', auth, async(req, res) => {
 //edit profie button
 router.post(
     '/updateprofile/me', [
-        check('Rest_Name', 'Name is required').not().isEmpty(),
-        check('Rest_email_id', 'Email Id is required').not().isEmpty(),
-        check('Contact', 'Phone Number is required').not().isEmpty(),
-        check('Timings', 'Timings is required').not().isEmpty(),
-        check('Curbside_PickUp', 'Mention if this mode of delivery exists')
-        .not()
-        .isEmpty(),
-        check('Dine_In', 'Mention if this mode of delivery exists').not().isEmpty(),
-        check('Yelp_Delivery', 'Mention if this mode of delivery exists')
-        .not()
-        .isEmpty(),
+        auth, [
+            check('Rest_Name', 'Name is required').not().isEmpty(),
+            check('Rest_email_id', 'Email Id is required').not().isEmpty(),
+            check('Contact', 'Phone Number is required').not().isEmpty(),
+            check('Timings', 'Timings is required').not().isEmpty(),
+            check('Curbside_PickUp', 'Mention if this mode of delivery exists')
+            .not()
+            .isEmpty(),
+            check('Dine_In', 'Mention if this mode of delivery exists')
+            .not()
+            .isEmpty(),
+            check('Yelp_Delivery', 'Mention if this mode of delivery exists')
+            .not()
+            .isEmpty(),
+        ],
     ],
-    auth,
     async(req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -75,13 +78,13 @@ router.post(
             Yelp_Delivery,
         } = req.body;
         //console.log('custProfile', req.params);
-        const customerID = Rest_email_id;
-        console.log('Create Rest profile', customerID);
+        const Rest_Id_signup = req.customer.key;
+        // console.log('Create Rest profile', customerID);
         try {
             var query = `UPDATE Restaurant_Information set Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', 
         Rest_location='${Rest_location}', Description='${Description}', Contact='${Contact}', Timings='${Timings}', 
         Curbside_PickUp='${Curbside_PickUp}', Dine_In='${Dine_In}', Yelp_Delivery='${Yelp_Delivery}' 
-        WHERE Rest_email_id='${customerID}'`;
+        WHERE Rest_Id_signup='${Rest_Id_signup}'`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

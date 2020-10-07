@@ -33,6 +33,7 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const REVIEWS_ERROR = 'REVIEWS_ERROR';
 export const ADD_REVIEWS = 'ADD_REVIEWS';
 export const GET_ORDERS = 'GET_ORDERS';
+export const GET_ORDERS_BY_STATUS = 'GET_ORDERS_BY_STATUS';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
 export const ORDERS_UPDATE = 'ORDERS_UPDATE';
 export const GET_ORDER = 'GET_ORDER';

@@ -61,6 +61,7 @@ router.post(
         }
         const order_id = req.params.order_id;
         const { order_status, Mode_Of_Delivery } = req.body;
+        console.log('inside order update, ', res);
         try {
             var query = `UPDATE Restaurant_Orders set order_status='${order_status}', Mode_Of_Delivery='${Mode_Of_Delivery}' 
         WHERE order_id='${order_id}'`;
@@ -104,7 +105,7 @@ router.get('/orderdetail/:order_id', (req, res) => {
                     });
                 }
                 console.log(result);
-                res.status(200).json({ result });
+                res.status(200).json(result[0]);
             }
         );
     } catch (error) {
@@ -117,11 +118,12 @@ router.get('/orderdetail/:order_id', (req, res) => {
 //@desc   Viewing orders of particular status by restaurant owner.
 //@access  Private
 //Table Restaurant_Orders
-router.get('/:order_status', (req, res) => {
+router.get('/:Rest_Name/:order_status', (req, res) => {
     const order_status = req.params.order_status;
+    const Rest_Name = req.body.Rest_Name;
     try {
         mysqlConnectionPool.query(
-            `SELECT * FROM Restaurant_Orders WHERE order_status='${order_status}'`,
+            `SELECT * FROM Restaurant_Orders WHERE order_status='${order_status}' and Rest_Name='${Rest_Name}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);

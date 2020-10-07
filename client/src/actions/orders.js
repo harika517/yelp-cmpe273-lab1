@@ -7,6 +7,7 @@ import {
     ORDERS_UPDATE,
     CREATE_ORDER,
     GET_ORDER,
+    GET_ORDERS_BY_STATUS,
 } from './types';
 
 //Create orders by restaurants
@@ -61,24 +62,33 @@ export const getOrdersByRestName = () => async(dispatch) => {
 };
 
 //Update orders by restaurant
-export const updateOrdersByOrderId = (formData, order_id) => async(
-    dispatch
-) => {
-    //console.log('inside getcurrentrestprofile');
+export const updateOrdersByOrderId = (
+    formData,
+    order_id,
+    history,
+    edit = false
+) => async(dispatch) => {
+    console.log('inside updateOrdersByOrderId');
+    console.log('inside updateOrdersByOrderId, formdata is ', formData);
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
         };
-        const res = await axios.get(
+        const res = await axios.post(
             `http://localhost:3001/restaurant/orders/update/${order_id}`,
             formData,
             config
         );
+        console.log('after updating, res is', res);
         dispatch({
             type: ORDERS_UPDATE,
             payload: res.data,
         });
-        dispatch(setAlert('Order Updated', 'success'));
+        // dispatch(setAlert('Order Updated', 'success'));
+        dispatch(setAlert(edit ? 'Order Updated' : 'Order Updated', 'success'));
+        if (!edit) {
+            history.push('/restaurantdashboard');
+        }
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {
@@ -91,14 +101,34 @@ export const updateOrdersByOrderId = (formData, order_id) => async(
     }
 };
 
-export const getOrdersByOrdeId = (order_id) => async(dispatch) => {
+export const getOrdersByOrderId = (order_id) => async(dispatch) => {
     //console.log('inside getcurrentrestprofile');
+    console.log('inside getOrdersByOrderId');
     try {
         const res = await axios.get(
             `http://localhost:3001/restaurant/orders/orderdetail/${order_id}`
         );
         dispatch({
             type: GET_ORDER,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: ORDERS_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+export const getOrdersByStatus = (order_status) => async(dispatch) => {
+    //console.log('inside getcurrentrestprofile');
+    console.log('inside getOrdersByOrderId');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/orders/${order_status}`
+        );
+        dispatch({
+            type: GET_ORDERS_BY_STATUS,
             payload: res.data,
         });
     } catch (err) {

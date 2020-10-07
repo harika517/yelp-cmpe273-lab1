@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   getOrdersByRestName,
   updateOrdersByOrderId,
+  getOrdersByStatus,
 } from '../../actions/orders';
 import Table from 'react-bootstrap/Table';
 //updateOrdersByOrderId(formData)
@@ -13,49 +14,89 @@ const RestaurantViewOrders = ({
   updateOrdersByOrderId,
   auth,
   order: { orders },
+  match,
 }) => {
-  const [formData, setFormData] = useState({
-    order_status: '',
-    Mode_Of_Delivery: '',
-  });
   useEffect(() => {
     getOrdersByRestName();
-    // setFormData({
-    //   order_status:
-    //     'New Order' ||
-    //     'Order Received' ||
-    //     'Preparing' ||
-    //     'Delivered' ||
-    //     'Cancelled',
-    //   Mode_Of_Delivery:
-    //     'Pick Up' ||
-    //     'Pick Up Ready' ||
-    //     'Picked Up' ||
-    //     'Delivery' ||
-    //     'On the way' ||
-    //     'Delivered',
-    // });
   }, []);
 
-  const { Mode_Of_Delivery, order_id } = formData;
+  const [formData, setFormData] = useState({
+    search_status: '',
+  });
+
+  const { search_status } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // updateOrdersByOrderId();
+    getOrdersByStatus(match.params.order_status);
   };
 
   orders ? console.log('print orders', orders) : console.log('no orders');
-  let opt = new Array();
 
   if (orders) {
     return (
       <Fragment>
         <div>
           <p className="large bold text-dark">Customer Orders</p>
-          <Link to="/restaurantdashboard" className="btn btn-dark">
+          {/* {orders.result ? (
+            <Fragment>
+              <Link
+                to={`/restaurant/orders/${orders.result[0].Rest_Name}/${orders.result[0].order_status}`}
+                className="btn btn-dark"
+              >
+                New Order
+              </Link>
+              <Link
+                to={`/restaurant/orders/${order_status}`}
+                className="btn btn-dark"
+              >
+                Delivered Order
+              </Link>
+              <Link
+                to={`/restaurant/orders/${order_status}`}
+                className="btn btn-dark"
+              >
+                Cancelled Order
+              </Link>
+            </Fragment>
+          ) : (
+            'null'
+          )} */}
+          <form className="form" onSubmit={(e) => onSubmit(e)}>
+            <div className="form-group">
+              <label for="search_status">Search by Order Status</label>
+              <input
+                type="text"
+                name="search_status"
+                value={search_status}
+                onChange={(e) => onChange(e)}
+              />
+            </div>
+            {orders.result ? (
+              <Link
+                to={`/restaurant/orders/${orders.result[0].Rest_Name}/${search_status}`}
+                className="btn btn-dark"
+              >
+                Go
+              </Link>
+            ) : null}
+          </form>
+          {/* <Link
+                to={`/restaurant/orders/${order.result.order_status}`}
+                className="btn btn-dark"
+              >
+                
+              </Link>
+              <Link
+                to={`/restaurant/orders/${order.result.order_status}`}
+                className="btn btn-dark"
+              >
+                
+              </Link> */}
+          <Link to="/restaurantdashboard" className="btn btn-light">
             Go Back
           </Link>
           <hr></hr>
@@ -128,7 +169,7 @@ const RestaurantViewOrders = ({
                           <td
                             className="medium"
                             name="order_id"
-                            value="order_id"
+                            value={item.order_id}
                           >
                             <Link
                               to={`/orders/update/${item.order_id}`}
@@ -137,7 +178,7 @@ const RestaurantViewOrders = ({
                               {item.order_id}
                             </Link>
                           </td>
-                          <td value="Cust_Name" name="Cust_Name">
+                          <td value={item.Cust_Name} name="Cust_Name">
                             <Link
                               to={`/orders/${item.Cust_Name}`}
                               className="medium text-dark"
@@ -148,48 +189,23 @@ const RestaurantViewOrders = ({
                           <td
                             className="medium"
                             name="item_name"
-                            value="item_name"
+                            value={item.item_name}
                           >
                             {item.item_name}
                           </td>
-                          <td className="medium">
-                            <select onChange={(e) => onChange(e)}>
-                              <option selected="selected" value="order_status">
-                                {item.order_status}
-                              </option>
-                              <option name="order_status" value="order_status">
-                                Order Received
-                              </option>
-                              <option name="order_status" value="order_status">
-                                Preparing
-                              </option>
-                              <option name="order_status" value="Delivered">
-                                Delivered
-                              </option>
-                              <option name="order_status" value="Cancelled">
-                                Cancelled
-                              </option>
-                            </select>
+                          <td
+                            className="medium"
+                            name="order_status"
+                            value={item.order_status}
+                          >
+                            {item.order_status}
                           </td>
-                          <td className="medium">
-                            <select onChange={(e) => onChange(e)}>
-                              <option
-                                selected="selected"
-                                value="Mode_Of_Delivery"
-                              >
-                                {item.Mode_Of_Delivery}
-                              </option>
-                              {item.Mode_Of_Delivery == 'Delivery'
-                                ? (opt = ['On the way', 'Delivered'])
-                                : (opt = ['Pick Up Ready', 'Picked Up'])}
-                              {opt.map((item) => (
-                                <option value="Mode_Of_Delivery">{item}</option>
-                              ))}
-                              {/* <option value="Mode_Of_Delivery">On the way</option>
-                            <option value="Mode_Of_Delivery">Delivered</option>
-                            <option value="Mode_Of_Delivery">Pick Up Ready</option>
-                            <option value="Mode_Of_Delivery">Picked Up</option> */}
-                            </select>
+                          <td
+                            className="medium"
+                            name="Mode_Of_Delivery"
+                            value={item.Mode_Of_Delivery}
+                          >
+                            {item.Mode_Of_Delivery}
                           </td>
                           {/* <td>
                             <input type="submit">Update</input>

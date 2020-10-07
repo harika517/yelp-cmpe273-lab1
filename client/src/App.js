@@ -39,6 +39,8 @@ import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
 import RestaurantUpdateOrder from './components/Orders/RestaurantUpdateOrder';
+import ViewOrdersByNewOrder from './components/Orders/ViewOrdersByNewOrder';
+// import ViewOrdersByStatus from './components/Orders/ViewOrdersByNewOrder';
 // import EventRegistration from './components/Social_Events/EventRegistration';
 //Redux
 import { Provider } from 'react-redux';
@@ -47,7 +49,7 @@ import { loadCustomer, loadRestaurantUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
-import YelpDelivery from './components/SearchBarResults/YelpDelivery';
+// import YelpDelivery from './components/SearchBarResults/YelpDelivery';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -217,6 +219,12 @@ const App = () => {
                 exact
                 path="/orders/update/:order_id"
                 component={RestaurantUpdateOrder}
+              />
+
+              <PrivateRoute
+                exact
+                path="/restaurant/orders/:Rest_Name/:search_status"
+                component={ViewOrdersByNewOrder}
               />
             </Switch>
           </section>

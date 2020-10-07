@@ -25,7 +25,9 @@ export const getRestaurantsByDelivery = () => async(dispatch) => {
 export const getRestaurantsByDineIn = () => async(dispatch) => {
     // console.log('inside getReviewsByRestName');
     try {
-        const res = await axios.get(`http://localhost:3001/search/delivery/dinein`);
+        const res = await axios.get(
+            `http://localhost:3001/search/delivery/Dine_In`
+        );
         console.log(res.data);
         dispatch({
             type: SEARCH_RESULT,
@@ -43,7 +45,7 @@ export const getRestaurantsByYelpDelivery = () => async(dispatch) => {
     // console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/search/delivery/yelpdelivery`
+            `http://localhost:3001/search/delivery/Yelp_Delivery`
         );
         console.log(res.data);
         dispatch({

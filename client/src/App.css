@@ -27,8 +27,13 @@ body {
     height: 100vh; */
 }
 
+.search-container .form-group {
+    width: 100%
+}
+
 .logo-icon {
-    height: 40px;
+    height: 50px;
+    width: 90px;
 }
 
 .logo-icon-large {
@@ -410,7 +415,7 @@ button {
 
 /* Navbar */
 
-.logo-icon {
+img .logo-icon {
     margin: 0px;
     padding: 0px;
 }
@@ -431,6 +436,14 @@ button {
     min-height: 8vh;
     margin-bottom: 0px;
     border-radius: 0px;
+}
+
+.navBar {
+    display: flex;
+}
+
+.navRight {
+    padding: 0 900px;
 }
 
 .navbar ul {
@@ -462,6 +475,7 @@ button {
     /* background: url('../src/backgroundimg/yelpHome.jpg') no-repeat center center/cover; */
     background-image: url('https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/e456d8b923f5/assets/img/home/hero_photos/DLIUyjgS7v50YRV2xfNquA.jpg');
     height: 100vh;
+    overflow: hidden;
     /* width: 100%;
     background-size: size;
     display: flex;
@@ -472,6 +486,16 @@ button {
     padding-top: 0%; */
     /* align-items: center; */
     /* display: block; */
+}
+
+.navBar {
+    width: 100%
+}
+
+.options {
+    width: 80%;
+    height: 200px;
+    /* background-color: hotpink; */
 }
 
 .search_bar {
@@ -489,6 +513,10 @@ button {
     padding: 0.7rem 2rem;
     justify-content: space-between;
     width: 100%;
+}
+
+.search-options li {
+    float: left;
 }
 
 .landing-inner {

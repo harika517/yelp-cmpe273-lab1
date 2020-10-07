@@ -10,6 +10,7 @@ import { logout } from '../../actions/auth';
 //create the Navbar Component
 export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const authLinks = (
+    // <div className="navBar">
     <ul>
       {/* <li>
         <a href="/review" className="btn btn-dark my-1">
@@ -28,6 +29,7 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </a>
       </li>
     </ul>
+    // </div>
   );
 
   const guestLinks = (
@@ -60,18 +62,28 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   return (
     <nav className="navbar bg-dark">
-      <div>
-        <img class="logo-icon" src={'/images/logo.png'}></img>
-      </div>
-      {/* <img src="../../" */}
-      {/* <h1>
+      <div className="navBar">
+        <img
+          className="logo-icon"
+          src="https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/c3484759c57a/assets/img/logos/logo_desktop_xlarge.png"
+        ></img>
+        {/* <img
+          className="logo-icon"
+          src="https://promos.yelpcdn.com/food_delivery_icon_2x.png"
+        /> */}
+
+        {/* <img src="../../" */}
+        {/* <h1>
         <Link to="/">
           <img src="../../images/header_logo_desktop.png"></img>
         </Link>
       </h1> */}
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+        <div className="navRight">
+          {!loading && (
+            <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+          )}
+        </div>
+      </div>
     </nav>
   );
 };
