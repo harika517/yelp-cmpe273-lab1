@@ -5,8 +5,9 @@ import { POST_IMAGE, IMAGE_ERROR } from './types';
 
 const insertImage = (formData) => async(dispatch) => {
     try {
+        console.log('inside insertImage action');
         const config = {
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'content-type': 'multipart/form-data' },
         };
         const res = await axios.post(
             'http://localhost:3001/customer/addphoto',
@@ -17,7 +18,7 @@ const insertImage = (formData) => async(dispatch) => {
             type: POST_IMAGE,
             payload: res.data,
         });
-        //dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+        dispatch(setAlert('Profile Created', 'success'));
     } catch (err) {
         const errors = err.response.data.errors;
         if (errors) {

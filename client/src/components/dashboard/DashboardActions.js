@@ -10,7 +10,7 @@ const DashboardActions = (insertImage) => {
   });
 
   const { Cust_ProfilePic } = formData;
-  console.log('here photo');
+  // console.log('here photo');
   // const onChange = (e) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
   //   insertImage(formData);
@@ -29,14 +29,14 @@ const DashboardActions = (insertImage) => {
       <Link to="/addPhotos" className=" lead text-primary">
         <i className="fas fa-camera-retro text-primary"></i> Add Profile Photos
       </Link>{' '}
-      <input
+      {/* <input
         type="file"
         name="Cust_Images"
         //onChange={(e) => onChange(e)}
         onChange={fileHandler}
         value={Cust_ProfilePic}
-      />
-      <button onClick={fileSave}>Upload</button>
+      /> */}
+      {/* <button onClick={fileSave}>Upload</button> */}
       <br />
       <br />
       <Link to="/editProfile" className=" lead text-primary">

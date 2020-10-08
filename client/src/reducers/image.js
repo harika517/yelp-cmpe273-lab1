@@ -16,12 +16,12 @@ export default function(state = initialState, action) {
                 image: payload,
                 loading: false,
             };
-        case POST_IMAGE:
-            return {
-                ...state,
-                images: payload,
-                loading: false,
-            };
+            // case POST_IMAGE:
+            //     return {
+            //         ...state,
+            //         images: payload,
+            //         loading: false,
+            //     };
         case IMAGE_ERROR:
             return {
                 ...state,

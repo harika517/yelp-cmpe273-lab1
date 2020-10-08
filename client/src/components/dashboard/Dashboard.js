@@ -6,15 +6,49 @@ import { getCurrentProfile } from '../../actions/profile';
 import DashboardActions from './DashboardActions';
 import { Result } from 'express-validator';
 import auth from '../../reducers/auth';
+import insertImage from '../../actions/uploadimages';
 
 const Dashboard = ({
   getCurrentProfile,
   auth,
   profile: { profile, loading },
+  insertImage,
 }) => {
+  const [image, setImage] = useState({
+    file: '',
+    fileText: '',
+  });
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+    setImage({
+      file: loading || !profile.Cust_ProfilePic ? '' : profile.Cust_ProfilePic,
+      fileText: 'Choose Image..',
+    });
+  }, [loading]);
+
+  // const { Cust_ProfilePic } = formData;
+
+  const onImageChange = (e) => {
+    console.log('Inside On Image Change');
+    // setFormData({ ...formData, [e.target.name]: e.target.value });
+    setImage({ file: e.target.files[0], fileText: e.target.files[0].name });
+  };
+  const onUpload = (e) => {
+    e.preventDefault();
+    console.log('OnUpload');
+    const formData = new FormData();
+    formData.append('image', image.file);
+    insertImage(formData);
+  };
+
+  // if (profile) {
+  //   console.log('before get req', profile.Cust_ProfilePic);
+  //   profile.Cust_ProfilePic = `http://localhost:3001/customer/addphoto/${profile.Cust_ProfilePic}`;
+  // }
+
+  if (profile) {
+    console.log('ProfilePicture', profile.Cust_ProfilePic);
+  }
   return loading ? (
     ''
   ) : (
@@ -22,13 +56,44 @@ const Dashboard = ({
       <div className="container_3columns">
         {/* <div className="columns"> */}
         <div className="column_1">
+          {console.log(
+            'inside fragment, profile.Cust_ProfilePic is',
+            profile.Cust_ProfilePic
+          )}
           <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
+          {console.log(
+            'inside fragment, 2 profile.Cust_ProfilePic is',
+            profile.Cust_ProfilePic
+          )}
           <h3 className="lead">
             {' '}
             <i className="fas fa-user" />
             {profile.Cust_Name}'s profile
           </h3>
           <hr></hr>
+
+          <form onSubmit={(e) => onUpload(e)}>
+            <br />
+            <div className="custom-file" style={{ width: '80%' }}>
+              <input
+                type="file"
+                className="custom-file-input"
+                name="image"
+                accept="image/*"
+                onChange={(e) => onImageChange(e)}
+              />
+              <label className="custom-file-label" htmlFor="image">
+                {image.fileText}
+              </label>
+            </div>
+            <br />
+            <button type="submit" className="btn btn-dark">
+              Upload
+            </button>
+          </form>
+          <br />
+          <hr />
+
           <Link to="/viewrestaurants" className="btn btn-dark">
             {' '}
             Restaurants{' '}
@@ -150,6 +215,7 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  insertImage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -157,4 +223,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, insertImage })(
+  Dashboard
+);

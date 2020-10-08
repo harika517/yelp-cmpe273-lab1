@@ -3,38 +3,47 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../../middleware/auth');
 const mysqlConnectionPool = require('../../../config/connectiondbpool');
+const path = require('path');
+const multer = require('multer');
 
-//@route POST Customer Profile Pic /customer/addphoto/:Cust_email_id
-//@desc   enables user to upload pic
-//@access  Private
-//Table Customer_Images
+const userstorage = multer.diskStorage({
+    destination: `${path.join(__dirname, '..')}/public/uploads/users`,
+    filename: (req, file, cb) => {
+        cb(
+            null,
+            `user${req.customer.key}-${Date.now()}${path.extname(file.originalname)}`
+        );
+    },
+});
 
-router.post(
-    '/',
-    auth, [check('Cust_Images', 'Upload image').not().isEmpty()],
-    async(req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+const useruploads = multer({
+    storage: userstorage,
+    limits: { fileSize: 1000000 },
+}).single('image');
+
+router.post('/', auth, (req, res) => {
+    console.log('image upload', req.customer.id);
+
+    const Cust_email_id = req.customer.id;
+    useruploads(req, res, function(err) {
+        if (!err) {
+            let imageSql = `UPDATE Customer_Information SET Cust_ProfilePic = '${req.file.filename}' WHERE Cust_email_id = '${Cust_email_id}'`;
+            try {
+                mysqlConnectionPool.query(imageSql, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send('Database Error');
+                    }
+                    res.status(200).json(result);
+                });
+            } catch (error) {
+                console.log(error);
+                res.status(500).send('Server Error');
+            }
+        } else {
+            console.log('Image upload Error!');
         }
-        const { Cust_Images } = req.body;
-        //console.log('custProfile', req.params);
-        const customerID = Cust_email_id;
-        try {
-            var query = `INSERT into Customer_Images (Cust_email_id, Cust_Images) VALUES ('${customerID}', '${Cust_Images}')`;
-            mysqlConnectionPool.query(query, (error, result) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(500).send('Server Error');
-                }
-                // console.log(result);
-                res.status(200).json(result[0]);
-            });
-        } catch (error) {
-            console.log(error);
-            res.status(500).send('Server Error');
-        }
-    }
-);
+    });
+});
 
 module.exports = router;

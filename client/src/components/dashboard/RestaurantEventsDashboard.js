@@ -38,7 +38,7 @@ const RestaurantEventsDashboard = ({
           ) : (
             <Fragment>
               <h3 className="text-dark"> Events</h3>
-              <div className="card">
+              <div>
                 {result.length > 0 ? (
                   result.map((item) => (
                     <RestEventItem key={item.id} events={item} />

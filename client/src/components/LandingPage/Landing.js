@@ -14,10 +14,15 @@ const Landing = () => {
         />
         <br />
         <div className="search-container">
-          <form className="form-group">
-            <input type="text" placeholder="Search.." name="search" />
+          <form className="search-form">
+            <input
+              type="text"
+              className="medium"
+              placeholder="Dishes, Location, Cuisine, Restaurants..."
+              name="search"
+            />
             <button className="searchButton" type="submit">
-              <i class="fa fa-search"></i>
+              <i className="fa fa-search medium"></i>
             </button>
           </form>
         </div>

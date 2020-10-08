@@ -51,8 +51,8 @@ router.post(
                     }
                     const payload = {
                         customer: {
-                            id: Cust_email_id,
                             key: result[0].Cust_Id,
+                            id: Cust_email_id,
                         },
                     };
 
@@ -61,7 +61,7 @@ router.post(
                         config.get('jwtSecret'), { expiresIn: 360000 },
                         (error, token) => {
                             if (error) throw error;
-                            res.json({ token });
+                            res.json({ token, key: result[0].Cust_Id });
                         }
                     );
                 }
