@@ -42,7 +42,7 @@ const Restaurantmenuitems = ({
         <br />
         <br />
         <Link to="/restaurant/editmenu" className="btn btn-dark">
-          Edit/Add Menu
+          Add Menu
         </Link>
         <hr></hr>
         {/* {allmenuitems
@@ -60,50 +60,39 @@ const Restaurantmenuitems = ({
                 <div>
                   <h3>{k}</h3>
                   {newobj[k].map((indi) => (
-                    <div>
-                      <p className="lead">{indi.item_name}</p>
-                      <Link
-                        to={`/menu/update/${indi.item_id}`}
-                        className="text-primary"
-                      >
-                        {' '}
-                        edit
-                      </Link>
-
-                      <img
-                        className="menu_image"
-                        src={indi.item_image}
-                        class="card-img"
-                        alt="..."
-                      />
-                      <p className="medium">{indi.item_description}</p>
-                      <p className="medium">
-                        Ingrediants: {indi.item_ingredients}
-                      </p>
-                      <p className="medium">${indi.item_price}</p>
-                    </div>
-                    // <div className="card mb-3" style="max-width: 540px;">
-                    //   <div className="row no-gutters">
-                    //     <div className="col-md-4">
-                    //       <img
-                    //         src={indi.item_image}
-                    //         className="card-img"
-                    //         alt="..."
-                    //       />
-                    //     </div>
-                    //     <div className="col-md-8">
-                    //       <div className="card-body">
-                    //         <h5 className="card-title">{indi.item_name}</h5>
-                    //         <p className="card-text">
-                    //           {' '}
-                    //           {indi.item_description}
-                    //         </p>
-                    //         <p className="card-text">{indi.item_ingredients}</p>
-                    //         <p className="card-text">${indi.item_price}</p>
-                    //       </div>
-                    //     </div>
-                    //   </div>
-                    // </div>
+                    <fragment>
+                      <div className="card mb-3">
+                        <div className="row no-gutters">
+                          <div className="col-md-4">
+                            <img
+                              className="menu_image"
+                              src={indi.item_image}
+                              className="card-img"
+                              alt="Item Picture"
+                            />
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <p className="medium">{indi.item_description}</p>
+                              <p className="medium">
+                                Ingrediants: {indi.item_ingredients}
+                              </p>
+                              <p className="medium">${indi.item_price}</p>
+                            </div>
+                            <div>
+                              <Link
+                                to={`/restaurant/menu/item/${indi.item_id}`}
+                                className="btn btn-dark small"
+                              >
+                                {' '}
+                                Edit
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </fragment>
                   ))}
                 </div>
               );

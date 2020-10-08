@@ -73,6 +73,13 @@ ul {
 }
 
 
+/******** REstaurant menucards******/
+
+.card mb-3 {
+    max-width: 540px;
+}
+
+
 /******** Restaurant Menu Images*****/
 
 img {

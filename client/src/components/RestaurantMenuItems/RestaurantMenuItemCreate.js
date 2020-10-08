@@ -35,7 +35,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
   };
   return (
     <Fragment>
-      <h1 className="large text-dark">Profile</h1>
+      <h1 className="large text-dark">Adding a Menu Item</h1>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <label for="item_name">Name</label>

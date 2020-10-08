@@ -79,6 +79,28 @@ export const getMenuByRestName = (Rest_Name) => async(dispatch) => {
     }
 };
 
+//Get Item details by item Id
+//http://localhost:3000/restaurant/menuitems/Mangoes%20Indian%20Cuisine
+export const getItemDetailByID = (item_id) => async(dispatch) => {
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/restaurant/menuitems/${item_id}`
+        );
+        // console.log(
+        //     'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)
+        // );
+        dispatch({
+            type: GET_MENUITEM,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: MENUITEM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
 // //edit profile
 // export const editProfile = (formData, history, edit = false) => async(
 //     dispatch

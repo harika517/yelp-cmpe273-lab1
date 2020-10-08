@@ -40,6 +40,7 @@ import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
 import RestaurantUpdateOrder from './components/Orders/RestaurantUpdateOrder';
 import ViewOrdersByNewOrder from './components/Orders/ViewOrdersByNewOrder';
+import EditMenuItem from './components/RestaurantMenuItems/EditMenuItem';
 // import ViewOrdersByStatus from './components/Orders/ViewOrdersByNewOrder';
 // import EventRegistration from './components/Social_Events/EventRegistration';
 //Redux
@@ -225,6 +226,12 @@ const App = () => {
                 exact
                 path="/restaurant/orders/:Rest_Name/:search_status"
                 component={ViewOrdersByNewOrder}
+              />
+
+              <PrivateRoute
+                exact
+                path="/restaurant/menu/item/:item_id"
+                component={EditMenuItem}
               />
             </Switch>
           </section>

@@ -101,14 +101,47 @@ router.get('/me', auth, async(req, res) => {
     }
 });
 
+//@route  GET Menu Item by ID restaurant/menuitems/:item_id
+//@desc   get the complete menu by restaurant
+//@access  Private
+//Table Restaurant_Dishes
+router.get('/:item_id', auth, async(req, res) => {
+    // const customerID = req.customer.id;
+    const item_id = req.params.item_id;
+    // console.log('Current Restaurant Profile', customerID);
+    try {
+        mysqlConnectionPool.query(
+            `SELECT * FROM Restaurant_Dishes WHERE item_id='${item_id}'`,
+            (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send('Server Error');
+                }
+                if (result.length === 0) {
+                    return res
+                        .status(400)
+                        .json({ errors: [{ msg: 'Restaurant customer doesnt Exists' }] });
+                }
+                // console.log('Restaurant get/me:', result);
+                res.status(200).json(result);
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 //@route  GET restaurant/menuitems/updateitem/me
 //@desc   get the complete menu by restaurant
 //@access  Private
 //Table Restaurant_Dishes
 
-router.post('/updateitem/me/:item_id', auth, (req, res) => {
+router.post('/updateitem/:item_id', auth, (req, res) => {
+    //console.log('custProfile', req.params);
+    const ItemID = req.params.item_id;
+    console.log('MenuItem ID', ItemID);
     const {
-        item_id,
         item_name,
         item_description,
         item_category,
@@ -117,13 +150,10 @@ router.post('/updateitem/me/:item_id', auth, (req, res) => {
         Rest_Name,
         Rest_email_id,
     } = req.body;
-    //console.log('custProfile', req.params);
-    const ItemID = req.body.item_id;
-    console.log('MenuItem ID', ItemID);
     try {
-        var query = `UPDATE Restaurant_Dishes set item_id='${item_id}', item_name='${item_name}', item_description='${item_description}', 
-            item_category='${item_category}', item_ingredients='${item_ingredients}', item_price='${item_price}', 
-            Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}' WHERE item_id='${ItemID}'`;
+        var query = `UPDATE Restaurant_Dishes set item_name='${item_name}', item_description='${item_description}', 
+        item_category='${item_category}', item_ingredients='${item_ingredients}', item_price='${item_price}', 
+        Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}' WHERE item_id='${ItemID}'`;
         mysqlConnectionPool.query(query, (error, result) => {
             if (error) {
                 console.log(error);
