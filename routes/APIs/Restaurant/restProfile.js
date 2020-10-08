@@ -78,13 +78,15 @@ router.post(
             Yelp_Delivery,
         } = req.body;
         //console.log('custProfile', req.params);
-        const Rest_Id_signup = req.customer.key;
-        // console.log('Create Rest profile', customerID);
+        const customerID = Rest_email_id;
+        console.log('Rest edit profile', customerID);
+        // const Rest_Id_signup = req.customer.key;
+        // console.log('Create Rest profile', Rest_Id_signup);
         try {
-            var query = `UPDATE Restaurant_Information set Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', 
+            var query = `UPDATE Restaurant_Information SET Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', 
         Rest_location='${Rest_location}', Description='${Description}', Contact='${Contact}', Timings='${Timings}', 
         Curbside_PickUp='${Curbside_PickUp}', Dine_In='${Dine_In}', Yelp_Delivery='${Yelp_Delivery}' 
-        WHERE Rest_Id_signup='${Rest_Id_signup}'`;
+        WHERE Rest_email_id='${Rest_email_id}'`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

@@ -56,11 +56,12 @@ const Viewevents = ({
           <hr></hr>
           <h3 className="text-dark"> Events</h3>
 
-          <div className="card">
+          <div>
             {result.length > 0 ? (
               result.map((item) => (
                 <Fragment>
                   <EventItem key={item.id} events={item} />
+                  <br />
                 </Fragment>
               ))
             ) : (

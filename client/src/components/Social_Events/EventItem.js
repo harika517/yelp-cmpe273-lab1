@@ -30,46 +30,73 @@ const EventItem = (props) => {
     What_And_Why
   );
   return (
-    <div className="wrapper">
-      <div className="cards_wrap">
-        <div className="card_item">
-          <div className="card_inner">
-            <div className="card_top">
-              <img className="card_img" src=" " alt="Photo" />
-            </div>
-            <div className="card_bottom">
-              {/* <div className="card_category">Travel</div> */}
-              <div className=" card_info">
-                <Link to={`/viewevent/${Event_Name}`} className="lead title">
-                  {Event_Name}
-                </Link>
-                <p className="medium">
-                  <i className="fas fa-calendar-day text-dark"></i> {Event_Date}
-                </p>
-                <p className="medium">
-                  <i className="fas fa-clock text-dark"></i> {Event_Time}
-                </p>
-                <p className="medium">
-                  <i className="fas fa-map-marked-alt text-dark"></i>{' '}
-                  {Event_Location}
-                </p>
-                <p className="medium">{Hashtags}</p>
-                {/* <p className="medium">
-                  <i className="fas fa-quote-left medium text-dark"></i>{' '}
-                  {What_And_Why}
-                  <i className="fas fa-quote-right medium text-dark"></i>
-                </p> */}
-                {/* <Link to="#!" className="btn btn-dark">
-                  {' '}
-                  Register
-                </Link> */}
-              </div>
-              {/* <div className="card_creator">By Alex Kato</div> */}
+    <Fragment>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <Link
+                to={`/viewevent/${Event_Name}`}
+                className="text-dark medium bold title"
+              >
+                {Event_Name}
+              </Link>
+              <p className="medium">
+                <i className="fas fa-calendar-day text-dark"></i> {Event_Date}
+              </p>
+              <p className="medium">
+                <i className="fas fa-clock text-dark"></i> {Event_Time}
+              </p>
+              <p className="medium">
+                <i className="fas fa-map-marked-alt text-dark"></i>{' '}
+                {Event_Location}
+              </p>
+              <p className="medium">{Hashtags}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
+    // <div className="wrapper">
+    //   <div className="cards_wrap">
+    //     <div className="card_item">
+    //       <div className="card_inner">
+    //         <div className="card_top">
+    //           <img className="card_img" src=" " alt="Photo" />
+    //         </div>
+    //         <div className="card_bottom">
+    //           {/* <div className="card_category">Travel</div> */}
+    //           <div className=" card_info">
+    //             <Link to={`/viewevent/${Event_Name}`} className="lead title">
+    //               {Event_Name}
+    //             </Link>
+    //             <p className="medium">
+    //               <i className="fas fa-calendar-day text-dark"></i> {Event_Date}
+    //             </p>
+    //             <p className="medium">
+    //               <i className="fas fa-clock text-dark"></i> {Event_Time}
+    //             </p>
+    //             <p className="medium">
+    //               <i className="fas fa-map-marked-alt text-dark"></i>{' '}
+    //               {Event_Location}
+    //             </p>
+    //             <p className="medium">{Hashtags}</p>
+    //             {/* <p className="medium">
+    //               <i className="fas fa-quote-left medium text-dark"></i>{' '}
+    //               {What_And_Why}
+    //               <i className="fas fa-quote-right medium text-dark"></i>
+    //             </p> */}
+    //             {/* <Link to="#!" className="btn btn-dark">
+    //               {' '}
+    //               Register
+    //             </Link> */}
+    //           </div>
+    //           {/* <div className="card_creator">By Alex Kato</div> */}
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
     // <div className="profile bg-light">
     //   <img className="round-img"></img>
     //   <div>

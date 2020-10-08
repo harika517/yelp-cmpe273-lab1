@@ -118,15 +118,19 @@ const Dashboard = ({
         <div className="column_2">
           <h2>{profile.Cust_Name}</h2>
           <p className="lead">
+            <i className="fas fa-home"></i>
             {profile.City} {profile.State} {profile.Country}
-            <p className="lead text-dark"> Recent Activity</p>
           </p>
+          <hr />
+          <p className="lead text-dark"> Recent Activity</p>
         </div>
         {/* </div> */}
         {/* <div className="columns"> */}
+
         <div className="column_3">
           <DashboardActions />
-          <p className="lead">About {profile.Cust_Name}</p>
+          <hr />
+          <p className="bold text-dark medium">About {profile.Cust_Name}...</p>
           {Object.keys(profile).map(
             (key) => {
               if (

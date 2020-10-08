@@ -73,6 +73,9 @@ const Restaurantmenuitems = ({
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
+                              <h4 className="text-dark bold">
+                                {indi.item_name}
+                              </h4>
                               <p className="medium">{indi.item_description}</p>
                               <p className="medium">
                                 Ingrediants: {indi.item_ingredients}

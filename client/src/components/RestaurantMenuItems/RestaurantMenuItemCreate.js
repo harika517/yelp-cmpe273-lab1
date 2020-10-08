@@ -14,6 +14,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
     item_price: '',
     Rest_Name: '',
     Rest_email_id: '',
+    item_image: '',
   });
 
   const {
@@ -24,6 +25,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
     item_price,
     Rest_Name,
     Rest_email_id,
+    item_image,
   } = formData;
 
   const onChange = (e) =>
@@ -71,18 +73,6 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        {/* <div className="form-group">
-          <label for="Gender">Gender</label>
-          <br />
-          <input type="radio" id="Female" name="Gender" value="Female" />
-          <label for="Female">Female</label>
-          <br />
-          <input type="radio" id="Male" name="Gender" value="Male" />
-          <label for="Male">Male</label>
-          <br />
-          <input type="radio" id="Other" name="Gender" value="Other" />
-          <label for="Other">Other</label>
-        </div> */}
         <div className="form-group">
           <label for="item_ingredients">Ingrediants</label>
           <br />
@@ -123,6 +113,17 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
             type="text"
             name="Rest_email_id"
             value={Rest_email_id}
+            onChange={(e) => onChange(e)}
+          />
+        </div>
+        <div className="form-group">
+          <label for="item_image">Write to Us</label>
+          <br />
+
+          <input
+            type="text"
+            name="item_image"
+            value={item_image}
             onChange={(e) => onChange(e)}
           />
         </div>

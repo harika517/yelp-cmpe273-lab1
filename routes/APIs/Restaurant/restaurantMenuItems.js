@@ -148,12 +148,15 @@ router.post('/updateitem/:item_id', auth, (req, res) => {
         item_ingredients,
         item_price,
         Rest_Name,
+        item_image,
         Rest_email_id,
+        Rest_Id_signup,
     } = req.body;
     try {
         var query = `UPDATE Restaurant_Dishes set item_name='${item_name}', item_description='${item_description}', 
         item_category='${item_category}', item_ingredients='${item_ingredients}', item_price='${item_price}', 
-        Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}' WHERE item_id='${ItemID}'`;
+        Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', item_image='${item_image}', Rest_Id_signup='${Rest_Id_signup}' 
+        WHERE item_id='${ItemID}'`;
         mysqlConnectionPool.query(query, (error, result) => {
             if (error) {
                 console.log(error);

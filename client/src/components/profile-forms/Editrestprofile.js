@@ -117,12 +117,16 @@ const Editrestprofile = ({
           <small className="form-text">
             Describe your restaurant in few words.
           </small>
-          <input
+          <textarea
+            rows="4"
+            cols="50"
             type="text"
             name="Description"
             value={Description}
             onChange={(e) => onChange(e)}
-          />
+          >
+            {Description}
+          </textarea>
         </div>
 
         <div className="form-group">

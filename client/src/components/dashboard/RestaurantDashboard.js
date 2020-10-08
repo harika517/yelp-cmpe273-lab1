@@ -102,6 +102,9 @@ const RestaurantDashboard = ({
               </h4>
             )}
             <hr></hr>
+            <Link to="/createevent" className=" btn btn-dark">
+              Create Event
+            </Link>
             <Link to="/restaurantevents" className=" btn btn-dark">
               Events
             </Link>
@@ -136,10 +139,15 @@ const RestaurantDashboard = ({
               : 'none'}
           </div>
           <div className="column2">
+            <Link to="/restaurant/editmenu" className="btn btn-dark">
+              Add Menu
+            </Link>
             <Link to="/restaurant/menu" className="btn btn-dark">
               <i className="fas fa-utensils"></i>
               View Menu
             </Link>
+            <br />
+            <br />
             <Link
               to={`/restaurant/orders/${profile.Rest_Name}`}
               className="btn btn-dark"

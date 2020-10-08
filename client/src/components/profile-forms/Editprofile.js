@@ -127,18 +127,6 @@ const Editprofile = ({
             onChange={(e) => onChange(e)}
           />
         </div>
-        {/* <div className="form-group">
-          <label for="Gender">Gender</label>
-          <br />
-          <input type="radio" id="Female" name="Gender" value="Female" />
-          <label for="Female">Female</label>
-          <br />
-          <input type="radio" id="Male" name="Gender" value="Male" />
-          <label for="Male">Male</label>
-          <br />
-          <input type="radio" id="Other" name="Gender" value="Other" />
-          <label for="Other">Other</label>
-        </div> */}
         <div className="form-group">
           <label for="Date_of_Birth">Date of Birth</label>
           <br />
