@@ -112,7 +112,7 @@ router.post(
 //@access  Private
 //Table Restaurant_Information
 
-router.get('/', auth, async(req, res) => {
+router.get('/', async(req, res) => {
     // const customerID = req.customer.id;
     // console.log('Restaurant Profile', customerID);
     try {

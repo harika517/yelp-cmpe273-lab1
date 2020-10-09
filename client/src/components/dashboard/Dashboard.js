@@ -94,22 +94,25 @@ const Dashboard = ({
           <br />
           <hr />
 
-          <Link to="/viewrestaurants" className="btn btn-dark">
+          <Link to="/viewrestaurants" className="text-dark medium">
             {' '}
+            <i className="fas fa-utensils"></i>
             Restaurants{' '}
           </Link>
           <hr></hr>
-          <Link to="/ordersplaced" className="btn btn-dark">
-            {' '}
-            Order History{' '}
+          <Link
+            to={`/ordersplaced/${profile.Cust_Name}`}
+            className="text-dark medium"
+          >
+            <i className="fas fa-tag"></i> Order History{' '}
           </Link>
           <hr></hr>
           <Link
             to={`/viewregisteredevents/${profile.Cust_Name}`}
-            className="btn btn-dark"
+            className="text-dark medium"
           >
             {' '}
-            Events Attending{' '}
+            <i className="fas fa-users"></i> Events Attending{' '}
           </Link>
           <hr></hr>
         </div>

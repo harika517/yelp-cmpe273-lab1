@@ -174,7 +174,7 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/ordersplaced"
+                path="/ordersplaced/:Cust_Name"
                 component={CustomerViewOrders}
               />
               <PrivateRoute

@@ -138,3 +138,47 @@ export const getOrdersByStatus = (order_status) => async(dispatch) => {
         });
     }
 };
+
+//get orders rasied by customers
+
+export const getOrdersByCustName = (Cust_Name) => async(dispatch) => {
+    //console.log('inside getcurrentrestprofile');
+    console.log('inside getOrdersByOrderId');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}`
+        );
+        dispatch({
+            type: GET_ORDERS,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: ORDERS_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};
+
+//get orders rasied by customers flitered by order status
+
+export const getCustOrderByStatus = (Cust_Name, order_status) => async(
+    dispatch
+) => {
+    //console.log('inside getcurrentrestprofile');
+    console.log('inside getCustOrderByStatus');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}/${order_status}`
+        );
+        dispatch({
+            type: GET_ORDERS,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: ORDERS_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};

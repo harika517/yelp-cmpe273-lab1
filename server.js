@@ -41,6 +41,7 @@ const customerAuth = require('./routes/APIs/auth');
 const customerEvents = require('./routes/APIs/upcomingEvents/events');
 const customerRegistration = require('./routes/APIs/EventRegistration/CustomerRegistration');
 const searchByDelivery = require('./routes/APIs/SearchActions/delivery');
+const searchRestaurants = require('./routes/APIs/SearchActions/restaurants');
 
 const customerImage = require('./routes/APIs/ImageUploads/CustImage');
 
@@ -64,6 +65,7 @@ app.use('/customer/events', customerEvents);
 app.use('/customer/registration', customerRegistration);
 app.use('/customer/addphoto', customerImage);
 app.use('/search/delivery', searchByDelivery);
+app.use('/search/restaurants', searchRestaurants);
 // app.use('restaurant/auth', restaurantAuth);
 
 app.use('/restaurant/signUP', restaurantSignUp);

@@ -11,7 +11,7 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 //@desc   Creating orders by customer for particular restaurant Id.
 //@access  Private
 //Table Restaurant_Orders
-// Not working
+
 router.post(
     '/me', [
         auth, [
@@ -53,4 +53,66 @@ router.post(
         }
     }
 );
+
+//@route  GET orders raised by customers '/customer/orders/ordersplaced/:Cust_Name'
+//@desc   Getting orders raised by customers
+//@access  Private
+//Table Restaurant_Orders
+
+router.get('/ordersplaced/:Cust_Name', auth, (req, res) => {
+    const Cust_Name = req.params.Cust_Name;
+    console.log('ordersplaced', Cust_Name);
+    // const Cust_Name = req.customer.id;
+    try {
+        var query = `SELECT * FROM Restaurant_Orders WHERE Restaurant_Orders.Cust_Name='${Cust_Name}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Database Error');
+            }
+            if (result.length === 0) {
+                return res.status(400).json({
+                    errors: [{ msg: 'No Orders placed by customer' }],
+                });
+            }
+            console.log(result);
+            res.status(200).json({ result });
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route  GET orders by order status '/customer/orders/ordersplaced/orderstatus'
+//@desc   Getting orders raised by customers by order status
+//@access  Private
+//Table Restaurant_Orders
+
+router.get('/ordersplaced/:Cust_Name/:order_status', auth, (req, res) => {
+    const order_status = req.params.order_status;
+    const Cust_Name = req.params.Cust_Name;
+    // console.log('ordersplaced', Cust_Name);
+    // const Cust_Name = req.customer.id;
+    try {
+        var query = `SELECT * FROM Restaurant_Orders WHERE Restaurant_Orders.Cust_Name='${Cust_Name}' AND 
+        Restaurant_Orders.order_status='${order_status}'`;
+        mysqlConnectionPool.query(query, (error, result) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).send('Database Error');
+            }
+            if (result.length === 0) {
+                return res.status(400).json({
+                    errors: [{ msg: 'No Orders with this status' }],
+                });
+            }
+            console.log(result);
+            res.status(200).json({ result });
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
 module.exports = router;
