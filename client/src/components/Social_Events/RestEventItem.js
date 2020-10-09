@@ -65,11 +65,11 @@ const RestEventItem = (props) => {
                 View Attendees
               </Link>
               <br></br>
-              <br></br>
             </div>
           </div>
         </div>
       </div>
+      <br></br>
       {/* <p>{item.Cust_Name}</p> */}
     </Fragment>
 

@@ -2,18 +2,22 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getMenuByRestName } from '../../actions/restmenu';
+import { getMenuByRestID } from '../../actions/restmenu';
+import { getCurrentProfile } from '../../actions/profile';
 import { Restaurantmenuitems } from '../RestaurantMenuItems/Restaurantmenuitems';
 // import { getCurrentRestProfile } from '../../actions/profile';
 
 const ViewRestaurantMenu = ({
-  getMenuByRestName,
+  getMenuByRestID,
+  getCurrentProfile,
   profile: { profile },
   menu: { allmenuitems, loading },
   match,
 }) => {
   useEffect(() => {
-    getMenuByRestName(match.params.Rest_Name);
+    // console.log('Inside useeffect, viewRestaurantmenu', match.params.Rest_Name);
+    getCurrentProfile();
+    getMenuByRestID(match.params.Rest_Id_signup);
     // getCurrentRestProfile();
   }, []);
   if (allmenuitems) {
@@ -61,14 +65,50 @@ const ViewRestaurantMenu = ({
                 <div>
                   <h3>{k}</h3>
                   {newobj[k].map((indi) => (
-                    <div>
-                      <p className="lead">{indi.item_name}</p>
-                      <p className="medium">{indi.item_description}</p>
-                      <p className="medium">
-                        Ingrediants: {indi.item_ingredients}
-                      </p>
-                      <p className="medium">${indi.item_price}</p>
-                    </div>
+                    <fragment>
+                      <div className="card mb-3">
+                        <div className="row no-gutters">
+                          <div className="col-md-4">
+                            <img
+                              className="menu_image"
+                              src={indi.item_image}
+                              className="card-img"
+                              alt="Item Picture"
+                            />
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h4 className="text-dark bold">
+                                {indi.item_name}
+                              </h4>
+                              <p className="medium">{indi.item_description}</p>
+                              <p className="medium">
+                                Ingrediants: {indi.item_ingredients}
+                              </p>
+                              <p className="medium">${indi.item_price}</p>
+                            </div>
+                            <div>
+                              <Link
+                                to={`/viewmenu/placeorder/${indi.item_id}`}
+                                className="btn btn-dark small"
+                              >
+                                {' '}
+                                Order
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </fragment>
+                    // <div>
+                    //   <p className="lead">{indi.item_name}</p>
+                    //   <p className="medium">{indi.item_description}</p>
+                    //   <p className="medium">
+                    //     Ingrediants: {indi.item_ingredients}
+                    //   </p>
+                    //   <p className="medium">${indi.item_price}</p>
+                    // </div>
                   ))}
                 </div>
               );
@@ -80,8 +120,9 @@ const ViewRestaurantMenu = ({
 };
 
 ViewRestaurantMenu.propTypes = {
-  getMenuByRestName: PropTypes.func.isRequired,
+  getMenuByRestID: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -89,6 +130,6 @@ const mapStateToProps = (state) => ({
   menu: state.menu,
 });
 
-export default connect(mapStateToProps, { getMenuByRestName })(
+export default connect(mapStateToProps, { getMenuByRestID, getCurrentProfile })(
   ViewRestaurantMenu
 );

@@ -13,7 +13,7 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 //Table Restaurant_Dishes
 //Restaurant Action
 router.post(
-    '/me',
+    '/:Rest_Id_signup',
     auth, [
         check('item_name', 'Name of the Item is required').not().isEmpty(),
         check('item_category', 'Category of the item is required').not().isEmpty(),
@@ -38,6 +38,7 @@ router.post(
             Rest_Name,
             Rest_email_id,
         } = req.body;
+        const Rest_Id_signup = req.params.Rest_Id_signup;
         // See if user exists
         try {
             mysqlConnectionPool.query(
@@ -45,18 +46,18 @@ router.post(
                     item_description,
                     item_category,
                     item_ingredients,
-                    item_price, Rest_Name, Rest_email_id, item_image ) VALUES ('${item_name}', '${item_description}', '${item_category}', 
-                    '${item_ingredients}', '${item_price}', '${Rest_Name}', '${Rest_email_id}', '${item_image}')`,
+                    item_price, Rest_Name, Rest_email_id, item_image, Rest_Id_signup ) VALUES ('${item_name}', '${item_description}', '${item_category}', 
+                    '${item_ingredients}', '${item_price}', '${Rest_Name}', '${Rest_email_id}', '${item_image}', '${Rest_Id_signup}')`,
                 (error, result) => {
                     if (error) {
                         console.log(error);
                         return res.status(500).send('Server Error');
                     }
-                    if (result.length > 0) {
-                        return res.status(400).json({
-                            errors: [{ msg: 'Restaurant Information Already Exists' }],
-                        });
-                    }
+                    // if (result.length > 0) {
+                    //     return res.status(400).json({
+                    //         errors: [{ msg: 'Restaurant Information Already Exists' }],
+                    //     });
+                    // }
                     res.status(200).json({ result });
                 }
             );
@@ -137,9 +138,10 @@ router.get('/:item_id', auth, async(req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 
-router.post('/updateitem/:item_id', auth, (req, res) => {
+router.post('/updateitem/:Rest_Id_signup/:item_id', auth, (req, res) => {
     //console.log('custProfile', req.params);
     const ItemID = req.params.item_id;
+    const RestId = req.params.Rest_Id_signup;
     console.log('MenuItem ID', ItemID);
     const {
         item_name,
@@ -150,13 +152,12 @@ router.post('/updateitem/:item_id', auth, (req, res) => {
         Rest_Name,
         item_image,
         Rest_email_id,
-        Rest_Id_signup,
     } = req.body;
     try {
         var query = `UPDATE Restaurant_Dishes set item_name='${item_name}', item_description='${item_description}', 
         item_category='${item_category}', item_ingredients='${item_ingredients}', item_price='${item_price}', 
-        Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', item_image='${item_image}', Rest_Id_signup='${Rest_Id_signup}' 
-        WHERE item_id='${ItemID}'`;
+        Rest_Name='${Rest_Name}', Rest_email_id='${Rest_email_id}', item_image='${item_image}' 
+        WHERE item_id='${ItemID}' AND Rest_Id_signup='${RestId}'`;
         mysqlConnectionPool.query(query, (error, result) => {
             if (error) {
                 console.log(error);
@@ -181,22 +182,21 @@ router.post('/updateitem/:item_id', auth, (req, res) => {
 //@access  Private
 //Table Restaurant_Dishes
 
-router.get('/:Rest_Name', async(req, res) => {
-    const Rest_Name = req.params.Rest_Name;
+router.get('/view/:Rest_Id_signup', async(req, res) => {
+    const Rest_Id_signup = req.params.Rest_Id_signup;
     // console.log('Current Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT item_name,item_description, item_category, item_ingredients, item_price, item_price, 
-            Rest_Name FROM Restaurant_Dishes WHERE Rest_Name='${Rest_Name}'`,
+            `SELECT * FROM Restaurant_Dishes WHERE Rest_Id_signup='${Rest_Id_signup}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
                     return res.status(500).send('Server Error');
                 }
                 if (result.length === 0) {
-                    return res
-                        .status(400)
-                        .json({ errors: [{ msg: 'Restaurant customer doesnt Exists' }] });
+                    return res.status(400).json({
+                        errors: [{ msg: 'This restaurant diesnt have Menu Items' }],
+                    });
                 }
                 // console.log('Restaurant get/me:', result);
                 res.status(200).json(result);

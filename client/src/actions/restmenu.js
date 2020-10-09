@@ -32,15 +32,17 @@ export const getCurrentRestMenu = () => async(dispatch) => {
 };
 
 //create or update profile
-export const createRestaurantMenuItem = (formData, history) => async(
-    dispatch
-) => {
+export const createRestaurantMenuItem = (
+    formData,
+    Rest_Id_signup,
+    history
+) => async(dispatch) => {
     try {
         const config = {
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/restaurant/menuitems/me',
+            `http://localhost:3001/restaurant/menuitems/${Rest_Id_signup}`,
             formData,
             config
         );
@@ -64,10 +66,10 @@ export const createRestaurantMenuItem = (formData, history) => async(
 
 //Get Menu by rest Name
 //http://localhost:3000/restaurant/menuitems/Mangoes%20Indian%20Cuisine
-export const getMenuByRestName = (Rest_Name) => async(dispatch) => {
+export const getMenuByRestID = (Rest_Id_signup) => async(dispatch) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/menuitems/${Rest_Name}`
+            `http://localhost:3001/restaurant/menuitems/view/${Rest_Id_signup}`
         );
         // console.log(
         //     'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)
@@ -109,6 +111,7 @@ export const getItemDetailByID = (item_id) => async(dispatch) => {
 // //edit menuitem by item_id
 export const editMenuItem = (
     formData,
+    Rest_Id_signup,
     item_id,
     history,
     edit = false
@@ -118,7 +121,7 @@ export const editMenuItem = (
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3000/restaurant/menuitems/updateitem/${item_id}`,
+            `http://localhost:3000/restaurant/menuitems/updateitem/${Rest_Id_signup}/${item_id}`,
             formData,
             config
         );
@@ -126,9 +129,11 @@ export const editMenuItem = (
             type: UPDATE_MENUITEM,
             payload: res.data,
         });
-        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
+        dispatch(
+            setAlert(edit ? 'Menu Item Updated' : 'Menu Item Updated', 'success')
+        );
         if (!edit) {
-            history.push('/restaurant/menu');
+            history.push('/restaurantdashboard');
         }
     } catch (err) {
         const errors = err.response.data.errors;

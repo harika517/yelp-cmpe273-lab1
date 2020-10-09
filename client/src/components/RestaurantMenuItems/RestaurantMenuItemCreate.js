@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { createRestaurantMenuItem } from '../../actions/restmenu';
 
 //RestaurantMenuItemCreate
-const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
+const RestaurantMenuItemCreate = ({
+  createRestaurantMenuItem,
+  history,
+  match,
+}) => {
   const [formData, setFormData] = useState({
     item_name: '',
     item_description: '',
@@ -15,6 +19,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
     Rest_Name: '',
     Rest_email_id: '',
     item_image: '',
+    Rest_Id_signup: '',
   });
 
   const {
@@ -33,7 +38,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createRestaurantMenuItem(formData, history);
+    createRestaurantMenuItem(formData, match.params.Rest_Id_signup, history);
   };
   return (
     <Fragment>
@@ -117,7 +122,7 @@ const RestaurantMenuItemCreate = ({ createRestaurantMenuItem, history }) => {
           />
         </div>
         <div className="form-group">
-          <label for="item_image">Write to Us</label>
+          <label for="item_image">Upload Image</label>
           <br />
 
           <input

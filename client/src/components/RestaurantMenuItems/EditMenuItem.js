@@ -8,9 +8,9 @@ import { getItemDetailByID, editMenuItem } from '../../actions/restmenu';
 //get update action create after SQL worked
 //editMenuItem(formData,item_id,history,edit = false)
 const EditMenuItem = ({
-  getItemDetailByID,
-  editMenuItem,
   menu: { menuitem, loading },
+  editMenuItem,
+  getItemDetailByID,
   history,
   match,
 }) => {
@@ -24,21 +24,6 @@ const EditMenuItem = ({
     Rest_Name: '',
     Rest_email_id: '',
   });
-
-  const {
-    item_name,
-    item_description,
-    item_category,
-    item_ingredients,
-    item_price,
-    item_image,
-    Rest_Name,
-    Rest_email_id,
-  } = formData;
-
-  if (menuitem) {
-    console.log('Edit Menu', menuitem[0].item_name);
-  }
 
   useEffect(() => {
     getItemDetailByID(match.params.item_id);
@@ -62,7 +47,22 @@ const EditMenuItem = ({
       Rest_email_id:
         loading || !menuitem[0].Rest_email_id ? '' : menuitem[0].Rest_email_id,
     });
-  }, []);
+  }, [loading]);
+
+  const {
+    item_name,
+    item_description,
+    item_category,
+    item_ingredients,
+    item_price,
+    item_image,
+    Rest_Name,
+    Rest_email_id,
+  } = formData;
+
+  if (menuitem) {
+    console.log('Edit Menu', menuitem[0].item_name);
+  }
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,7 +70,12 @@ const EditMenuItem = ({
   const onSubmit = (e) => {
     e.preventDefault();
     if (menuitem) {
-      editMenuItem(formData, menuitem[0].item_id, history);
+      editMenuItem(
+        formData,
+        menuitem[0].Rest_Id_signup,
+        menuitem[0].item_id,
+        history
+      );
     }
   };
 

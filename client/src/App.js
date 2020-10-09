@@ -80,11 +80,9 @@ const App = () => {
                 component={SignUpRestaurant}
               />
               <Route exact path="/events" component={ViewEvents} />
-
               <Route exact path="/curbsidepickup" component={CurbSidePickUp} />
               <Route exact path="/dinein" component={DineIn} />
               <Route exact path="/yelpdelivery" component={Yelp_Delivery} />
-
               {/* <Route path="/" component={Landing} /> */}
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute
@@ -131,7 +129,7 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/restaurant/editmenu"
+                path="/restaurant/editmenu/:Rest_Id_signup"
                 component={RestaurantMenuItemCreate}
               />
               <PrivateRoute
@@ -154,13 +152,11 @@ const App = () => {
                 path="/reviews"
                 component={RestaurantReviews}
               />
-
               <PrivateRoute
                 exact
                 path="/restaurant/orders/:Rest_Name"
                 component={RestaurantOrders}
               />
-
               <PrivateRoute
                 exact
                 path="/orders/:Cust_Name"
@@ -183,54 +179,52 @@ const App = () => {
               />
               <PrivateRoute
                 exact
-                path="/viewmenu/:Rest_Name"
+                path="/viewmenu/:Rest_Id_signup"
                 component={ViewRestaurantMenu}
               />
-              <PrivateRoute
+              {/* <PrivateRoute
                 exact
                 path="/placeorder"
                 component={CustomerCreateOrders}
+              /> */}
+              <PrivateRoute
+                exact
+                path="/viewmenu/placeorder/:item_id"
+                component={CustomerCreateOrders}
               />
-
               <PrivateRoute
                 exact
                 path="/writecustomerreview/:Rest_Id_signup"
                 component={AddReview}
               />
-
               <PrivateRoute
                 exact
                 path="/viewregisteredevents/:Cust_Name"
                 component={ViewEventsAttending}
               />
-
               <PrivateRoute
                 exact
                 path="/viewattendees/:Event_Name"
                 component={ViewAttendees}
               />
-
               <PrivateRoute
                 exact
                 path="/viewattendees/:Event_Name/:Cust_Name"
                 component={CustomerDetailRegistration}
               />
-
               <PrivateRoute
                 exact
                 path="/orders/update/:order_id"
                 component={RestaurantUpdateOrder}
               />
-
               <PrivateRoute
                 exact
                 path="/restaurant/orders/:Rest_Name/:search_status"
                 component={ViewOrdersByNewOrder}
               />
-
               <PrivateRoute
                 exact
-                path="/restaurant/menu/item/:item_id"
+                path="/restaurant/menu/item/:Rest_Id_signup/:item_id"
                 component={EditMenuItem}
               />
             </Switch>

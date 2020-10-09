@@ -8,12 +8,13 @@ import { Link } from 'react-router-dom';
 const ViewRestaurantPage = ({
   getRestByID,
   getReviewsByRestId,
-  profile: { profile, loading },
+  // profile: { profile, loading },
+  restprofile: { rest_profile, loading },
   review: { reviews },
   match,
 }) => {
   useEffect(() => {
-    // console.log('viewrestaurantbyname', match.params.Rest_Name);
+    console.log('viewrestaurantbyname', match.params.Rest_Id_signup);
     getRestByID(match.params.Rest_Id_signup);
     // if (profile) {
     //   getReviewsByRestName(profile.result[0].Rest_Name);
@@ -21,13 +22,16 @@ const ViewRestaurantPage = ({
   }, [loading]);
 
   useEffect(() => {
-    if (profile) {
-      getReviewsByRestId(profile.result[0].Rest_Id_signup);
+    if (rest_profile) {
+      getReviewsByRestId(rest_profile.result[0].Rest_Id_signup);
     }
   }, [loading]);
 
-  if (profile) {
-    console.log('view reviews customer page', profile.result[0].Rest_Id_signup);
+  if (rest_profile) {
+    console.log(
+      'view reviews customer page',
+      rest_profile.result[0].Rest_Id_signup
+    );
   }
 
   let {
@@ -40,7 +44,7 @@ const ViewRestaurantPage = ({
     Description,
     Contact,
     Rest_email_id,
-  } = profile ? profile.result[0] : { ...null };
+  } = rest_profile ? rest_profile.result[0] : { ...null };
 
   //   console.log('restdash profile values are', profile);
   let revs = reviews.result;
@@ -49,7 +53,7 @@ const ViewRestaurantPage = ({
   return (
     <div>
       <Fragment>
-        {profile ? (
+        {rest_profile ? (
           <Fragment>
             <div className="container_2columns">
               <div className="column1">
@@ -112,9 +116,13 @@ const ViewRestaurantPage = ({
                   <i className="fas fa-utensils"></i>
                   View Menu
                 </Link> */}
-                <Link to={`/viewmenu/${Rest_Name}`} className="btn btn-dark">
+                <Link
+                  to={`/viewmenu/${rest_profile.result[0].Rest_Id_signup}`}
+                  className="btn btn-dark"
+                >
                   Order Now
                 </Link>
+
                 <br></br>
                 <br></br>
                 <h4 className=" lead text-dark">
@@ -140,13 +148,15 @@ ViewRestaurantPage.propTypes = {
   getRestByID: PropTypes.func.isRequired,
   getReviewsByRestId: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  // profile: PropTypes.object.isRequired,
+  restprofile: PropTypes.object.isRequired,
   review: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  // profile: state.profile,
+  restprofile: state.restprofile,
   review: state.review,
 });
 

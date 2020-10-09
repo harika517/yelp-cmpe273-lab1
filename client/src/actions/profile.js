@@ -1,7 +1,17 @@
 import axios from 'axios';
 import { format } from 'mysql';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, POST_IMAGE, GET_PROFILES } from './types';
+import {
+    GET_PROFILE,
+    PROFILE_ERROR,
+    POST_IMAGE,
+    GET_PROFILES,
+    GET_REST_PROFILE,
+    REST_PROFILE_ERROR,
+    CLEAR_REST_PROFILE,
+    UPDATE_REST_PROFILE,
+    GET_REST_PROFILES,
+} from './types';
 
 //Get current users profile
 ///customer/profile/:Cust_Id
@@ -141,12 +151,12 @@ export const getCurrentRestProfile = () => async(dispatch) => {
     try {
         const res = await axios.get('http://localhost:3001/restaurant/profile/me');
         dispatch({
-            type: GET_PROFILE,
+            type: GET_REST_PROFILE,
             payload: res.data,
         });
     } catch (err) {
         dispatch({
-            type: PROFILE_ERROR,
+            type: REST_PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }
@@ -166,7 +176,7 @@ export const createRestProfile = (formData, history, edit = false) => async(
             config
         );
         dispatch({
-            type: GET_PROFILE,
+            type: GET_REST_PROFILE,
             payload: res.data,
         });
         dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
@@ -179,7 +189,7 @@ export const createRestProfile = (formData, history, edit = false) => async(
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
         dispatch({
-            type: PROFILE_ERROR,
+            type: REST_PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }
@@ -199,7 +209,7 @@ export const editRestProfile = (formData, history, edit = false) => async(
             config
         );
         dispatch({
-            type: GET_PROFILE,
+            type: UPDATE_REST_PROFILE,
             payload: res.data,
         });
         dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Updated', 'success'));
@@ -212,7 +222,7 @@ export const editRestProfile = (formData, history, edit = false) => async(
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
         dispatch({
-            type: PROFILE_ERROR,
+            type: REST_PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }
@@ -222,29 +232,30 @@ export const getAllRestProfiles = () => async(dispatch) => {
     try {
         const res = await axios.get('http://localhost:3001/restaurant/profile');
         dispatch({
-            type: GET_PROFILES,
+            type: GET_REST_PROFILES,
             payload: res.data,
         });
     } catch (err) {
         dispatch({
-            type: PROFILE_ERROR,
+            type: REST_PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }
 };
 
 export const getRestByID = (Rest_Id_signup) => async(dispatch) => {
+    console.log('getrestbyiis called');
     try {
         const res = await axios.get(
             `http://localhost:3001/restaurant/profile/${Rest_Id_signup}`
         );
         dispatch({
-            type: GET_PROFILE,
+            type: GET_REST_PROFILE,
             payload: res.data,
         });
     } catch (err) {
         dispatch({
-            type: PROFILE_ERROR,
+            type: REST_PROFILE_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status },
         });
     }

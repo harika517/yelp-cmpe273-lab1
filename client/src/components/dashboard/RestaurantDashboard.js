@@ -14,12 +14,13 @@ const RestaurantDashboard = ({
   getCurrentRestProfile,
   getReviewsByRestId,
   auth,
-  profile: { profile, loading },
+  //profile: { profile, loading },
+  restprofile: { rest_profile, loading },
   review: { reviews },
 }) => {
-  console.log('before ', profile);
-  if (profile) {
-    console.log('match RestName', profile.Rest_Id_signup);
+  console.log('before ', rest_profile);
+  if (rest_profile) {
+    console.log('match RestName', rest_profile.Rest_Id_signup);
   }
   //const { Rest_Name, Rest_email_id, Rest_location, Description } = profile;
   console.log('Match criteria', match.params);
@@ -31,14 +32,19 @@ const RestaurantDashboard = ({
   //   }
   // }, [getReviewsByRestName]);
   useEffect(() => {
+    console.log('inside useEffect');
     getCurrentRestProfile();
+    console.log(
+      'inside useEffect, after getCurrentRestProfile, rest_profile is',
+      rest_profile
+    );
   }, [loading]);
   useEffect(() => {
     //console.log('inside useeffect');
     // const restname = profile.Rest_Name;
     //getCurrentRestProfile();
-    if (profile) {
-      getReviewsByRestId(profile.Rest_Id_signup);
+    if (rest_profile) {
+      getReviewsByRestId(rest_profile.Rest_Id_signup);
     }
   }, [loading]);
 
@@ -52,26 +58,27 @@ const RestaurantDashboard = ({
   //   review, Date
   // } = review ? review.result[0] : { ...null };
 
-  console.log('restdash profile values are', profile);
+  console.log('restdash profile values are', rest_profile);
   let revs = reviews.result;
   console.log('restdash reviews are ', revs);
-  if (profile) {
+  if (rest_profile) {
     return (
       <Fragment>
         <div className="container_2columns">
           <div className="column1">
-            <img src={profile.Image} alt="Profile Picture" />
-            <h1 className="x-large text-dark">{profile.Rest_Name}</h1>
+            <img src={rest_profile.Image} alt="Profile Picture" />
+            <h1 className="x-large text-dark">{rest_profile.Rest_Name}</h1>
             <h4>
-              <i className="fas fa-map-marker-alt"></i> {profile.Rest_location}
+              <i className="fas fa-map-marker-alt"></i>{' '}
+              {rest_profile.Rest_location}
             </h4>
             <h4>
-              <i className="far fa-clock"></i> {profile.Timings}
+              <i className="far fa-clock"></i> {rest_profile.Timings}
             </h4>
-            <h4>{profile.Description}</h4>
+            <h4>{rest_profile.Description}</h4>
             {/* <br></br> */}
             <h4 ClassName="lead text-dark"> Available </h4>
-            {profile.Curbside_PickUp === 'yes' ? (
+            {rest_profile.Curbside_PickUp === 'yes' ? (
               <h4 className="lead text-dark">
                 <i className="fas fa-map-marker" /> CurbSide PickUp
               </h4>
@@ -81,7 +88,7 @@ const RestaurantDashboard = ({
                 CurbSide PickUp option is temporarily unavailable
               </h4>
             )}
-            {profile.Dine_In === 'yes' ? (
+            {rest_profile.Dine_In === 'yes' ? (
               <h4 className="lead text-dark">
                 <i className="fas fa-map-marker" /> Dine In
               </h4>
@@ -91,7 +98,7 @@ const RestaurantDashboard = ({
                 Dine In option is temporarily unavailable
               </h4>
             )}
-            {profile.Yelp_Delivery === 'yes' ? (
+            {rest_profile.Yelp_Delivery === 'yes' ? (
               <h4 className="lead text-dark">
                 <i className="fas fa-map-marker" /> Yelp Delivery
               </h4>
@@ -139,7 +146,10 @@ const RestaurantDashboard = ({
               : 'none'}
           </div>
           <div className="column2">
-            <Link to="/restaurant/editmenu" className="btn btn-dark">
+            <Link
+              to={`/restaurant/editmenu/${rest_profile.Rest_Id_signup}`}
+              className="btn btn-dark"
+            >
               Add Menu
             </Link>
             <Link to="/restaurant/menu" className="btn btn-dark">
@@ -149,7 +159,7 @@ const RestaurantDashboard = ({
             <br />
             <br />
             <Link
-              to={`/restaurant/orders/${profile.Rest_Name}`}
+              to={`/restaurant/orders/${rest_profile.Rest_Name}`}
               className="btn btn-dark"
             >
               <i className="fas fa-binoculars"></i>
@@ -163,17 +173,17 @@ const RestaurantDashboard = ({
             <h4 className=" lead text-dark">
               <i className="fas fa-phone-alt" /> Contact
             </h4>
-            <h5>{profile.Contact}</h5>
+            <h5>{rest_profile.Contact}</h5>
             <h4 className=" lead text-dark">
               <i className="fas fa-edit" /> Write to Us
             </h4>
-            <h5>{profile.Rest_email_id}</h5>
+            <h5>{rest_profile.Rest_email_id}</h5>
           </div>
         </div>
       </Fragment>
     );
   } else {
-    return null;
+    return <p>Profile not defined</p>;
   }
 };
 
@@ -181,13 +191,15 @@ RestaurantDashboard.propTypes = {
   getCurrentRestProfile: PropTypes.func.isRequired,
   getReviewsByRestId: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  //profile: PropTypes.object.isRequired,
+  restprofile: PropTypes.object.isRequired,
   review: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  restprofile: state.restprofile,
+  // rest_profile: state.rest_profile,
   review: state.review,
 });
 

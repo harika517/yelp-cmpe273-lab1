@@ -12,7 +12,8 @@ const Restaurantmenuitems = ({
   getCurrentRestProfile,
   auth,
   getCurrentRestMenu,
-  profile: { profile },
+  // profile: { profile },
+  restprofile: { rest_profile },
   menu: { allmenuitems, loading },
 }) => {
   useEffect(() => {
@@ -20,6 +21,9 @@ const Restaurantmenuitems = ({
     getCurrentRestProfile();
   }, []);
 
+  //if (profile) {
+  // console.log('viewrestaurantmenu', profile.Rest_Id_signup);
+  //}
   console.log(
     'inside rest menu items, all menu items ' + JSON.stringify(allmenuitems)
   );
@@ -34,14 +38,19 @@ const Restaurantmenuitems = ({
   return (
     <div>
       <Fragment>
-        <h1 className="text-dark">{profile ? profile.Rest_Name : ' '} </h1>
+        <h1 className="text-dark">
+          {rest_profile ? rest_profile.Rest_Name : ' '}{' '}
+        </h1>
         <Link to="/restaurantdashboard" className="lead text-primary">
           {' '}
           Return to Restaurant Page
         </Link>
         <br />
         <br />
-        <Link to="/restaurant/editmenu" className="btn btn-dark">
+        <Link
+          to={`/restaurant/editmenu/${rest_profile.Rest_Id_signup}`}
+          className="btn btn-dark"
+        >
           Add Menu
         </Link>
         <hr></hr>
@@ -84,7 +93,7 @@ const Restaurantmenuitems = ({
                             </div>
                             <div>
                               <Link
-                                to={`/restaurant/menu/item/${indi.item_id}`}
+                                to={`/restaurant/menu/item/${indi.Rest_Id_signup}/${indi.item_id}`}
                                 className="btn btn-dark small"
                               >
                                 {' '}
@@ -109,14 +118,16 @@ const Restaurantmenuitems = ({
 Restaurantmenuitems.propTypes = {
   getCurrentRestMenu: PropTypes.func.isRequired,
   getCurrentRestProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  // profile: PropTypes.object.isRequired,
+  restprofile: PropTypes.object.isRequired,
   menu: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  // profile: state.profile,
+  restprofile: state.restprofile,
   menu: state.menu,
 });
 

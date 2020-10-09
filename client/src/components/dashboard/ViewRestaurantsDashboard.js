@@ -6,14 +6,17 @@ import { getAllRestProfiles, getCurrentProfile } from '../../actions/profile';
 
 const ViewRestaurantsDashboard = ({
   getAllRestProfiles,
-  profile: { profiles },
+  getCurrentProfile,
+  // profile: { profiles },
+  restprofile: { rest_profiles },
 }) => {
   useEffect(() => {
+    getCurrentProfile();
     getAllRestProfiles();
   }, []);
 
-  console.log('inside Reviews, ', profiles);
-  const arrobj = profiles ? profiles.result : null;
+  console.log('inside Reviews, ', rest_profiles);
+  const arrobj = rest_profiles ? rest_profiles.result : null;
 
   return (
     <div>
@@ -51,13 +54,15 @@ const ViewRestaurantsDashboard = ({
 
 ViewRestaurantsDashboard.propTypes = {
   getAllRestProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  restprofile: PropTypes.object.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile,
+  restprofile: state.restprofile,
 });
 
-export default connect(mapStateToProps, { getAllRestProfiles })(
-  ViewRestaurantsDashboard
-);
+export default connect(mapStateToProps, {
+  getAllRestProfiles,
+  getCurrentProfile,
+})(ViewRestaurantsDashboard);

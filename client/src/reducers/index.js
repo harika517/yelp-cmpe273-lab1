@@ -11,11 +11,13 @@ import order from './orders';
 import search from './search';
 import custdetail from './custdetail';
 import ordersstatus from './ordersstatus';
+import restprofile from './restprofile';
 
 export default combineReducers({
     alert,
     auth,
     profile,
+    restprofile,
     events,
     images,
     menu,

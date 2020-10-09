@@ -1,10 +1,21 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createOrder } from '../../actions/orders';
+import { getItemDetailByID } from '../../actions/restmenu';
+import { getCurrentProfile } from '../../actions/profile';
 
-const CustomerCreateOrders = ({ createOrder }) => {
+// getItemDetailByID(item_id)
+//getcurrentprofile
+const CustomerCreateOrders = ({
+  createOrder,
+  getItemDetailByID,
+  getCurrentProfile,
+  profile: { profile },
+  menu: { menuitem, loading },
+  match,
+}) => {
   const [formData, setFormData] = useState({
     Cust_Name: '',
     Rest_Name: '',
@@ -12,6 +23,17 @@ const CustomerCreateOrders = ({ createOrder }) => {
     order_status: '',
     Mode_Of_Delivery: '',
   });
+
+  useEffect(() => {
+    getItemDetailByID(match.params.item_id);
+    getCurrentProfile();
+    setFormData({
+      //Cust_Name: loading || !profile.Cust_Name ? '' : profile.Cust_Name,
+      Rest_Name: loading || !menuitem[0].Rest_Name ? '' : menuitem[0].Rest_Name,
+      item_name: loading || !menuitem[0].item_name ? '' : menuitem[0].item_name,
+    });
+  }, [loading]);
+
   const {
     Cust_Name,
     Rest_Name,
@@ -47,7 +69,7 @@ const CustomerCreateOrders = ({ createOrder }) => {
             type="text"
             name="Rest_Name"
             value={Rest_Name}
-            onChange={(e) => onChange(e)}
+            //onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -57,7 +79,7 @@ const CustomerCreateOrders = ({ createOrder }) => {
             type="text"
             name="item_name"
             value={item_name}
-            onChange={(e) => onChange(e)}
+            //onChange={(e) => onChange(e)}
           />
         </div>
         <div className="form-group">
@@ -86,6 +108,18 @@ const CustomerCreateOrders = ({ createOrder }) => {
 
 CustomerCreateOrders.propTypes = {
   createOrder: PropTypes.func.isRequired,
+  getItemDetailByID: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createOrder })(CustomerCreateOrders);
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  menu: state.menu,
+});
+
+export default connect(mapStateToProps, {
+  createOrder,
+  getItemDetailByID,
+  getCurrentProfile,
+})(CustomerCreateOrders);
