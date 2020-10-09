@@ -18,7 +18,7 @@ const CustomerCreateOrders = ({
 }) => {
   const [formData, setFormData] = useState({
     Cust_Name: '',
-    Rest_Name: '',
+    Rest_email_id: '',
     item_name: '',
     order_status: '',
     Mode_Of_Delivery: '',
@@ -29,14 +29,16 @@ const CustomerCreateOrders = ({
     getCurrentProfile();
     setFormData({
       //Cust_Name: loading || !profile.Cust_Name ? '' : profile.Cust_Name,
-      Rest_Name: loading || !menuitem[0].Rest_Name ? '' : menuitem[0].Rest_Name,
+      // Rest_Name: loading || !menuitem[0].Rest_Name ? '' : menuitem[0].Rest_Name,
       item_name: loading || !menuitem[0].item_name ? '' : menuitem[0].item_name,
+      Rest_email_id:
+        loading || !menuitem[0].Rest_email_id ? '' : menuitem[0].Rest_email_id,
     });
   }, [loading]);
 
   const {
     Cust_Name,
-    Rest_Name,
+    Rest_email_id,
     item_name,
     order_status,
     Mode_Of_Delivery,
@@ -63,12 +65,12 @@ const CustomerCreateOrders = ({
           />
         </div>
         <div className="form-group">
-          <label for="Rest_Name">Restaurant Name</label>
+          <label for="Rest_email_id">Restaurant Contact</label>
           <small className="form-text">This field is required.</small>
           <input
             type="text"
-            name="Rest_Name"
-            value={Rest_Name}
+            name="Rest_email_id"
+            value={Rest_email_id}
             //onChange={(e) => onChange(e)}
           />
         </div>
@@ -98,9 +100,9 @@ const CustomerCreateOrders = ({
           </select>
         </div>
         <input type="submit" className="btn btn-dark my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
+        <Link className="btn btn-light my-1" to="/dashboard">
           Cancel
-        </a>
+        </Link>
       </form>
     </Fragment>
   );

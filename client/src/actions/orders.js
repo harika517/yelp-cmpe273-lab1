@@ -20,7 +20,7 @@ export const createOrder = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3001/customer/orders/me/:Rest_Name`,
+            `http://localhost:3001/customer/orders/me/`,
             formData,
             config
         );
@@ -28,7 +28,7 @@ export const createOrder = (formData, history, edit = false) => async(
             type: CREATE_ORDER,
             payload: res.data,
         });
-        dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+        dispatch(setAlert(edit ? 'Order Placed' : 'Order Placed', 'success'));
         if (!edit) {
             history.push('/dashboard');
         }

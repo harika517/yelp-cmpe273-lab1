@@ -13,10 +13,11 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 //Table Restaurant_Orders
 // Not working
 router.post(
-    '/me/:Rest_Name', [
+    '/me', [
         auth, [
             check('item_name', 'Please enter Item Name').not().isEmpty(),
             check('Cust_Name', 'Please enter your Name').not().isEmpty(),
+            check('Rest_email_id', 'Restaurant Name').not().isEmpty(),
             check('Mode_Of_Delivery', 'Please choose delivery method')
             .not()
             .isEmpty(),
@@ -32,12 +33,12 @@ router.post(
         const { item_name, Cust_Name, Mode_Of_Delivery, Rest_email_id } = req.body;
         // //const Rest_Name = req.body.Rest_Name;
         // const customerID = req.params.Cust_Id;
-        const restaurantName = req.params.Rest_Name;
+        // const restaurantName = req.params.Rest_Name;
 
         console.log('Orders');
         try {
-            var query = `INSERT into Restaurant_Orders (Cust_Name, Rest_Name, item_name, order_status, Mode_Of_Delivery, Rest_email_id) VALUES
-            ('${Cust_Name}','${restaurantName}','${item_name}', 'New Order', '${Mode_Of_Delivery}', '${Rest_email_id}')`;
+            var query = `INSERT into Restaurant_Orders (Cust_Name, item_name, order_status, Mode_Of_Delivery, Rest_email_id) VALUES
+            ('${Cust_Name}','${item_name}', 'New Order', '${Mode_Of_Delivery}', '${Rest_email_id}')`;
             mysqlConnectionPool.query(query, (error, result) => {
                 if (error) {
                     console.log(error);

@@ -44,9 +44,9 @@ const ViewRestaurantMenu = ({
           {' '}
           Return to Restaurant Page
         </Link>{' '}
-        <Link to={`/placeorder`} className="btn btn-dark">
+        {/* <Link to={`/placeorder`} className="btn btn-dark">
           Build Your Order
-        </Link>
+        </Link> */}
         <br />
         <br />
         <hr></hr>
