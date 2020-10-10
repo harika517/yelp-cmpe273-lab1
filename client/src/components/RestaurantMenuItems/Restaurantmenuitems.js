@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,14 +18,40 @@ const Restaurantmenuitems = ({
   restprofile: { rest_profile },
   menu: { allmenuitems, loading },
 }) => {
+  const [image, setImage] = useState({
+    file: '',
+    fileText: '',
+  });
+
   useEffect(() => {
     getCurrentRestMenu();
     getCurrentRestProfile();
+    setImage({
+      file:
+        loading || !allmenuitems[0].item_image
+          ? ''
+          : allmenuitems[0].item_image,
+      fileText: 'Choose Image..',
+    });
   }, []);
 
   //if (profile) {
   // console.log('viewrestaurantmenu', profile.Rest_Id_signup);
   //}
+
+  const onImageChange = (e) => {
+    console.log('Inside On Image Change');
+    // setFormData({ ...formData, [e.target.name]: e.target.value });
+    setImage({ file: e.target.files[0], fileText: e.target.files[0].name });
+  };
+  const onUpload = (e) => {
+    e.preventDefault();
+    insertItemImage(image.file, allmenuitems[0].item_image);
+    // window.location.reload(false);
+  };
+
+  let backendimageserver = `http://localhost:3001/item/getphoto/dishitem/`;
+
   console.log(
     'inside rest menu items, all menu items ' + JSON.stringify(allmenuitems)
   );
@@ -75,10 +101,19 @@ const Restaurantmenuitems = ({
                       <div className="card mb-3">
                         <div className="row no-gutters">
                           <div className="col-md-4">
-                            <img
+                            {/* <img
                               className="menu_image"
                               src={indi.item_image}
                               className="card-img"
+                              alt="Item Picture"
+                            /> */}
+
+                            <img
+                              src={
+                                image.file
+                                  ? `${backendimageserver}${image.file}`
+                                  : `${backendimageserver}image`
+                              }
                               alt="Item Picture"
                             />
                           </div>
@@ -102,6 +137,31 @@ const Restaurantmenuitems = ({
                                 Edit
                               </Link>
                             </div>
+                            <form onSubmit={(e) => onUpload(e)}>
+                              <br />
+                              <div
+                                className="custom-file"
+                                style={{ width: '80%' }}
+                              >
+                                <input
+                                  type="file"
+                                  className="custom-file-input"
+                                  name="image"
+                                  accept="image/*"
+                                  onChange={(e) => onImageChange(e)}
+                                />
+                                <label
+                                  className="custom-file-label"
+                                  htmlFor="image"
+                                >
+                                  {image.fileText}
+                                </label>
+                              </div>
+                              <br />
+                              <button type="submit" className="btn btn-dark">
+                                Upload
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </div>
