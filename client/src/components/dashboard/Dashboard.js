@@ -35,10 +35,8 @@ const Dashboard = ({
   };
   const onUpload = (e) => {
     e.preventDefault();
-    console.log('OnUpload');
-    const formData = new FormData();
-    formData.append('image', image.file);
-    insertImage(formData);
+    insertImage(image.file, profile.Cust_email_id);
+    window.location.reload(false);
   };
 
   // if (profile) {
@@ -49,6 +47,9 @@ const Dashboard = ({
   if (profile) {
     console.log('ProfilePicture', profile.Cust_ProfilePic);
   }
+
+  let backendimageserver = `http://localhost:3001/customer/getphoto/user/`;
+
   return loading ? (
     ''
   ) : (
@@ -56,15 +57,22 @@ const Dashboard = ({
       <div className="container_3columns">
         {/* <div className="columns"> */}
         <div className="column_1">
-          {console.log(
+          {/* {console.log(
             'inside fragment, profile.Cust_ProfilePic is',
             profile.Cust_ProfilePic
-          )}
-          <img src={profile.Cust_ProfilePic} alt="Profile Picture" />
-          {console.log(
+          )} */}
+          <img
+            src={
+              image.file
+                ? `${backendimageserver}${image.file}`
+                : `${backendimageserver}image`
+            }
+            alt="Profile Picture"
+          />
+          {/* {console.log(
             'inside fragment, 2 profile.Cust_ProfilePic is',
             profile.Cust_ProfilePic
-          )}
+          )} */}
           <h3 className="lead">
             {' '}
             <i className="fas fa-user" />

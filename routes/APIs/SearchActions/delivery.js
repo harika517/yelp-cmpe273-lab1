@@ -16,9 +16,10 @@ router.get('/Curbside_PickUp', async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information 
-            INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE 
-            Restaurant_Information.Curbside_PickUp="yes"`,
+            // `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information
+            // INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE
+            // Restaurant_Information.Curbside_PickUp="yes"`,
+            `SELECT * FROM Restaurant_Information WHERE Restaurant_Information.Curbside_PickUp="yes"`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -48,9 +49,10 @@ router.get('/Dine_In', async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information 
-            INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE 
-            Restaurant_Information.Dine_In="yes"`,
+            // `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information
+            // INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE
+            // Restaurant_Information.Dine_In="yes"`,
+            `SELECT * FROM Restaurant_Information WHERE Restaurant_Information.Dine_In="yes"`,
             (error, result) => {
                 if (error) {
                     console.log(error);
@@ -80,9 +82,10 @@ router.get('/Yelp_Delivery', async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information 
-            INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE 
-            Restaurant_Information.Yelp_Delivery="yes"`,
+            // `SELECT Restaurant_Information.Rest_Id_signup, Restaurant_Information.Rest_Name, Rest_location, Description, Contact, Timings, Image, ratings, review FROM Restaurant_Information
+            // INNER JOIN reviews_new ON Restaurant_Information.Rest_Id_signup = reviews_new.Rest_Id_signup WHERE
+            // Restaurant_Information.Yelp_Delivery="yes"`,
+            `SELECT * FROM Restaurant_Information WHERE Restaurant_Information.Yelp_Delivery="yes"`,
             (error, result) => {
                 if (error) {
                     console.log(error);

@@ -30,6 +30,7 @@ const RestaurantUpdateOrder = ({
   }
 
   console.log('order id to check is ', match.params.order_id);
+  // console.log('order Status Checking...', order.Mode_Of_Delivery);
 
   useEffect(() => {
     getOrdersByOrderId(match.params.order_id);
@@ -129,7 +130,7 @@ const RestaurantUpdateOrder = ({
           <label for="order_status"> Order Status </label>{' '}
           <select
             name="order_status"
-            selected={order_status}
+            // selected={order_status}
             onChange={(e) => onChange(e)}
           >
             <option value="Order Received">Order Received</option>
@@ -147,17 +148,24 @@ const RestaurantUpdateOrder = ({
         <div className="form-group">
           <label for="Mode_Of_Delivery"> Mode Of Delivery </label>{' '}
           <select name="Mode_Of_Delivery" onChange={(e) => onChange(e)}>
-            <option value="Pick Up">Pick Up</option>
+            {/* <option value="Pick Up">Pick Up</option> */}
             <option value="Pick Up Ready">Pick Up Ready</option>
             <option value="Picked Up">Picked Up</option>
+            {/* <option value="Delivery">Delivery</option> */}
+            <option value="On the way">On the way</option>
+            <option value="Delivered">Delivered</option>
           </select>
           {/* <label for="Mode_Of_Delivery"> Delivery Mode </label>{' '}
-          <select onChange={(e) => onChange(e)}>
-            <option selected="selected" value={Mode_Of_Delivery}>
+          <select
+            name="Mode_Of_Delivery"
+            value={Mode_Of_Delivery}
+            onChange={(e) => onChange(e)}
+          > */}
+          {/* <option value={Mode_Of_Delivery}>
               {' '}
               {Mode_Of_Delivery}{' '}
-            </option>{' '}
-            {Mode_Of_Delivery == 'Delivery'
+            </option>{' '} */}
+          {/* {Mode_Of_Delivery == 'Delivery'
               ? (opt = ['On the way', 'Delivered'])
               : (opt = ['Pick Up Ready', 'Picked Up'])}{' '}
             {opt.map((item) => (

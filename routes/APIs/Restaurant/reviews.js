@@ -9,10 +9,10 @@ const auth = require('../../../middleware/auth');
 
 // //@route  GET (Customer creating Reviews to a restaurant) '/restaurant/reviews'
 // //@desc   get all the reviews by Rest_Name Orde by date time
-// //@access  Private
+// //@access  Public
 // //Table reviews
 
-router.get('/:Rest_Id_signup', auth, async(req, res) => {
+router.get('/:Rest_Id_signup', async(req, res) => {
     const Rest_Id_signup = req.params.Rest_Id_signup;
     // const Cust_Id = req.customer.key;
     // console.log('Restaurant Profile', customerID);

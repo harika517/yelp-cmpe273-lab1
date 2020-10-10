@@ -35,14 +35,30 @@ body {
     height: 40px;
     width: 900px;
     border: none;
+    color: black;
 }
 
-.search-form button {
+.btn-search {
+    display: inline-block;
+    background: #d32323;
+    color: white;
+    padding: 1.2rem 2rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    transition: opacity 0.2s ease-in;
+    outline: none;
+    /* height: 40px; */
+}
+
+
+/* .search-form .searchButton {
     height: 40px;
     width: 45px;
     border: none;
     background-color: #d32323;
-}
+} */
 
 .logo-icon {
     height: 50px;
@@ -493,7 +509,7 @@ img .logo-icon {
 .landing {
     position: relative;
     /* background: url('../src/backgroundimg/yelpHome.jpg') no-repeat center center/cover; */
-    background-image: url('https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/e456d8b923f5/assets/img/home/hero_photos/DLIUyjgS7v50YRV2xfNquA.jpg');
+    background-image: url('https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/dde93fe399aa/assets/img/home/hero_photos/Xs7es0q4jmFY5CV3uTeuPw.jpg');
     height: 100vh;
     overflow: hidden;
     /* width: 100%;

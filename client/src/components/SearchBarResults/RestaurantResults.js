@@ -2,20 +2,17 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getRestaurantsByDelivery } from '../../actions/search';
-//getRestaurantsByDelivery
+import { getAllRestProfiles } from '../../actions/profile';
 
-const CurbSidePickUp = ({
-  getRestaurantsByDelivery,
-  search: { searchresults },
+const RestaurantResults = ({
+  getAllRestProfiles,
+  restprofile: { rest_profiles },
 }) => {
   useEffect(() => {
-    getRestaurantsByDelivery();
+    getAllRestProfiles();
   }, []);
-  console.log('Search curbsidepickup', searchresults.result);
-  // let revs = reviews.result;
 
-  const arrobj = searchresults ? searchresults.result : null;
+  const arrobj = rest_profiles ? rest_profiles.result : null;
 
   return (
     <Fragment>
@@ -39,23 +36,21 @@ const CurbSidePickUp = ({
           </div>
         ))
       ) : (
-        <h4 className="bold text-dark">
-          'OOPS.. No Resturants found with this Criteria'
-        </h4>
+        <h4 className="bold text-dark">'OOPS.. No Resturants found'</h4>
       )}
     </Fragment>
   );
 };
 
-CurbSidePickUp.propTypes = {
-  getRestaurantsByDelivery: PropTypes.func.isRequired,
-  search: PropTypes.object.isRequired,
+RestaurantResults.propTypes = {
+  getAllRestProfiles: PropTypes.func.isRequired,
+  restprofile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  search: state.search,
+  restprofile: state.restprofile,
 });
 
-export default connect(mapStateToProps, { getRestaurantsByDelivery })(
-  CurbSidePickUp
+export default connect(mapStateToProps, { getAllRestProfiles })(
+  RestaurantResults
 );

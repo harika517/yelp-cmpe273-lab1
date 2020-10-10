@@ -9,6 +9,9 @@ import SignUpRestaurant from './components/Restaurant/SignUpRestaurant';
 import CurbSidePickUp from './components/SearchBarResults/CurbSidePickUp';
 import DineIn from './components/SearchBarResults/DineIn';
 import Yelp_Delivery from './components/SearchBarResults/YelpDelivery';
+import RestaurantResults from './components/SearchBarResults/RestaurantResults';
+import SearchRestaurantDetail from './components/SearchBarResults/SearchRestaurantDetail';
+import SearchBarResuts from './components/SearchBarResults/SearchBarResuts';
 import Alert from './components/LandingPage/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/Createprofile';
@@ -41,6 +44,7 @@ import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
 import RestaurantUpdateOrder from './components/Orders/RestaurantUpdateOrder';
 import ViewOrdersByNewOrder from './components/Orders/ViewOrdersByNewOrder';
 import EditMenuItem from './components/RestaurantMenuItems/EditMenuItem';
+
 // import ViewOrdersByStatus from './components/Orders/ViewOrdersByNewOrder';
 // import EventRegistration from './components/Social_Events/EventRegistration';
 //Redux
@@ -65,172 +69,187 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          {/* <Route path="/" component={Navbar} /> */}
-          <Navbar />
-          <Route exact path="/" component={Landing} />
+          {' '}
+          {/* <Route path="/" component={Navbar} /> */} <Navbar />
+          <Route exact path="/" component={Landing} />{' '}
           <section className="container">
             <Alert />
             <Switch>
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/restaurants" component={LoginRestaurant} />
+              <Route exact path="/login" component={Login} />{' '}
+              <Route exact path="/signup" component={Signup} />{' '}
+              <Route exact path="/restaurants" component={LoginRestaurant} />{' '}
               <Route
                 exact
                 path="/restaurants/signup"
                 component={SignUpRestaurant}
+              />{' '}
+              <Route exact path="/events" component={ViewEvents} />{' '}
+              <Route exact path="/curbsidepickup" component={CurbSidePickUp} />{' '}
+              <Route exact path="/dinein" component={DineIn} />{' '}
+              <Route exact path="/yelpdelivery" component={Yelp_Delivery} />{' '}
+              <Route
+                exact
+                path="/searchbar/results/:search"
+                component={SearchBarResuts}
+              />{' '}
+              <Route
+                exact
+                path="/restaurantresults"
+                component={RestaurantResults}
               />
-              <Route exact path="/events" component={ViewEvents} />
-              <Route exact path="/curbsidepickup" component={CurbSidePickUp} />
-              <Route exact path="/dinein" component={DineIn} />
-              <Route exact path="/yelpdelivery" component={Yelp_Delivery} />
-              {/* <Route path="/" component={Landing} /> */}
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <Route
+                exact
+                path="/restaurantresults/:Rest_Id_signup"
+                component={SearchRestaurantDetail}
+              />
+              {/* <Route path="/" component={Landing} /> */}{' '}
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />{' '}
               <PrivateRoute
                 exact
                 path="/createprofile"
                 component={CreateProfile}
-              />
-              <PrivateRoute exact path="/editprofile" component={EditProfile} />
-              {/* <PrivateRoute exact path="/events" component={EventsDashboard} /> */}
+              />{' '}
+              <PrivateRoute exact path="/editprofile" component={EditProfile} />{' '}
+              {/* <PrivateRoute exact path="/events" component={EventsDashboard} /> */}{' '}
               <PrivateRoute
                 exact
                 path="/restaurantdashboard"
                 component={RestaurantDashboard}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurantevents"
                 component={RestaurantEventsDashboard}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/createevent"
                 component={EventCreation}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurants/editevent/:Event_Name"
                 component={RestEditEvent}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurantprofile"
                 component={CreateRestProfile}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/editrestaurantprofile"
                 component={EditRestaurantProfile}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurant/menu"
                 component={RestaurantMenuItems}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurant/editmenu/:Rest_Id_signup"
                 component={RestaurantMenuItemCreate}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewevent/:Event_Name"
                 component={ViewEventDetails}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/reviews"
                 component={RestaurantReviews}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/writereview/:Rest_Name"
                 component={WriteReviews}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/reviews"
                 component={RestaurantReviews}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurant/orders/:Rest_Name"
                 component={RestaurantOrders}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/orders/:Cust_Name"
                 component={customerDetailsByName}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewrestaurants"
                 component={ViewRestaurants}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewrestaurantpage/:Rest_Id_signup"
                 component={ViewRestaurantPage}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/ordersplaced/:Cust_Name"
                 component={CustomerViewOrders}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewmenu/:Rest_Id_signup"
                 component={ViewRestaurantMenu}
-              />
+              />{' '}
               {/* <PrivateRoute
-                exact
-                path="/placeorder"
-                component={CustomerCreateOrders}
-              /> */}
+                            exact
+                            path="/placeorder"
+                            component={CustomerCreateOrders}
+                          /> */}{' '}
               <PrivateRoute
                 exact
                 path="/viewmenu/placeorder/:item_id"
                 component={CustomerCreateOrders}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/writecustomerreview/:Rest_Id_signup"
                 component={AddReview}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewregisteredevents/:Cust_Name"
                 component={ViewEventsAttending}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewattendees/:Event_Name"
                 component={ViewAttendees}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/viewattendees/:Event_Name/:Cust_Name"
                 component={CustomerDetailRegistration}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/orders/update/:order_id"
                 component={RestaurantUpdateOrder}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurant/orders/:Rest_Name/:search_status"
                 component={ViewOrdersByNewOrder}
-              />
+              />{' '}
               <PrivateRoute
                 exact
                 path="/restaurant/menu/item/:Rest_Id_signup/:item_id"
                 component={EditMenuItem}
-              />
-            </Switch>
-          </section>
-        </Fragment>
-      </Router>
+              />{' '}
+            </Switch>{' '}
+          </section>{' '}
+        </Fragment>{' '}
+      </Router>{' '}
     </Provider>
   );
 };

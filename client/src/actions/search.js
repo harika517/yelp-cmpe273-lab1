@@ -59,3 +59,22 @@ export const getRestaurantsByYelpDelivery = () => async(dispatch) => {
         });
     }
 };
+
+export const getRestaurantsByInputText = (input_text) => async(dispatch) => {
+    console.log('inside getRestaurantsByInputText');
+    try {
+        const res = await axios.get(
+            `http://localhost:3001/searchresult/restaurants/${input_text}`
+        );
+        console.log(res.data);
+        dispatch({
+            type: SEARCH_RESULT,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: SEARCH_RESULT_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status },
+        });
+    }
+};

@@ -139,8 +139,8 @@ router.get('/', async(req, res) => {
 });
 
 //@route  GET restaurant/profile/
-//@desc   get all the restaurant details
-//@access  Private
+//@desc   get restaurant detail by restId
+//@access  Public
 //Table Restaurant_Information
 
 router.get('/:Rest_Id_signup', async(req, res) => {

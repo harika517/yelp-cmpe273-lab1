@@ -1,9 +1,29 @@
 //background image and search bar and options for Write A Review, Events Login and Signup
 
-import React from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getRestaurantsByInputText } from '../../actions/search';
 // import logo from '../../images/logo.png';
 const Landing = () => {
+  //   useEffect(()=>{
+  // // get results action
+  //   }, [])
+
+  const [formData, setFormData] = useState({
+    search: '',
+  });
+
+  const { search } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    getRestaurantsByInputText(formData);
+    //get results Action
+  };
+
   return (
     <section className="landing ">
       <div className="landing-inner">
@@ -14,16 +34,22 @@ const Landing = () => {
         />
         <br />
         <div className="search-container">
-          <form className="search-form">
+          <form className="search-form" onSubmit={(e) => onSubmit(e)}>
             <input
               type="text"
               className="medium"
               placeholder="Dishes, Location, Cuisine, Restaurants..."
               name="search"
+              value={search}
+              onChange={(e) => onChange(e)}
             />
-            <button className="searchButton" type="submit">
+            <Link
+              to={`/searchbar/results/${search}`}
+              className="btn-search"
+              type="submit"
+            >
               <i className="fa fa-search medium"></i>
-            </button>
+            </Link>
           </form>
         </div>
         <br />

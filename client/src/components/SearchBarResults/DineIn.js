@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { getRestaurantsByDineIn } from '../../actions/search';
 
 //getRestaurantsByDineIn
@@ -8,36 +9,35 @@ const DineIn = ({ getRestaurantsByDineIn, search: { searchresults } }) => {
   useEffect(() => {
     getRestaurantsByDineIn();
   }, []);
+
+  const arrobj = searchresults ? searchresults.result : null;
+
   return (
     <Fragment>
-      {searchresults.result
-        ? searchresults.result.map((item) => (
-            <Fragment>
-              <div className="container_2columns">
-                <div className="column1">
-                  <img src={item.Image} alt="Profile Picture" />
-                  <h1 className="x-large text-dark">{item.Rest_Name}</h1>
-                  <h4>
-                    <i className="fas fa-map-marker-alt"></i>{' '}
-                    {item.Rest_location}
-                  </h4>
-                  <h4>
-                    <i className="far fa-clock"></i> {item.Timings}
-                  </h4>
-                  <h4>{item.Description}</h4>
-                  <h3 className="bold text-dark">Reviews</h3>
-                  <h4 className="bold">Ratings: </h4>
-                  <h4>{item.ratings}</h4>
-                  <h4 className="bold">Review:</h4>
-                  <h4>{item.review}</h4>
-                  <hr></hr>
-                </div>
-
-                <div className="column2"></div>
-              </div>
-            </Fragment>
-          ))
-        : null}
+      <h1 className="bold text-dark"> Restaurants</h1>
+      <hr />
+      {arrobj ? (
+        arrobj.map((item) => (
+          <div>
+            <h4 className="bold text-dark">{item.Rest_Name}</h4>
+            <p className="medium"> {item.Rest_location}</p>
+            <p className="medium"> {item.Contact}</p>
+            <p className="medium"> {item.Timings}</p>
+            <p className="medium"> {item.Description}</p>
+            <Link
+              to={`/restaurantresults/${item.Rest_Id_signup}`}
+              className="btn btn-dark"
+            >
+              View Restaurant Page
+            </Link>
+            <hr />
+          </div>
+        ))
+      ) : (
+        <h4 className="bold text-dark">
+          'OOPS.. No Resturants found with this Criteria'
+        </h4>
+      )}
     </Fragment>
   );
 };
