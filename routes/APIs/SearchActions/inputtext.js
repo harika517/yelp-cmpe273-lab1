@@ -18,13 +18,11 @@ router.get('/:input_text', async(req, res) => {
     const input_text = req.params.input_text;
     try {
         mysqlConnectionPool.query(
-            `select yelp.Restaurant_Information.Rest_Id_signup, yelp.Restaurant_Information.Rest_Name, 
-           yelp.Restaurant_Information.Rest_email_id from yelp.Restaurant_Information WHERE 
+            `select yelp.Restaurant_Information.Rest_Name from yelp.Restaurant_Information WHERE 
            lower(yelp.Restaurant_Information.Rest_location) like '%${input_text}%' OR 
            lower(yelp.Restaurant_Information.Cuisine) like '%${input_text}%'
            union 
-           select yelp.Restaurant_Dishes.Rest_Id_signup, yelp.Restaurant_Dishes.Rest_Name, 
-           yelp.Restaurant_Dishes.Rest_email_id from yelp.Restaurant_Dishes where 
+           select yelp.Restaurant_Dishes.Rest_Name from yelp.Restaurant_Dishes where 
            lower(yelp.Restaurant_Dishes.item_name) like '%${input_text}%'`,
             (error, result) => {
                 if (error) {
@@ -36,8 +34,28 @@ router.get('/:input_text', async(req, res) => {
                         .status(400)
                         .json({ errors: [{ msg: 'Restaurants doesnt Exists' }] });
                 }
-                // console.log('Restaurant get/me:', result);
-                res.status(200).json({ result });
+                console.log('Restaurant get/me:', result);
+                const Rest_Name = result.map((item) => {
+                    return item.Rest_Name;
+                });
+                console.log('rest names are', Rest_Name);
+                //res.status(200).json({ result });
+                query = `select * from yelp.Restaurant_Information where yelp.Restaurant_Information.Rest_Name in (?)`;
+                queryData = [Rest_Name];
+                mysqlConnectionPool.query(query, queryData, (error1, result1) => {
+                    console.log('rest names are', Rest_Name);
+                    if (error1) {
+                        console.log(error1);
+                        return res.status(500).send('Server Error');
+                    }
+                    if (result1.length === 0) {
+                        return res
+                            .status(400)
+                            .json({ errors: [{ msg: 'Restaurants doesnt Exists' }] });
+                    }
+                    console.log('Restaurants search result is', result1);
+                    res.status(200).json({ result1 });
+                });
             }
         );
     } catch (error) {
