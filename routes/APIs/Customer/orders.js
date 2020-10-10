@@ -89,14 +89,14 @@ router.get('/ordersplaced/:Cust_Name', auth, (req, res) => {
 //@access  Private
 //Table Restaurant_Orders
 
-router.get('/ordersplaced/:Cust_Name/:order_status', auth, (req, res) => {
-    const order_status = req.params.order_status;
+router.get('/ordersplaced/:Cust_Name/:Mode_Of_Delivery', auth, (req, res) => {
+    const Mode_Of_Delivery = req.params.Mode_Of_Delivery;
     const Cust_Name = req.params.Cust_Name;
     // console.log('ordersplaced', Cust_Name);
     // const Cust_Name = req.customer.id;
     try {
         var query = `SELECT * FROM Restaurant_Orders WHERE Restaurant_Orders.Cust_Name='${Cust_Name}' AND 
-        Restaurant_Orders.order_status='${order_status}'`;
+        Restaurant_Orders.Mode_Of_Delivery='${Mode_Of_Delivery}'`;
         mysqlConnectionPool.query(query, (error, result) => {
             if (error) {
                 console.log(error);

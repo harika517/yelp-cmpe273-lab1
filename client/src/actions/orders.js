@@ -122,13 +122,13 @@ export const getOrdersByOrderId = (order_id) => async(dispatch) => {
 
 export const getOrdersByStatus = (order_status) => async(dispatch) => {
     //console.log('inside getcurrentrestprofile');
-    console.log('inside getOrdersByOrderId');
+    console.log('inside getOrdersByStatus');
     try {
         const res = await axios.get(
             `http://localhost:3001/restaurant/orders/${order_status}`
         );
         dispatch({
-            type: GET_ORDERS_BY_STATUS,
+            type: GET_ORDERS,
             payload: res.data,
         });
     } catch (err) {
@@ -162,14 +162,14 @@ export const getOrdersByCustName = (Cust_Name) => async(dispatch) => {
 
 //get orders rasied by customers flitered by order status
 
-export const getCustOrderByStatus = (Cust_Name, order_status) => async(
+export const getCustOrderByStatus = (Cust_Name, Mode_Of_Delivery) => async(
     dispatch
 ) => {
     //console.log('inside getcurrentrestprofile');
     console.log('inside getCustOrderByStatus');
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}/${order_status}`
+            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}/${Mode_Of_Delivery}`
         );
         dispatch({
             type: GET_ORDERS,

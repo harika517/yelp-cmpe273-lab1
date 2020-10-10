@@ -41,8 +41,10 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import customerDetailsByName from './components/Customer/Customerdetailsbyname';
 import CustomerViewOrders from './components/Orders/CustomerViewOrders';
 import CustomerCreateOrders from './components/Orders/CustomerCreateOrders';
+import CustFilterOrders from './components/Orders/CustFilterOrders';
 import RestaurantUpdateOrder from './components/Orders/RestaurantUpdateOrder';
-import ViewOrdersByNewOrder from './components/Orders/ViewOrdersByNewOrder';
+// import ViewOrdersByNewOrder from './components/Orders/ViewOrdersByNewOrder';
+import RestFilterOrders from './components/Orders/RestFilterOrders';
 import EditMenuItem from './components/RestaurantMenuItems/EditMenuItem';
 
 // import ViewOrdersByStatus from './components/Orders/ViewOrdersByNewOrder';
@@ -198,6 +200,11 @@ const App = () => {
               />{' '}
               <PrivateRoute
                 exact
+                path="/ordersplaced/:Cust_Name/:search"
+                component={CustFilterOrders}
+              />{' '}
+              <PrivateRoute
+                exact
                 path="/viewmenu/:Rest_Id_signup"
                 component={ViewRestaurantMenu}
               />{' '}
@@ -238,8 +245,8 @@ const App = () => {
               />{' '}
               <PrivateRoute
                 exact
-                path="/restaurant/orders/:Rest_Name/:search_status"
-                component={ViewOrdersByNewOrder}
+                path="/restaurant/orders/status/:search_status"
+                component={RestFilterOrders}
               />{' '}
               <PrivateRoute
                 exact

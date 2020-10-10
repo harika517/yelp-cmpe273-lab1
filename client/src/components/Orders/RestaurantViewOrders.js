@@ -7,16 +7,20 @@ import {
   updateOrdersByOrderId,
   getOrdersByStatus,
 } from '../../actions/orders';
+import { getCurrentRestProfile } from '../../actions/profile';
 import Table from 'react-bootstrap/Table';
 //updateOrdersByOrderId(formData)
 const RestaurantViewOrders = ({
+  getCurrentRestProfile,
   getOrdersByRestName,
   updateOrdersByOrderId,
   auth,
   order: { orders },
+  restprofile: { rest_profile },
   match,
 }) => {
   useEffect(() => {
+    getCurrentRestProfile();
     getOrdersByRestName();
   }, []);
 
@@ -31,7 +35,7 @@ const RestaurantViewOrders = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    getOrdersByStatus(match.params.order_status);
+    // getOrdersByStatus(match.params.order_status);
   };
 
   orders ? console.log('print orders', orders) : console.log('no orders');
@@ -68,16 +72,22 @@ const RestaurantViewOrders = ({
           <form className="form" onSubmit={(e) => onSubmit(e)}>
             <div className="form-group">
               <label for="search_status">Search by Order Status</label>
-              <input
+              <select name="search_status" onChange={(e) => onChange(e)}>
+                <option value="All">All</option>
+                <option value="New Order">New Order</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              {/* <input
                 type="text"
                 name="search_status"
                 value={search_status}
                 onChange={(e) => onChange(e)}
-              />
+              /> */}
             </div>
-            {orders.result ? (
+            {rest_profile ? (
               <Link
-                to={`/restaurant/orders/${orders.result[0].Rest_Name}/${search_status}`}
+                to={`/restaurant/orders/status/${search_status}`}
                 className="btn btn-dark"
               >
                 Go
@@ -113,48 +123,9 @@ const RestaurantViewOrders = ({
                 <th className="medium bold">Order Id</th>
                 <th className="medium bold">Customer Name</th>
                 <th className="medium bold">Item Name</th>
-                <th className="medium bold">
-                  <select>
-                    <option selected="selected" value="Order Id">
-                      Order Status
-                    </option>
-                    <option name="order_status" value="order_status">
-                      New Order
-                    </option>
-                    <option name="order_status" value="order_status">
-                      Order Received
-                    </option>
-                    <option name="order_status" value="order_status">
-                      Preparing
-                    </option>
-                    <option name="order_status" value="order_status">
-                      Delivered
-                    </option>
-                    <option name="order_status" value="order_status">
-                      Cancelled
-                    </option>
-                  </select>
-                </th>
-                <th className="medium bold">
-                  <select>
-                    <option selected="selected" value="Order Id">
-                      Mode Of Delivery
-                    </option>
-                    <option name="Mode_Of_Delivery" value="Mode_Of_Delivery">
-                      On the way
-                    </option>
-                    <option name="Mode_Of_Delivery" value="Mode_Of_Delivery">
-                      Delivered
-                    </option>
-                    <option name="Mode_Of_Delivery" value="Mode_Of_Delivery">
-                      Pick Up Ready{' '}
-                    </option>
-                    <option name="Mode_Of_Delivery" value="Mode_Of_Delivery">
-                      Picked Up
-                    </option>
-                  </select>
-                </th>
-                <th className="medium bold"></th>
+                <th className="medium bold">Order Status</th>
+                <th className="medium bold">Mode Of Delivery</th>
+                <th className="medium bold">Date</th>
               </tr>
             </thead>
           </Table>
@@ -207,6 +178,10 @@ const RestaurantViewOrders = ({
                           >
                             {item.Mode_Of_Delivery}
                           </td>
+                          <td className="medium" name="Date">
+                            {' '}
+                            {item.Date}
+                          </td>
                           {/* <td>
                             <input type="submit">Update</input>
                           </td> */}
@@ -239,11 +214,14 @@ RestaurantViewOrders.propTypes = {
   getOrdersByRestName: PropTypes.func.isRequired,
   //   updateOrdersByOrderId: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  getCurrentRestProfile: PropTypes.func.isRequired,
+  restprofile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   order: state.order,
+  restprofile: state.restprofile,
   // profile: state.profile,
   // review: state.review,
 });
@@ -251,4 +229,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getOrdersByRestName,
   updateOrdersByOrderId,
+  getCurrentRestProfile,
 })(RestaurantViewOrders);

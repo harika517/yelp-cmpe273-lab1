@@ -118,12 +118,13 @@ router.get('/orderdetail/:order_id', (req, res) => {
 //@desc   Viewing orders of particular status by restaurant owner.
 //@access  Private
 //Table Restaurant_Orders
-router.get('/:Rest_Name/:order_status', (req, res) => {
+router.get('/:order_status', auth, (req, res) => {
     const order_status = req.params.order_status;
-    const Rest_Name = req.body.Rest_Name;
+    const Rest_email_id = req.customer.id;
+    console.log('Rest Filter order', Rest_email_id);
     try {
         mysqlConnectionPool.query(
-            `SELECT * FROM Restaurant_Orders WHERE order_status='${order_status}' and Rest_Name='${Rest_Name}'`,
+            `SELECT * FROM Restaurant_Orders WHERE order_status='${order_status}' and Rest_email_id='${Rest_email_id}'`,
             (error, result) => {
                 if (error) {
                     console.log(error);
