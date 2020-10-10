@@ -46,7 +46,11 @@ const searchRestaurantsInput = require('./routes/APIs/SearchActions/inputtext');
 
 // const customerImage = require('./routes/APIs/ImageUploads/CustImage');
 const customerImage = require('./routes/APIs/GetImages/images');
+const RestImage = require('./routes/APIs/GetImages/images');
+const ItemImage = require('./routes/APIs/GetImages/images');
 const uploadImage = require('./routes/APIs/ImageUploads/CustImage');
+const uploadRestImage = require('./routes/APIs/ImageUploads/RestImage');
+const uploadItemImage = require('./routes/APIs/ImageUploads/ItemImage');
 
 // const restaurantAuth = require('./routes/APIs/auth');
 
@@ -68,6 +72,10 @@ app.use('/customer/events', customerEvents);
 app.use('/customer/registration', customerRegistration);
 app.use('/customer/getphoto', customerImage);
 app.use('/customer/addphoto', uploadImage);
+app.use('/restaurant/getphoto', RestImage);
+app.use('/restaurant/addphoto', uploadRestImage);
+app.use('/item/getphoto', ItemImage);
+app.use('/item/addphoto', uploadItemImage);
 app.use('/search/delivery', searchByDelivery);
 app.use('/search/restaurants', searchRestaurants);
 app.use('/searchresult/restaurants', searchRestaurantsInput);

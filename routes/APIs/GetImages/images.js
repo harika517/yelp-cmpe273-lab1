@@ -53,4 +53,44 @@ router.get('/user/:Cust_ProfilePic', async(req, res) => {
 //   res.status(200);
 // });
 
+router.get('/restaurant/:Rest_ProfilePic', async(req, res) => {
+    console.log(
+        'inside get image, req.params.Rest_ProfilePic is',
+        req.params.Rest_ProfilePic
+    );
+    var image = `${path.join(
+    __dirname,
+    '../../../'
+  )}/public/uploads/restaurants/${req.params.Rest_ProfilePic}`;
+    if (fs.existsSync(image)) {
+        res.sendFile(image);
+    } else {
+        res.sendFile(
+            `${path.join(
+        __dirname,
+        '../../../'
+      )}/public/uploads/restaurants/userplaceholder.jpg`
+        );
+    }
+});
+
+router.get('/dishitem/:item_image', async(req, res) => {
+    console.log(
+        'inside get image, req.params.item_image is',
+        req.params.item_image
+    );
+    var image = `${path.join(__dirname, '../../../')}/public/uploads/dishitems/${
+    req.params.item_image
+  }`;
+    if (fs.existsSync(image)) {
+        res.sendFile(image);
+    } else {
+        res.sendFile(
+            `${path.join(
+        __dirname,
+        '../../../'
+      )}/public/uploads/dishitems/itemplaceholder.jpg`
+        );
+    }
+});
 module.exports = router;

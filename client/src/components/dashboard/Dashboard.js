@@ -6,7 +6,7 @@ import { getCurrentProfile } from '../../actions/profile';
 import DashboardActions from './DashboardActions';
 import { Result } from 'express-validator';
 import auth from '../../reducers/auth';
-import insertImage from '../../actions/uploadimages';
+import { insertImage } from '../../actions/uploadimages';
 
 const Dashboard = ({
   getCurrentProfile,

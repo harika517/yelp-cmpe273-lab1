@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentRestProfile } from '../../actions/profile';
 import { getReviewsByRestId } from '../../actions/review';
+import { insertRestImage } from '../../actions/uploadimages';
 import RestaurantActions from './RestaurantActions';
 import { Result } from 'express-validator';
 import auth from '../../reducers/auth';
@@ -17,6 +18,7 @@ const RestaurantDashboard = ({
   //profile: { profile, loading },
   restprofile: { rest_profile, loading },
   review: { reviews },
+  insertRestImage,
 }) => {
   console.log('before ', rest_profile);
   if (rest_profile) {
@@ -31,13 +33,22 @@ const RestaurantDashboard = ({
   //     getReviewsByRestName(profile.Rest_Name);
   //   }
   // }, [getReviewsByRestName]);
+
+  const [image, setImage] = useState({
+    file: '',
+    fileText: '',
+  });
+
   useEffect(() => {
     console.log('inside useEffect');
     getCurrentRestProfile();
-    console.log(
-      'inside useEffect, after getCurrentRestProfile, rest_profile is',
-      rest_profile
-    );
+    setImage({
+      file:
+        loading || !rest_profile.Rest_ProfilePic
+          ? ''
+          : rest_profile.Rest_ProfilePic,
+      fileText: 'Choose Image..',
+    });
   }, [loading]);
   useEffect(() => {
     //console.log('inside useeffect');
@@ -58,6 +69,19 @@ const RestaurantDashboard = ({
   //   review, Date
   // } = review ? review.result[0] : { ...null };
 
+  const onImageChange = (e) => {
+    console.log('Inside On Image Change');
+    // setFormData({ ...formData, [e.target.name]: e.target.value });
+    setImage({ file: e.target.files[0], fileText: e.target.files[0].name });
+  };
+  const onUpload = (e) => {
+    e.preventDefault();
+    insertRestImage(image.file, rest_profile.Rest_ProfilePic);
+    window.location.reload(false);
+  };
+
+  let backendimageserver = `http://localhost:3001/restaurant/getphoto/restaurant/`;
+
   console.log('restdash profile values are', rest_profile);
   let revs = reviews.result;
   console.log('restdash reviews are ', revs);
@@ -66,7 +90,35 @@ const RestaurantDashboard = ({
       <Fragment>
         <div className="container_2columns">
           <div className="column1">
-            <img src={rest_profile.Image} alt="Profile Picture" />
+            {/* <img src={rest_profile.Image} alt="Profile Picture" /> */}
+            <img
+              src={
+                image.file
+                  ? `${backendimageserver}${image.file}`
+                  : `${backendimageserver}image`
+              }
+              alt="Profile Picture"
+            />
+
+            <form onSubmit={(e) => onUpload(e)}>
+              <br />
+              <div className="custom-file" style={{ width: '80%' }}>
+                <input
+                  type="file"
+                  className="custom-file-input"
+                  name="image"
+                  accept="image/*"
+                  onChange={(e) => onImageChange(e)}
+                />
+                <label className="custom-file-label" htmlFor="image">
+                  {image.fileText}
+                </label>
+              </div>
+              <br />
+              <button type="submit" className="btn btn-dark">
+                Upload
+              </button>
+            </form>
             <h1 className="x-large text-dark">{rest_profile.Rest_Name}</h1>
             <h4>
               <i className="fas fa-map-marker-alt"></i>{' '}
@@ -194,6 +246,7 @@ RestaurantDashboard.propTypes = {
   //profile: PropTypes.object.isRequired,
   restprofile: PropTypes.object.isRequired,
   review: PropTypes.object.isRequired,
+  insertRestImage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -206,4 +259,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getCurrentRestProfile,
   getReviewsByRestId,
+  insertRestImage,
 })(RestaurantDashboard);

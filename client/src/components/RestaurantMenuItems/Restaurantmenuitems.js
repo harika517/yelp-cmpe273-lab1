@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentRestMenu } from '../../actions/restmenu';
 import { getCurrentRestProfile } from '../../actions/profile';
+import { insertItemImage } from '../../actions/uploadimages';
 import auth from '../../reducers/auth';
 //action getCurrentRestMenu
 //RestaurantEventsDashboard= Restaurantmenuitems
@@ -12,6 +13,7 @@ const Restaurantmenuitems = ({
   getCurrentRestProfile,
   auth,
   getCurrentRestMenu,
+  insertItemImage,
   // profile: { profile },
   restprofile: { rest_profile },
   menu: { allmenuitems, loading },
@@ -122,6 +124,7 @@ Restaurantmenuitems.propTypes = {
   restprofile: PropTypes.object.isRequired,
   menu: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  insertItemImage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -134,4 +137,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getCurrentRestMenu,
   getCurrentRestProfile,
+  insertItemImage,
 })(Restaurantmenuitems);

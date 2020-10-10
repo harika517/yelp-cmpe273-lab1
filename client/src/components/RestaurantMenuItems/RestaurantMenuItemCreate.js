@@ -1,8 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createRestaurantMenuItem } from '../../actions/restmenu';
+// import { insertItemImage } from '../../actions/uploadimages';
+// import { getItemDetailByID } from '../../actions/restmenu';
 
 //RestaurantMenuItemCreate
 const RestaurantMenuItemCreate = ({
@@ -143,8 +145,12 @@ const RestaurantMenuItemCreate = ({
 
 RestaurantMenuItemCreate.propTypes = {
   createRestaurantMenuItem: PropTypes.func.isRequired,
+  // insertItemImage: PropTypes.func.isRequired,
+  // getItemDetailByID: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createRestaurantMenuItem })(
-  withRouter(RestaurantMenuItemCreate)
-);
+export default connect(null, {
+  createRestaurantMenuItem,
+  // insertItemImage,
+  // getItemDetailByID,
+})(withRouter(RestaurantMenuItemCreate));

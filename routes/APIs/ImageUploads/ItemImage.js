@@ -6,27 +6,19 @@ const mysqlConnectionPool = require('../../../config/connectiondbpool');
 const path = require('path');
 const multer = require('multer');
 
-const userstorage = multer.diskStorage({
-    destination: `${path.join(
-    __dirname,
-    '../../../'
-  )}/public/uploads/restaurants`,
+const itemstorage = multer.diskStorage({
+    destination: `${path.join(__dirname, '../../../')}/public/uploads/dishitems`,
     filename: (req, file, cb) => {
-        cb(
-            null,
-            'user_' +
-            req.customer.id.replace('@', '_') +
-            path.extname(file.originalname)
-        );
+        cb(null, 'Image' + path.extname(file.originalname));
     },
 });
 
-const useruploads = multer({
-    storage: userstorage,
+const itemuploads = multer({
+    storage: itemstorage,
     limits: { fileSize: 1000000 },
 }).single('image');
 
-router.post('/', auth, async(req, res) => {
+router.post('/:item_id', auth, async(req, res) => {
     // console.log('inside image upload, email id is', req.customer.id);
     // console.log('inside image upload, file name is,', req.image);
     // console.log('inside image upload, Cust_Email,', req.Cust_Email);
@@ -34,10 +26,10 @@ router.post('/', auth, async(req, res) => {
     // console.log('inside image upload, req is,', req.customer);
     // console.log('inside image upload, res is ', res);
 
-    const Rest_email_id = req.customer.id;
-    useruploads(req, res, function(err) {
+    const item_id = req.params.item_id;
+    itemuploads(req, res, function(err) {
         if (!err) {
-            let imageSql = `UPDATE Restaurant_Information SET Rest_ProfilePic = '${req.file.filename}' WHERE Rest_email_id = '${Rest_email_id}'`;
+            let imageSql = `UPDATE Restaurant_Dishes SET item_image = '${req.file.filename}' WHERE item_id = '${item_id}'`;
             try {
                 mysqlConnectionPool.query(imageSql, (err, result) => {
                     if (err) {
