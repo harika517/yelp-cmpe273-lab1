@@ -52,7 +52,6 @@ const CustomerCreateOrders = ({
   };
   return (
     <Fragment>
-      <div>Build a form to place a order</div>
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <label for="Cust_Name">Name</label>

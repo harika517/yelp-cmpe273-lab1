@@ -87,50 +87,52 @@ const CustomerViewOrders = ({
             </tr>
           </thead>
         </Table>
-        {orders.result
-          ? orders.result.map((item) => {
-              return (
-                <Table>
-                  {console.log('item order id is ', item.order_id)}
-                  <tbody>
-                    <tr key={item.order_id} className="medium">
-                      <td className="medium" name="order_id">
-                        {item.order_id}
-                      </td>
-                      <td value={item.Cust_Name} name="Cust_Name">
-                        {item.Cust_Name}
-                      </td>
-                      <td
-                        className="medium"
-                        name="item_name"
-                        value={item.item_name}
-                      >
-                        {item.item_name}
-                      </td>
-                      <td
-                        className="medium"
-                        name="order_status"
-                        value={item.order_status}
-                      >
-                        {item.order_status}
-                      </td>
-                      <td
-                        className="medium"
-                        name="Mode_Of_Delivery"
-                        value={item.Mode_Of_Delivery}
-                      >
-                        {item.Mode_Of_Delivery}
-                      </td>
-                      <td className="medium" name="Date">
-                        {' '}
-                        {item.Date}
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-              );
-            })
-          : 'none'}
+        {orders.result ? (
+          orders.result.map((item) => {
+            return (
+              <Table>
+                {console.log('item order id is ', item.order_id)}
+                <tbody>
+                  <tr key={item.order_id} className="medium">
+                    <td className="medium" name="order_id">
+                      {item.order_id}
+                    </td>
+                    <td value={item.Cust_Name} name="Cust_Name">
+                      {item.Cust_Name}
+                    </td>
+                    <td
+                      className="medium"
+                      name="item_name"
+                      value={item.item_name}
+                    >
+                      {item.item_name}
+                    </td>
+                    <td
+                      className="medium"
+                      name="order_status"
+                      value={item.order_status}
+                    >
+                      {item.order_status}
+                    </td>
+                    <td
+                      className="medium"
+                      name="Mode_Of_Delivery"
+                      value={item.Mode_Of_Delivery}
+                    >
+                      {item.Mode_Of_Delivery}
+                    </td>
+                    <td className="medium" name="Date">
+                      {' '}
+                      {item.Date}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            );
+          })
+        ) : (
+          <h2 className="text-dark bold medium">OOPS!! NO Orders found</h2>
+        )}
       </div>
     </Fragment>
   );

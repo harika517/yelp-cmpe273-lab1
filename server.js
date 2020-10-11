@@ -5,11 +5,11 @@ var cors = require('cors');
 const app = express();
 
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://54.215.250.62:3000', credentials: true }));
 
 //Allow Access Control
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://54.215.250.62:3000');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader(
         'Access-Control-Allow-Methods',

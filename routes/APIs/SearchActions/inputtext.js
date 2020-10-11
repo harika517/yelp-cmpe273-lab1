@@ -19,6 +19,7 @@ router.get('/:input_text', async(req, res) => {
     try {
         mysqlConnectionPool.query(
             `select yelp.Restaurant_Information.Rest_Name from yelp.Restaurant_Information WHERE 
+            lower(yelp.Restaurant_Information.Rest_Name) like '%${input_text}%' OR
            lower(yelp.Restaurant_Information.Rest_location) like '%${input_text}%' OR 
            lower(yelp.Restaurant_Information.Cuisine) like '%${input_text}%'
            union 

@@ -102,6 +102,8 @@ const ViewRestaurantPage = ({
                 {revs
                   ? revs.map((item) => (
                       <h4>
+                        {item.ratings}
+                        <br></br>
                         {item.Date}
                         <br></br>
 

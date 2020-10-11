@@ -23,6 +23,12 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </a>
       </li> */}
       <li>
+        <Link to="/" className="btn btn-dark my-1">
+          <i className="fas fa-home" />
+          Home
+        </Link>
+      </li>
+      <li>
         <a onClick={logout} href="/" className="btn btn-dark my-1">
           <i className="fas fa-sign-out-alt"></i>
           <span className="hide-sm">Logout</span>
