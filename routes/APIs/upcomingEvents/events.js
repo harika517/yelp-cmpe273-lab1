@@ -83,11 +83,11 @@ router.post(
                         console.log(error);
                         return res.status(500).send('Server Error');
                     }
-                    if (result.length > 0) {
-                        return res.status(400).json({
-                            errors: [{ msg: 'Restaurant Information Already Exists' }],
-                        });
-                    }
+                    // if (result.length > 0) {
+                    //     return res.status(400).json({
+                    //         errors: [{ msg: 'Restaurant Information Already Exists' }],
+                    //     });
+                    // }
                     res.status(200).json({ result });
                 }
             );

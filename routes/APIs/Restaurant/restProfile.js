@@ -148,7 +148,7 @@ router.get('/:Rest_Id_signup', async(req, res) => {
     // console.log('Restaurant Profile', customerID);
     try {
         mysqlConnectionPool.query(
-            `SELECT Rest_Id_signup, Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery, Image  
+            `SELECT Rest_Id_signup, Rest_Name,Rest_email_id, Rest_location, Description, Contact, Timings, Curbside_PickUp, Dine_In, Yelp_Delivery, Image, lat, lng  
             FROM Restaurant_Information WHERE Rest_Id_signup='${Rest_Id_signup}'`,
             (error, result) => {
                 if (error) {

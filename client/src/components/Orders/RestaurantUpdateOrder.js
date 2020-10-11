@@ -35,17 +35,21 @@ const RestaurantUpdateOrder = ({
   useEffect(() => {
     getOrdersByOrderId(match.params.order_id);
     console.log('order is ', order);
-    setFormData({
-      order_id: loading || !order.order_id ? '' : order.order_id,
-      Cust_Name: loading || !order.Cust_Name ? '' : order.Cust_Name,
-      Rest_Name: loading || !order.Rest_Name ? '' : order.Rest_Name,
-      item_name: loading || !order.item_name ? '' : order.item_name,
-      order_status: loading || !order.order_status ? '' : order.order_status,
-      Mode_Of_Delivery:
-        loading || !order.Mode_Of_Delivery ? '' : order.Mode_Of_Delivery,
-      Rest_email_id: loading || !order.Rest_email_id ? '' : order.Rest_email_id,
-    });
+    if (order) {
+      setFormData({
+        order_id: loading || !order.order_id ? '' : order.order_id,
+        Cust_Name: loading || !order.Cust_Name ? '' : order.Cust_Name,
+        Rest_Name: loading || !order.Rest_Name ? '' : order.Rest_Name,
+        item_name: loading || !order.item_name ? '' : order.item_name,
+        order_status: loading || !order.order_status ? '' : order.order_status,
+        Mode_Of_Delivery:
+          loading || !order.Mode_Of_Delivery ? '' : order.Mode_Of_Delivery,
+        Rest_email_id:
+          loading || !order.Rest_email_id ? '' : order.Rest_email_id,
+      });
+    }
     console.log('inside useEffect, seting formdata, formdata is now', formData);
+    if (!order && !loading) window.location.reload(false);
   }, [loading]);
 
   const {
@@ -85,119 +89,122 @@ const RestaurantUpdateOrder = ({
     console.log('inside onSubmit, formdata is', formData);
     updateOrdersByOrderId(formData, match.params.order_id, history);
   };
-  return (
-    <Fragment>
-      <h1 className="large text-dark"> Update Order </h1>{' '}
-      {console.log('before clicking onSubmit, in orders update,')}
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
-          <label for="order_id"> Order Id </label>{' '}
-          <input
-            type="text"
-            name="order_id"
-            value={order_id}
-            // onChange={(e) => onChange(e)}
-          />{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="Cust_Name"> Customer Name </label>{' '}
-          <input
-            type="text"
-            name="Cust_Name"
-            value={Cust_Name}
-            // onChange={(e) => onChange(e)}
-          />{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="Rest_Name"> Restaurant Name </label>{' '}
-          <input
-            type="text"
-            name="Rest_Name"
-            value={Rest_Name}
-            // onChange={(e) => onChange(e)}
-          />{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="item_name"> Ordered Items </label>{' '}
-          <input
-            type="text"
-            name="item_name"
-            value={item_name}
-            // onChange={(e) => onChange(e)}
-          />{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="order_status"> Order Status </label>{' '}
-          <select
-            name="order_status"
-            // selected={order_status}
-            onChange={(e) => onChange(e)}
-          >
-            <option value="Order Received">Order Received</option>
-            <option value="Preparing">Preparing</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-          {/* <input
-                        type="text"
-                        name="order_status"
-                        value={order_status}
-                        onChange={(e) => onChange(e)}
-                      /> */}{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="Mode_Of_Delivery"> Mode Of Delivery </label>{' '}
-          <select name="Mode_Of_Delivery" onChange={(e) => onChange(e)}>
-            {/* <option value="Pick Up">Pick Up</option> */}
-            <option value="Pick Up Ready">Pick Up Ready</option>
-            <option value="Picked Up">Picked Up</option>
-            {/* <option value="Delivery">Delivery</option> */}
-            <option value="On the way">On the way</option>
-            <option value="Delivered">Delivered</option>
-          </select>
-          {/* <label for="Mode_Of_Delivery"> Delivery Mode </label>{' '}
-          <select
-            name="Mode_Of_Delivery"
-            value={Mode_Of_Delivery}
-            onChange={(e) => onChange(e)}
-          > */}
-          {/* <option value={Mode_Of_Delivery}>
+  if (order) {
+    return (
+      <Fragment>
+        <h1 className="large text-dark"> Update Order </h1>{' '}
+        {console.log('before clicking onSubmit, in orders update,')}{' '}
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
+          <div className="form-group">
+            <label for="order_id"> Order Id </label>{' '}
+            <input
+              type="text"
+              name="order_id"
+              value={order_id}
+              // onChange={(e) => onChange(e)}
+            />{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="Cust_Name"> Customer Name </label>{' '}
+            <input
+              type="text"
+              name="Cust_Name"
+              value={Cust_Name}
+              // onChange={(e) => onChange(e)}
+            />{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="Rest_Name"> Restaurant Name </label>{' '}
+            <input
+              type="text"
+              name="Rest_Name"
+              value={Rest_Name}
+              // onChange={(e) => onChange(e)}
+            />{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="item_name"> Ordered Items </label>{' '}
+            <input
+              type="text"
+              name="item_name"
+              value={item_name}
+              // onChange={(e) => onChange(e)}
+            />{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="order_status"> Order Status </label>{' '}
+            <select
+              name="order_status"
+              // selected={order_status}
+              onChange={(e) => onChange(e)}
+            >
+              <option value="Order Received"> Order Received </option>{' '}
+              <option value="Preparing"> Preparing </option>{' '}
+              <option value="Delivered"> Delivered </option>{' '}
+              <option value="Cancelled"> Cancelled </option>{' '}
+            </select>{' '}
+            {/* <input
+                                    type="text"
+                                    name="order_status"
+                                    value={order_status}
+                                    onChange={(e) => onChange(e)}
+                                  /> */}{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="Mode_Of_Delivery"> Mode Of Delivery </label>{' '}
+            <select name="Mode_Of_Delivery" onChange={(e) => onChange(e)}>
               {' '}
-              {Mode_Of_Delivery}{' '}
-            </option>{' '} */}
-          {/* {Mode_Of_Delivery == 'Delivery'
-              ? (opt = ['On the way', 'Delivered'])
-              : (opt = ['Pick Up Ready', 'Picked Up'])}{' '}
-            {opt.map((item) => (
-              <option value="Mode_Of_Delivery"> {item} </option>
-            ))}{' '}
-          </select>{' '} */}
-          {/* <input
-                        type="text"
+              {/* <option value="Pick Up">Pick Up</option> */}{' '}
+              <option value="Pick Up Ready"> Pick Up Ready </option>{' '}
+              <option value="Picked Up"> Picked Up </option>{' '}
+              {/* <option value="Delivery">Delivery</option> */}{' '}
+              <option value="On the way"> On the way </option>{' '}
+              <option value="Delivered"> Delivered </option>{' '}
+            </select>{' '}
+            {/* <label for="Mode_Of_Delivery"> Delivery Mode </label>{' '}
+                      <select
                         name="Mode_Of_Delivery"
                         value={Mode_Of_Delivery}
                         onChange={(e) => onChange(e)}
-                      /> */}{' '}
-        </div>{' '}
-        <div className="form-group">
-          <label for="Rest_email_id"> Email Id </label>{' '}
-          <input
-            type="text"
-            name="Rest_email_id"
-            value={Rest_email_id}
-            // onChange={(e) => onChange(e)}
-          />{' '}
-        </div>{' '}
-        <input type="submit" className="btn btn-dark my-1" />
-        <Link
-          className="btn btn-light my-1"
-          to={`/restaurant/orders/${Rest_Name}`}
-        >
-          Cancel{' '}
-        </Link>{' '}
-      </form>{' '}
-    </Fragment>
-  );
+                      > */}{' '}
+            {/* <option value={Mode_Of_Delivery}>
+                          {' '}
+                          {Mode_Of_Delivery}{' '}
+                        </option>{' '} */}{' '}
+            {/* {Mode_Of_Delivery == 'Delivery'
+                          ? (opt = ['On the way', 'Delivered'])
+                          : (opt = ['Pick Up Ready', 'Picked Up'])}{' '}
+                        {opt.map((item) => (
+                          <option value="Mode_Of_Delivery"> {item} </option>
+                        ))}{' '}
+                      </select>{' '} */}{' '}
+            {/* <input
+                                    type="text"
+                                    name="Mode_Of_Delivery"
+                                    value={Mode_Of_Delivery}
+                                    onChange={(e) => onChange(e)}
+                                  /> */}{' '}
+          </div>{' '}
+          <div className="form-group">
+            <label for="Rest_email_id"> Email Id </label>{' '}
+            <input
+              type="text"
+              name="Rest_email_id"
+              value={Rest_email_id}
+              // onChange={(e) => onChange(e)}
+            />{' '}
+          </div>{' '}
+          <input type="submit" className="btn btn-dark my-1" />
+          <Link
+            className="btn btn-light my-1"
+            to={`/restaurant/orders/${Rest_Name}`}
+          >
+            Cancel{' '}
+          </Link>{' '}
+        </form>{' '}
+      </Fragment>
+    );
+  } else return null;
 };
 
 RestaurantUpdateOrder.propTypes = {

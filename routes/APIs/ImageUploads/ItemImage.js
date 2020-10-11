@@ -9,7 +9,7 @@ const multer = require('multer');
 const itemstorage = multer.diskStorage({
     destination: `${path.join(__dirname, '../../../')}/public/uploads/dishitems`,
     filename: (req, file, cb) => {
-        cb(null, 'Image' + path.extname(file.originalname));
+        cb(null, file.originalname);
     },
 });
 
@@ -27,6 +27,8 @@ router.post('/:item_id', auth, async(req, res) => {
     // console.log('inside image upload, res is ', res);
 
     const item_id = req.params.item_id;
+    console.log('inside insert item image, item_id is ', item_id);
+    console.log('inside insert item image, file is ', req.file);
     itemuploads(req, res, function(err) {
         if (!err) {
             let imageSql = `UPDATE Restaurant_Dishes SET item_image = '${req.file.filename}' WHERE item_id = '${item_id}'`;

@@ -123,7 +123,7 @@ const RestaurantMenuItemCreate = ({
             onChange={(e) => onChange(e)}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label for="item_image">Upload Image</label>
           <br />
 
@@ -133,7 +133,7 @@ const RestaurantMenuItemCreate = ({
             value={item_image}
             onChange={(e) => onChange(e)}
           />
-        </div>
+        </div> */}
         <input type="submit" className="btn btn-dark my-1" />
         <Link className="btn btn-light my-1" to="/restaurant/menu">
           Cancel

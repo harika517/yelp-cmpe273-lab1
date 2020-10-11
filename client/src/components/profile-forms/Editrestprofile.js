@@ -11,9 +11,9 @@ import {
 //Createprofile = Createrestprofile
 
 const Editrestprofile = ({
+  getCurrentRestProfile,
   profile: { profile, loading },
   createRestProfile,
-  getCurrentRestProfile,
   history,
 }) => {
   const [formData, setFormData] = useState({

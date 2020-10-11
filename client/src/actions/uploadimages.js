@@ -63,8 +63,8 @@ export const insertRestImage = (image, Rest_email_id) => async (dispatch) => {
 
 export const insertItemImage = (image, item_id) => async (dispatch) => {
   try {
-    console.log('inside insertImage action, image is ', image);
-    console.log('inside insertImage action, Cust_Email is', item_id);
+    console.log('inside insertItemImage action, image is ', image);
+    console.log('inside insertItemImage action, item_id', item_id);
     let formData = new FormData();
     formData.append('image', image);
     formData.append('item_id', item_id);

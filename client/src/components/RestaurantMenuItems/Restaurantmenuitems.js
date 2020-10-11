@@ -21,6 +21,7 @@ const Restaurantmenuitems = ({
   const [image, setImage] = useState({
     file: '',
     fileText: '',
+    id: '',
   });
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const Restaurantmenuitems = ({
           ? ''
           : allmenuitems[0].item_image,
       fileText: 'Choose Image..',
+      id: loading || !allmenuitems[0].item_id ? 0 : allmenuitems[0].item_id,
     });
   }, []);
 
@@ -42,14 +44,22 @@ const Restaurantmenuitems = ({
   const onImageChange = (e) => {
     console.log('Inside On Image Change');
     // setFormData({ ...formData, [e.target.name]: e.target.value });
-    setImage({ file: e.target.files[0], fileText: e.target.files[0].name });
+    console.log('inside on image change, file is,', e.target.files[0]);
+    console.log('inside on image change, id is', e.target.id);
+    setImage({
+      file: e.target.files[0],
+      fileText: e.target.files[0].name,
+      id: e.target.id,
+    });
   };
   const onUpload = (e) => {
     e.preventDefault();
-    insertItemImage(image.file, allmenuitems[0].item_image);
-    // window.location.reload(false);
+    console.log('onUpload, image is,\n', image.file);
+    console.log('inside onUpload, id is', image.id);
+    insertItemImage(image.file, image.id);
+    window.location.reload(false);
   };
-
+  let item_id = null;
   let backendimageserver = `http://localhost:3001/item/getphoto/dishitem/`;
 
   console.log(
@@ -76,7 +86,9 @@ const Restaurantmenuitems = ({
         <br />
         <br />
         <Link
-          to={`/restaurant/editmenu/${rest_profile.Rest_Id_signup}`}
+          to={`/restaurant/editmenu/${
+            rest_profile ? rest_profile.Rest_Id_signup : 'RestaurantDashboard'
+          }`}
           className="btn btn-dark"
         >
           Add Menu
@@ -98,6 +110,10 @@ const Restaurantmenuitems = ({
                   <h3>{k}</h3>
                   {newobj[k].map((indi) => (
                     <fragment>
+                      {/* <p>
+                        this is the image file{' '}
+                        {indi.item_image ? indi.item_image : 'None'}
+                      </p> */}
                       <div className="card mb-3">
                         <div className="row no-gutters">
                           <div className="col-md-4">
@@ -110,8 +126,8 @@ const Restaurantmenuitems = ({
 
                             <img
                               src={
-                                image.file
-                                  ? `${backendimageserver}${image.file}`
+                                indi.item_image
+                                  ? `${backendimageserver}${indi.item_image}`
                                   : `${backendimageserver}image`
                               }
                               alt="Item Picture"
@@ -137,30 +153,38 @@ const Restaurantmenuitems = ({
                                 Edit
                               </Link>
                             </div>
+                            {/* {(item_id = indi.item_id)}
+                            {console.log(
+                              'before onupload, item_id is,',
+                              item_id
+                            )} */}
                             <form onSubmit={(e) => onUpload(e)}>
                               <br />
                               <div
                                 className="custom-file"
-                                style={{ width: '80%' }}
+                                style={{ width: '100%' }}
                               >
                                 <input
                                   type="file"
                                   className="custom-file-input"
                                   name="image"
                                   accept="image/*"
+                                  id={indi.item_id}
                                   onChange={(e) => onImageChange(e)}
                                 />
                                 <label
                                   className="custom-file-label"
                                   htmlFor="image"
                                 >
-                                  {image.fileText}
+                                  <p>{image.fileText}</p>
+                                  <button
+                                    type="submit"
+                                    className="btn btn-dark"
+                                  >
+                                    Upload
+                                  </button>
                                 </label>
                               </div>
-                              <br />
-                              <button type="submit" className="btn btn-dark">
-                                Upload
-                              </button>
                             </form>
                           </div>
                         </div>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getRestByID } from '../../actions/profile';
 import { getReviewsByRestId } from '../../actions/review';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const SearchRestaurantDetail = ({
   getRestByID,
@@ -31,10 +32,26 @@ const SearchRestaurantDetail = ({
     Description,
     Contact,
     Rest_email_id,
+    lat,
+    lng,
   } = rest_profile ? rest_profile.result[0] : { ...null };
 
   let revs = reviews.result;
+  //if (rest_profile) console.log('rest_profile is ', rest_profile);
+  const mapStyles = {
+    height: '100vh',
+    width: '100%',
+  };
 
+  const defaultCenter = {
+    lat: 37.35239,
+    lng: -121.953079,
+  };
+  let location = { lat: 41.3851, lng: 2.1734 };
+  let arrobj = new Array();
+  if (lat) {
+    arrobj = [{ lat: lat, lng: lng }];
+  }
   return (
     <div>
       <Fragment>
@@ -105,8 +122,27 @@ const SearchRestaurantDetail = ({
                     ))
                   : 'none'}
               </div>
-              <div className="column2">
-                <p>Put map Here</p>
+              <div className="column2maps">
+                <LoadScript googleMapsApiKey="AIzaSyBaWrNiyni5r6dlgNfuz9IpMNFyumFTI0s">
+                  <GoogleMap
+                    mapContainerStyle={mapStyles}
+                    zoom={13}
+                    center={defaultCenter}
+                  >
+                    {arrobj
+                      ? arrobj.map((item) => {
+                          location = {
+                            lat: parseFloat(item.lat),
+                            lng: parseFloat(item.lng),
+                          };
+                          console.log('location is', location);
+                          return (
+                            <Marker key={item.Rest_Name} position={location} />
+                          );
+                        })
+                      : null}{' '}
+                  </GoogleMap>{' '}
+                </LoadScript>{' '}
               </div>
             </div>
           </Fragment>

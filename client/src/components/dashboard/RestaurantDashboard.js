@@ -170,26 +170,14 @@ const RestaurantDashboard = ({
             <Link to="/restaurantprofile" className=" btn btn-dark">
               Create New Profile
             </Link>
-            <Link to="#!" className=" btn btn-primary">
+            {/* <Link to="#!" className=" btn btn-primary">
               <i className="fas fa-camera"></i> Add Photo
-            </Link>
+            </Link> */}
             <h3 className="bold text-dark">Reviews</h3>
             {revs
               ? revs.map((item) => (
                   <h4>
-                    (
-                    {item.ratings === 4 ? (
-                      <div>
-                        <i className="fas fa-star text-dark"></i>
-                        <i className="fas fa-star text-dark"></i>
-                        <i className="fas fa-star text-dark"></i>
-                        <i className="fas fa-star text-dark"></i>
-                        <i className="far fa-star text-dark"></i>
-                      </div>
-                    ) : (
-                      'none'
-                    )}
-                    ){item.Date}
+                    {item.Date}
                     <br></br>
                     {item.review}
                     <hr />

@@ -37,52 +37,60 @@ const SearchBarResuts = ({
   return (
     <div>
       <Fragment>
-        <h1 className="bold text-dark"> Restaurants </h1> <hr />{' '}
-        {arrobj ? (
-          arrobj.map((item) => (
-            <div>
-              <h4 className="bold text-dark"> {item.Rest_Name} </h4>{' '}
-              <p className="medium"> Location: {item.Rest_location} </p>{' '}
-              <p className="medium"> Email Id: {item.Rest_email_id} </p>{' '}
-              <p className="medium"> Cuisine: {item.Cuisine} </p>{' '}
-              <p className="medium"> Dine In: {item.Dine_In} </p>{' '}
-              <p className="medium"> Delivery: {item.Yelp_Delivery} </p>{' '}
-              <p className="medium">
-                {' '}
-                Curbside Pickup: {item.Curbside_PickUp}{' '}
-              </p>{' '}
-              <Link
-                to={`/restaurantresults/${item.Rest_Id_signup}`}
-                className="btn btn-dark"
+        <div className="container_2columnsmaps">
+          <div className="column1maps">
+            <h1 className="bold text-dark"> Restaurants </h1> <hr />{' '}
+            {arrobj ? (
+              arrobj.map((item) => (
+                <div>
+                  <h4 className="bold text-dark"> {item.Rest_Name} </h4>{' '}
+                  <p className="medium"> Location: {item.Rest_location} </p>{' '}
+                  <p className="medium"> Email Id: {item.Rest_email_id} </p>{' '}
+                  <p className="medium"> Cuisine: {item.Cuisine} </p>{' '}
+                  <p className="medium"> Dine In: {item.Dine_In} </p>{' '}
+                  <p className="medium"> Delivery: {item.Yelp_Delivery} </p>{' '}
+                  <p className="medium">
+                    {' '}
+                    Curbside Pickup: {item.Curbside_PickUp}{' '}
+                  </p>{' '}
+                  <Link
+                    to={`/restaurantresults/${item.Rest_Id_signup}`}
+                    className="btn btn-dark"
+                  >
+                    View Restaurant Page{' '}
+                  </Link>{' '}
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <h4 className="bold text-dark">
+                'OOPS.. No Resturants found with this Criteria'{' '}
+              </h4>
+            )}{' '}
+          </div>
+          <div className="column2maps">
+            <LoadScript googleMapsApiKey="AIzaSyBaWrNiyni5r6dlgNfuz9IpMNFyumFTI0s">
+              <GoogleMap
+                mapContainerStyle={mapStyles}
+                zoom={13}
+                center={defaultCenter}
               >
-                View Restaurant Page{' '}
-              </Link>{' '}
-              <hr />
-            </div>
-          ))
-        ) : (
-          <h4 className="bold text-dark">
-            'OOPS.. No Resturants found with this Criteria'{' '}
-          </h4>
-        )}{' '}
-        <LoadScript googleMapsApiKey="AIzaSyBaWrNiyni5r6dlgNfuz9IpMNFyumFTI0s">
-          <GoogleMap
-            mapContainerStyle={mapStyles}
-            zoom={13}
-            center={defaultCenter}
-          >
-            {arrobj
-              ? arrobj.map((item) => {
-                  location = {
-                    lat: parseFloat(item.lat),
-                    lng: parseFloat(item.lng),
-                  };
-                  console.log('location is', location);
-                  return <Marker key={item.Rest_Name} position={location} />;
-                })
-              : null}{' '}
-          </GoogleMap>{' '}
-        </LoadScript>{' '}
+                {arrobj
+                  ? arrobj.map((item) => {
+                      location = {
+                        lat: parseFloat(item.lat),
+                        lng: parseFloat(item.lng),
+                      };
+                      console.log('location is', location);
+                      return (
+                        <Marker key={item.Rest_Name} position={location} />
+                      );
+                    })
+                  : null}{' '}
+              </GoogleMap>{' '}
+            </LoadScript>{' '}
+          </div>
+        </div>
       </Fragment>{' '}
     </div>
   );

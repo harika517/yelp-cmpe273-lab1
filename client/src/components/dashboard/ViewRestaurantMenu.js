@@ -34,6 +34,8 @@ const ViewRestaurantMenu = ({
   console.log('inside rest menu items, new obj is ', newobj);
   console.log('inside rest menu items, unique categories, ', uniqCategories);
 
+  let backendimageserver = `http://localhost:3001/item/getphoto/dishitem/`;
+
   return (
     <div>
       <Fragment>
@@ -69,10 +71,19 @@ const ViewRestaurantMenu = ({
                       <div className="card mb-3">
                         <div className="row no-gutters">
                           <div className="col-md-4">
-                            <img
+                            {/* <img
                               className="menu_image"
                               src={indi.item_image}
                               className="card-img"
+                              alt="Item Picture"
+                            /> */}
+
+                            <img
+                              src={
+                                indi.item_image
+                                  ? `${backendimageserver}${indi.item_image}`
+                                  : `${backendimageserver}image`
+                              }
                               alt="Item Picture"
                             />
                           </div>
