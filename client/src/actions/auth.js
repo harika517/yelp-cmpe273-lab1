@@ -18,8 +18,8 @@ export const loadCustomer = () => async(dispatch) => {
         setAuthToken(localStorage.token);
     }
     try {
-        const res = await axios.get('http://localhost:3001/customer/auth');
-        // const res2 = await axios.get('http://localhost:3001/restaurant/signIn');
+        const res = await axios.get('http://54.215.250.62:3001/customer/auth');
+        // const res2 = await axios.get('http://54.215.250.62:3001/restaurant/signIn');
         console.log('LoadCoustomer', res.data);
         dispatch({
             type: USER_LOADED,
@@ -46,7 +46,7 @@ export const signup = ({ Cust_Name, Cust_email_id, Cust_Password }) => async(
 
     try {
         const res = await axios.post(
-            'http://localhost:3001/customer/signUP',
+            'http://54.215.250.62:3001/customer/signUP',
             body,
             config
         );
@@ -79,7 +79,7 @@ export const login = (Cust_email_id, Cust_Password) => async(dispatch) => {
 
     try {
         const res = await axios.post(
-            'http://localhost:3001/customer/auth',
+            'http://54.215.250.62:3001/customer/auth',
             body,
             config
         );
@@ -115,7 +115,7 @@ export const loadRestaurantUser = () => async(dispatch) => {
         console.log('token for rest', localStorage.token);
     }
     try {
-        const res = await axios.get('http://localhost:3001/restaurant/signIn');
+        const res = await axios.get('http://54.215.250.62:3001/restaurant/signIn');
         console.log('LoadRestUser', res.data);
 
         dispatch({
@@ -150,7 +150,7 @@ export const signupRestaurantUser = ({
 
     try {
         const res = await axios.post(
-            'http://localhost:3001/restaurant/signUP',
+            'http://54.215.250.62:3001/restaurant/signUP',
             body,
             config
         );
@@ -185,7 +185,7 @@ export const loginRestaurantUser = (Rest_email_id, Rest_Password) => async(
 
     try {
         const res = await axios.post(
-            'http://localhost:3001/restaurant/signIn',
+            'http://54.215.250.62:3001/restaurant/signIn',
             body,
             config
         );
@@ -214,7 +214,7 @@ export const loginRestaurantUser = (Rest_email_id, Rest_Password) => async(
 //     //     setAuthToken(localStorage.token);
 //     // }
 //     try {
-//         const res = await axios.get('http://localhost:3001/events');
+//         const res = await axios.get('http://54.215.250.62:3001/events');
 //         console.log('Load Events', res.data);
 
 //         dispatch({

@@ -13,7 +13,7 @@ import {
 export const getCurrentRestMenu = () => async(dispatch) => {
     try {
         const res = await axios.get(
-            'http://localhost:3001/restaurant/menuitems/me'
+            'http://54.215.250.62:3001/restaurant/menuitems/me'
         );
         console.log(
             'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)
@@ -42,7 +42,7 @@ export const createRestaurantMenuItem = (
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3001/restaurant/menuitems/${Rest_Id_signup}`,
+            `http://54.215.250.62:3001/restaurant/menuitems/${Rest_Id_signup}`,
             formData,
             config
         );
@@ -69,7 +69,7 @@ export const createRestaurantMenuItem = (
 export const getMenuByRestID = (Rest_Id_signup) => async(dispatch) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/menuitems/view/${Rest_Id_signup}`
+            `http://54.215.250.62:3001/restaurant/menuitems/view/${Rest_Id_signup}`
         );
         // console.log(
         //     'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)
@@ -91,7 +91,7 @@ export const getMenuByRestID = (Rest_Id_signup) => async(dispatch) => {
 export const getItemDetailByID = (item_id) => async(dispatch) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/menuitems/${item_id}`
+            `http://54.215.250.62:3001/restaurant/menuitems/${item_id}`
         );
         // console.log(
         //     'inside getCurrentRestMenu, res is ' + JSON.stringify(res.data)

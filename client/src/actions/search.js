@@ -7,7 +7,7 @@ export const getRestaurantsByDelivery = () => async(dispatch) => {
     // console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/search/delivery/Curbside_PickUp`
+            `http://54.215.250.62:3001/search/delivery/Curbside_PickUp`
         );
         console.log(res.data);
         dispatch({
@@ -26,7 +26,7 @@ export const getRestaurantsByDineIn = () => async(dispatch) => {
     // console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/search/delivery/Dine_In`
+            `http://54.215.250.62:3001/search/delivery/Dine_In`
         );
         console.log(res.data);
         dispatch({
@@ -45,7 +45,7 @@ export const getRestaurantsByYelpDelivery = () => async(dispatch) => {
     // console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/search/delivery/Yelp_Delivery`
+            `http://54.215.250.62:3001/search/delivery/Yelp_Delivery`
         );
         console.log(res.data);
         dispatch({
@@ -64,7 +64,7 @@ export const getRestaurantsByInputText = (input_text) => async(dispatch) => {
     console.log('inside getRestaurantsByInputText');
     try {
         const res = await axios.get(
-            `http://localhost:3001/searchresult/restaurants/${input_text}`
+            `http://54.215.250.62:3001/searchresult/restaurants/${input_text}`
         );
         console.log(res.data);
         dispatch({

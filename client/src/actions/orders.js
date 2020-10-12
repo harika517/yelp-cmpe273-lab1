@@ -20,7 +20,7 @@ export const createOrder = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3001/customer/orders/me/`,
+            `http://54.215.250.62:3001/customer/orders/me/`,
             formData,
             config
         );
@@ -75,7 +75,7 @@ export const updateOrdersByOrderId = (
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3001/restaurant/orders/update/${order_id}`,
+            `http://54.215.250.62:3001/restaurant/orders/update/${order_id}`,
             formData,
             config
         );
@@ -106,7 +106,7 @@ export const getOrdersByOrderId = (order_id) => async(dispatch) => {
     console.log('inside getOrdersByOrderId');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/orders/orderdetail/${order_id}`
+            `http://54.215.250.62:3001/restaurant/orders/orderdetail/${order_id}`
         );
         dispatch({
             type: GET_ORDER,
@@ -125,7 +125,7 @@ export const getOrdersByStatus = (order_status) => async(dispatch) => {
     console.log('inside getOrdersByStatus');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/orders/${order_status}`
+            `http://54.215.250.62:3001/restaurant/orders/${order_status}`
         );
         dispatch({
             type: GET_ORDERS,
@@ -146,7 +146,7 @@ export const getOrdersByCustName = (Cust_Name) => async(dispatch) => {
     console.log('inside getOrdersByOrderId');
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}`
+            `http://54.215.250.62:3001/customer/orders/ordersplaced/${Cust_Name}`
         );
         dispatch({
             type: GET_ORDERS,
@@ -169,7 +169,7 @@ export const getCustOrderByStatus = (Cust_Name, Mode_Of_Delivery) => async(
     console.log('inside getCustOrderByStatus');
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/orders/ordersplaced/${Cust_Name}/${Mode_Of_Delivery}`
+            `http://54.215.250.62:3001/customer/orders/ordersplaced/${Cust_Name}/${Mode_Of_Delivery}`
         );
         dispatch({
             type: GET_ORDERS,

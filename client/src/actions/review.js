@@ -7,7 +7,7 @@ export const getReviewsByRestId = (Rest_Id_signup) => async(dispatch) => {
     console.log('inside getReviewsByRestName');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/reviews/${Rest_Id_signup}`
+            `http://54.215.250.62:3001/restaurant/reviews/${Rest_Id_signup}`
         );
         console.log(res.data);
         dispatch({
@@ -36,7 +36,7 @@ export const addReviews = (
             },
         };
         const res = await axios.post(
-            `http://localhost:3001/customer/reviews/${Rest_Id_signup}`,
+            `http://54.215.250.62:3001/customer/reviews/${Rest_Id_signup}`,
             formData,
             config
         );

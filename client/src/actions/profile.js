@@ -17,7 +17,9 @@ import {
 ///customer/profile/:Cust_Id
 export const getCurrentProfile = () => async(dispatch) => {
     try {
-        const res = await axios.get('http://localhost:3001/customer/profile/me');
+        const res = await axios.get(
+            'http://54.215.250.62:3001/customer/profile/me'
+        );
         dispatch({
             type: GET_PROFILE,
             payload: res.data,
@@ -35,7 +37,7 @@ export const getCurrentProfile = () => async(dispatch) => {
 export const getCustomerProfileByName = (Cust_Name) => async(dispatch) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/profile/${Cust_Name}`
+            `http://54.215.250.62:3001/customer/profile/${Cust_Name}`
         );
         dispatch({
             type: GET_PROFILE,
@@ -58,7 +60,7 @@ export const createProfile = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/customer/profile/updateprofile/me',
+            'http://54.215.250.62:3001/customer/profile/updateprofile/me',
             formData,
             config
         );
@@ -91,7 +93,7 @@ export const editProfile = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/customer/profile/updateprofile/me',
+            'http://54.215.250.62:3001/customer/profile/updateprofile/me',
             formData,
             config
         );
@@ -123,7 +125,7 @@ export const editProfilePic = (formData) => async(dispatch) => {
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/customer/profile/updateprofile/profilepic/:Cust_email_id',
+            'http://54.215.250.62:3001/customer/profile/updateprofile/profilepic/:Cust_email_id',
             formData,
             config
         );
@@ -149,7 +151,9 @@ export const editProfilePic = (formData) => async(dispatch) => {
 export const getCurrentRestProfile = () => async(dispatch) => {
     console.log('inside getcurrentrestprofile');
     try {
-        const res = await axios.get('http://localhost:3001/restaurant/profile/me');
+        const res = await axios.get(
+            'http://54.215.250.62:3001/restaurant/profile/me'
+        );
         dispatch({
             type: GET_REST_PROFILE,
             payload: res.data,
@@ -171,7 +175,7 @@ export const createRestProfile = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/restaurant/profile/updateprofile/me',
+            'http://54.215.250.62:3001/restaurant/profile/updateprofile/me',
             formData,
             config
         );
@@ -204,7 +208,7 @@ export const editRestProfile = (formData, history, edit = false) => async(
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/restaurant/profile/updateprofile/me',
+            'http://54.215.250.62:3001/restaurant/profile/updateprofile/me',
             formData,
             config
         );
@@ -230,7 +234,7 @@ export const editRestProfile = (formData, history, edit = false) => async(
 
 export const getAllRestProfiles = () => async(dispatch) => {
     try {
-        const res = await axios.get('http://localhost:3001/restaurant/profile');
+        const res = await axios.get('http://54.215.250.62:3001/restaurant/profile');
         dispatch({
             type: GET_REST_PROFILES,
             payload: res.data,
@@ -247,7 +251,7 @@ export const getRestByID = (Rest_Id_signup) => async(dispatch) => {
     console.log('getrestbyiis called');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/profile/${Rest_Id_signup}`
+            `http://54.215.250.62:3001/restaurant/profile/${Rest_Id_signup}`
         );
         dispatch({
             type: GET_REST_PROFILE,

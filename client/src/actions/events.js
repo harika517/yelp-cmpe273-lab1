@@ -14,7 +14,9 @@ import {
 //${Rest_Name}
 export const getRestaurantEvents = () => async(dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:3001/restaurant/events/me`);
+        const res = await axios.get(
+            `http://54.215.250.62:3001/restaurant/events/me`
+        );
         dispatch({
             type: GET_EVENTS,
             payload: res.data,
@@ -33,7 +35,7 @@ export const getRestaurantEvents = () => async(dispatch) => {
 export const getAllEvents = () => async(dispatch) => {
     // dispatch({ type: CLEAR_EVENT})
     try {
-        const res = await axios.get(`http://localhost:3001/customer/events`);
+        const res = await axios.get(`http://54.215.250.62:3001/customer/events`);
         dispatch({
             type: GET_EVENTS,
             payload: res.data,
@@ -53,7 +55,7 @@ export const createEvent = (formData, history) => async(dispatch) => {
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            'http://localhost:3001/restaurant/events/me',
+            'http://54.215.250.62:3001/restaurant/events/me',
             formData,
             config
         );
@@ -81,7 +83,7 @@ export const getEventDetail = (Event_Name) => async(dispatch) => {
     // dispatch({ type: CLEAR_EVENT})
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/events/eventdetail/${Event_Name}`
+            `http://54.215.250.62:3001/customer/events/eventdetail/${Event_Name}`
         );
         dispatch({
             type: GET_EVENT,
@@ -108,7 +110,7 @@ export const updateEventByName = (
             headers: { 'Content-Type': 'application/json' },
         };
         const res = await axios.post(
-            `http://localhost:3001/restaurant/events/updateevent/${Event_Name}`,
+            `http://54.215.250.62:3001/restaurant/events/updateevent/${Event_Name}`,
             formData,
             config
         );

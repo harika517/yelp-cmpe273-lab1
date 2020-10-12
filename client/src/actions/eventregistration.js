@@ -21,7 +21,7 @@ export const registerEvent = (Cust_Name, Event_Name) => {
         //     headers: { 'Content-Type': 'application/json' },
         // };
         const res = axios.post(
-            `http://localhost:3001/customer/registration/${Cust_Name}/${Event_Name}`
+            `http://54.215.250.62:3001/customer/registration/${Cust_Name}/${Event_Name}`
         );
         // console.log('registerEvent_action called');
         // dispatch({
@@ -49,7 +49,7 @@ export const getEventsRegisteredByMe = (Cust_Name) => async(dispatch) => {
     console.log('inside getcurrentrestprofile');
     try {
         const res = await axios.get(
-            `http://localhost:3001/customer/registration/${Cust_Name}`
+            `http://54.215.250.62:3001/customer/registration/${Cust_Name}`
         );
         console.log('inside getEventsRegisteredByMe, ', res.data);
         dispatch({
@@ -70,7 +70,7 @@ export const getCustomersRegistered = (Event_Name) => async(dispatch) => {
     // console.log('inside getcurrentrestprofile');
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/events/${Event_Name}`
+            `http://54.215.250.62:3001/restaurant/events/${Event_Name}`
         );
         console.log('inside getEventsRegisteredByMe, ', res.data);
         dispatch({
@@ -91,7 +91,7 @@ export const getCustomerDetailEvent = (Event_Name, Cust_Name) => async(
 ) => {
     try {
         const res = await axios.get(
-            `http://localhost:3001/restaurant/events/${Event_Name}/${Cust_Name}`
+            `http://54.215.250.62:3001/restaurant/events/${Event_Name}/${Cust_Name}`
         );
         dispatch({
             type: GET_CUSTOMER_PROFILE,
@@ -111,7 +111,7 @@ export const getCustomerDetailEvent = (Event_Name, Cust_Name) => async(
 //         //     headers: { 'Content-Type': 'application/json' },
 //         // };
 //         const res = await axios.post(
-//             `http://localhost:3001/customer/registration/${Cust_Name}/${Event_Name}`
+//             `http://54.215.250.62:3001/customer/registration/${Cust_Name}/${Event_Name}`
 //         );
 //         console.log('registerEvent_action called');
 //         dispatch({
